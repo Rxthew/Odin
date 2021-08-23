@@ -1,8 +1,4 @@
-/*Script for five rounds of rock, paper, scissors.
-Caveat: doesn't distinguish between an invalid 
-input and an actual draw, but it doesn't make
-a difference to the final tally so I thought
-I'd leave it. */
+/*Script for Best out of five in rock, paper, scissors. */
 
 
 
@@ -10,41 +6,65 @@ function computerPlay(){
     return  Math.floor(Math.random()*3);
 }
 
-let playRound = function playRound(computerSelection, playerSelection){
-    if (computerSelection == 0 && playerSelection.match(/^paper$/i)){
+
+let playRound = function playRound(playerSelection){
+    let computerSelection = computerPlay();
+    if (computerSelection == 0 && playerSelection.target.textContent=="Paper"){
+        alert('You Win! Paper beats Rock.')
         return 'You Win! Paper beats Rock.'}
-    else if (playerSelection.match(/^rock$/i) && computerSelection == 1){
+    else if (playerSelection.target.textContent=="Rock" && computerSelection == 1){
+        alert('You Lose! Paper beats Rock.')
         return 'You Lose! Paper beats Rock.'}
-    else if (computerSelection == 0 && playerSelection.match(/^scissors$/i)){
+    else if (computerSelection == 0 && playerSelection.target.textContent=="Scissors"){
+        alert('You Lose! Rock beats Scissors.')
         return 'You Lose! Rock beats Scissors.'} 
-    else if (playerSelection.match(/^rock$/i) && computerSelection == 2){
+    else if (playerSelection.target.textContent=="Rock" && computerSelection == 2){
+        alert('You Win! Rock beats Scissors.')
         return 'You Win! Rock beats Scissors.'} 
-    else if (computerSelection == 1 && playerSelection.match(/^scissors$/i)){
+    else if (computerSelection == 1 && playerSelection.target.textContent=="Scissors"){
+        alert('You Win! Scissors beats Paper.')
         return 'You Win! Scissors beats Paper.'}
-    else if (playerSelection.match(/^paper$/i) && computerSelection == 2){
+    else if (playerSelection.target.textContent=="Paper" && computerSelection == 2){
+        alert('You Lose! Scissors beats Paper.')
         return 'You Lose! Scissors beats Paper.'}
-    else {return 'It\'\s a Draw! Try again.'}
+    else {alert('It\'\s a Draw! Try again.')
+        return 'It\'\s a Draw! Try again.'}
 
 }
 
 
-function Game(){
-    let Computer = 0;
-    let Player = 0; 
-    for (let round = 0; round <= 4; round++){
-        let computerSelection = computerPlay();
-        let playerSelection = prompt('Choose your weapon: Rock, Paper, or Scissors.');
-        let p = playRound(computerSelection, playerSelection);
-        alert(p);
-        if(p.match(/Win/)){Player++};
-        if(p.match(/Lose/)){Computer++;}};
-    if (Computer > Player){alert('Final tally: Computer: ' + Computer + ' pts. You: ' + Player + ' pts. Looks like you lost :( Better luck next time!');}
-    else if (Player > Computer){alert('Final tally: Computer: ' + Computer + ' pts. You: ' + Player + ' pts. Great job! You win!')}
-    else {alert('Final tally: Computer: ' + Computer + ' pts. You: ' + Player + ' pts. Looks like it\'\s a draw. Boring -_-.')}
+function Game(playerSelection){
+    let computerScore = document.querySelector('#compscr');
+    let yourScore = document.querySelector('#yourscr');
+    if (parseInt(yourScore.textContent) <= 4 && parseInt(computerScore.textContent) <=4 && parseInt(computerScore.textContent) + parseInt(yourScore.textContent) < 10){
+    let p = playRound(playerSelection);
+    if(p.match(/Win/)){yourScore.textContent = parseInt(yourScore.textContent) + 1;}
+    if(p.match(/Lose/)){computerScore.textContent = parseInt(computerScore.textContent) + 1;}
     
+    }
+    else {alert('Game over');
+        window.location.reload()}
     
 }
 
-Game();
+
+const container = document.querySelector('#container');
+const rock = document.createElement('button');
+const scissors = document.createElement('button');
+const paper = document.createElement('button');
+rock.textContent = 'Rock';
+scissors.textContent = 'Scissors';
+paper.textContent = 'Paper';
+
+
+rock.addEventListener('click', Game);
+scissors.addEventListener('click', Game);
+paper.addEventListener('click', Game);
+
+container.appendChild(rock);
+container.appendChild(scissors);
+container.appendChild(paper);
+
+
 
 
