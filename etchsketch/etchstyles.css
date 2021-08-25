@@ -1,0 +1,23 @@
+*, *:before, *:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+
+body { display: grid;
+       grid-template-columns: repeat(3, 1fr);
+       grid-template-rows: repeat(2,1fr);       
+ 
+}
+
+div{ width: 99%;
+     height: 99%;
+     background-color: blue; 
+}
+
+div:active{background-color: white;}
