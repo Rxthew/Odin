@@ -10,14 +10,24 @@ html {
 
 
 body { display: grid;
-       grid-template-columns: repeat(3, 1fr);
-       grid-template-rows: repeat(2,1fr);       
- 
-}
+       height: 100vh;
+       width: 100vw;
+       justify-content: center;
+       align-items: center;
+    }
 
-div{ width: 99%;
-     height: 99%;
+header {text-align: center;}
+
+#container{display:grid;
+           grid-template-columns: repeat(100, 1fr);
+           grid-template-rows: repeat(100,1fr);
+           height: 70vh;
+           width: 90vw;
+           border: thick solid black; 
+         }
+
+div{ width: 100%;
+     height: 100%;
      background-color: blue; 
 }
 
-div:active{background-color: white;}
