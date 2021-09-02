@@ -64,7 +64,6 @@ userInputs = userInputs.map(function(inp){return inp.addEventListener('click',fu
     if (Operand.first == 0){
         input.textContent = e.target.textContent;
         Operand.first = input.textContent;
-        console.log(Operand);
     }
 
     else if ((isNaN(+(input.textContent)))){
@@ -105,7 +104,6 @@ userOperates = userOperates.map(function(op){return op.addEventListener('click',
                 Operand.second = 0;
                 input.textContent = e.target.textContent;
                 Operand.operator = input.textContent;
-                console.log(Operand)
             }
     
 } )})
