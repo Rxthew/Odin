@@ -1,5 +1,6 @@
 let myLib = ['A Tale of Two Cities', 'Pride and Prejudice', 'War and Peace', '1984'];
-let div 
+
+let span;
 
 function Book (title, author='an unidentified author', pageQuant='with an undetermined length of', readStatus='unread'){
     this.title = title;
@@ -12,15 +13,29 @@ function Book (title, author='an unidentified author', pageQuant='with an undete
     }
 }
 
-const book = new Book('h')
-console.log(book.info())
+
+myLib.forEach(function(i){
+    id = myLib.indexOf(i).toString();
+    span = document.createElement('span');
+    span.textContent = i;
+    span.setAttribute('class', 'book');
+    span.setAttribute('id', `${id}`)
+    document.querySelector('#library').appendChild(span);
+})
+
+let addButton = document.querySelector('#new')
+addButton.addEventListener('click',function(){
+    const form = document.querySelector('#formcontainer');
+    const library = document.querySelector('#library');
+    if (form.style.visibility != 'visible'){
+    library.style.opacity = '0.2';
+    form.style.visibility = 'visible';
+    } 
+})
+
 
 function addBookToLibrary(){
-    myLib.forEach(function(i){
-        div = document.createElement('div');
-        div.textContent = i
-        document.body.appendChild(div);
-    })
+//still need to fill in.//
+
 }
 
-addBookToLibrary();
