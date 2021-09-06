@@ -8,5 +8,24 @@
    <title>Odin Library Project</title>
 </head>
 <body>
+   <header>
+      <button id='new'>Add New Book</button>
+   </header>
+   <div id='library'></div>
+   <div id='formcontainer'>
+      <fieldset>
+         <legend>Add New Book</legend>
+         <label>Title</label><input type='text' required>
+         <label>Author</label><input type='text'>
+         <label>Length (in pages)</label><input type='text'>
+         <select>
+            <optgroup label='Read Status'>
+                <option>Unread</option>
+                <option>Read</option>
+            </optgroup>
+         </select>
+      </fieldset>
+      <button>Submit Book Details</button>
+   </div>
 </body>
 </html>
