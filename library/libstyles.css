@@ -37,7 +37,7 @@ label {
     border: 5px groove green;
     padding: 1rem;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
-    height: 30vh;
+    height: min-content;
     margin-left: 0.25rem;
     writing-mode:vertical-lr;
     text-orientation: mixed;
