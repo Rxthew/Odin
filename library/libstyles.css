@@ -44,6 +44,18 @@ label {
     background-color: #dcedc8;
 }
 
+.popup {
+    position: relative;
+    z-index: 1;
+    visibility: hidden;
+    width: min-content;
+    height: 30vh;
+    writing-mode: horizontal-tb;
+    left: 1rem;
+    top: 1rem
+
+}
+
 #formcontainer {
     position: absolute;
     z-index: 0;
