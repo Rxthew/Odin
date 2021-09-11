@@ -45,25 +45,56 @@ form.addEventListener('submit', function(e){
     duplicateWarning(myLib,details);
     myLib.push(details);
     let id = (myLib.length -1 ).toString();
+
+
+
+    //Setting up book's container
     div = document.createElement('div');
-    div.setAttribute('class', 'book');
     div.setAttribute('id', `${id}`);
+    div.setAttribute('class', 'bookCont');
     document.querySelector('#library').appendChild(div);
+
+    //Main display of the book represented by its title.
     span = document.createElement('span');
     span.textContent = details.title;
     span.setAttribute('id', `${details.title}`)
-    span.addEventListener('hover', e => e.target.nextSibling.style.visibility = 'visible')
+    span.setAttribute('class', 'book');
+    span.addEventListener('click', e => e.target.nextSibling.classList.toggle('visible'))
     div.appendChild(span)
+
+
+    //Extra details: author and page numbers if you click the display.
     next_div = document.createElement('div');
     next_div.setAttribute('class', 'popup');
     div.appendChild(next_div);
-    Object.values(details).forEach(function(i){
-        if(i != details.title){
-        span = document.createElement('span');
-        span.textContent = i;
-        span.setAttribute('id', `${i}`);
-        next_div.appendChild(span);
-    }})
+
+    const auth = document.createElement('p')
+    auth.textContent =  `Author: ${details.author}`
+    next_div.appendChild(auth);
+
+    const pages = document.createElement('p');
+    pages.textContent = `No. of pages: ${details.pageQuant}`
+    next_div.appendChild(pages);
+
+    //Read Status display, including functionality/
+    let readbtn = document.createElement('button');
+    readbtn.setAttribute('class', 'status')
+    readbtn.textContent = details.readStatus;
+    readbtn.addEventListener('click', function(e){
+        e.target.textContent == 'Unread' ? e.target.textContent = 'Read' : e.target.textContent = 'Unread';
+        correspondingDetails = +(e.target.parentNode.id);
+        myLib[correspondingDetails].readStatus = e.target.textContent
+     })
+    div.appendChild(readbtn);    
+     
+    
+    
+
+    //Remove button. 
+
+
+    //Reverting form to default state 
+
     form.style.visibility = 'hidden';
     library.style.opacity = '1';
     titleInput.value = '';
@@ -71,4 +102,5 @@ form.addEventListener('submit', function(e){
     pagesInput.value = '';
     
 })
+
 
