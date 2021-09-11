@@ -18,8 +18,10 @@ body {
 }
 
 header {
+    display: flex;
+    justify-content: flex-end;
+    align-content: center;
     width: 100vw;
-    height: 2rem;
     border-bottom: 1px solid green;
 }
 
@@ -33,13 +35,16 @@ label {
 }
 
 .bookCont {
-    display: contents;
+    display: block;
+    border-bottom: 1px solid green;
+    border-right: 1px solid green;
+    background-color: #8FBC8D;
 }
 
 
 .book {
     display:flex;
-    align-self:end;
+    flex-direction: column;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
     background-color: #dcedc8;
     border: 5px groove green;
@@ -47,36 +52,30 @@ label {
     padding: 1rem;
     height: max-content;
     max-height: 25vh;
-    writing-mode:vertical-rl;
-    text-orientation: mixed;
+
+}
+
+
+.remove {
+    float: right;
     cursor: pointer;
- 
-}
-
-
-.popup {
-    display: none;
-    writing-mode: horizontal-tb;
-
-
-}
-
-.visible {
-    display:inline;
-    position: relative;
-    z-index: 1;
-    right: 1rem;
-    background-color: #ffff88;
-    padding: 1rem;  
+    align-self: flex-start;
+    background-color: #808000;
+    color: green;
+    padding: 0.25rem;
+    font-weight:bolder;
 }
 
 .status {
     display: block;
     margin: 0.2rem;
-    padding: 1rem;
+    padding: 0.5rem;
     background-color:#808000;
+    color: white;
     cursor: pointer;
     height: min-content;
+    width: 4rem;
+    float: right;
 
 }
 
@@ -91,7 +90,10 @@ label {
 }
 
 #new {
-    float:right;
+    cursor: pointer;
+    color: white;
+    background-color:#808000;
+    
 }
 
 #library{
@@ -99,3 +101,12 @@ label {
     flex-wrap: wrap;
 
 }
+
+#myLibTitle{
+    margin-right :auto;
+    margin-left: auto;
+    color: #808000;
+    
+}
+
+

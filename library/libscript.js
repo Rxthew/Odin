@@ -2,14 +2,14 @@ let myLib = [];
 let span;
 let div;
 
-function Book(title, author='unknown', pageQuant='unknown',readStatus='unread'){
-    this.title = title;
-    this.author = author;
+function Book(title, author, pageQuant,readStatus){
+    this.Title = title;
+    this.Author = author;
     this.readStatus = readStatus;
     function pageChecker(){
         return (isNaN(+(pageQuant)) ? 'unknown' : pageQuant);
      };
-    this.pageQuant = pageChecker();
+    this.Pages = pageChecker();
 }
 
 const addButton = document.querySelector('#new')
@@ -37,7 +37,7 @@ form.addEventListener('submit', function(e){
     function duplicateWarning(myLib, details){
         myLib.forEach(function(i){
             console.log(myLib);
-            if (i.title == details.title && i.author == details.author){
+            if (i.Title == details.Title && i.Author == details.Author){
                 return alert('You seem to have added this book already.')
             }
         })
@@ -54,30 +54,34 @@ form.addEventListener('submit', function(e){
     div.setAttribute('class', 'bookCont');
     document.querySelector('#library').appendChild(div);
 
-    //Main display of the book represented by its title.
+    //Remove button.
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'X';
+    removeButton.setAttribute('class', 'remove')
+    removeButton.addEventListener('click', function(e){
+        correspondingDetails = +(e.target.parentNode.id);
+        myLib[correspondingDetails].removed = true;
+        e.target.parentNode.remove();
+    })
+    div.appendChild(removeButton);     
+
+    //Main display of the book.
     span = document.createElement('span');
-    span.textContent = details.title;
+    Object.keys(details).forEach(function(i){
+        if (i != 'readStatus'){
+        let p = document.createElement('p');
+        details[i].length > 1 ? details[i] : details[i] = 'unknown';
+        p.textContent = `${i}: ${details[i]}` ;
+        span.appendChild(p)
+    }
+    })
+    
     span.setAttribute('id', `${details.title}`)
     span.setAttribute('class', 'book');
-    span.addEventListener('click', e => e.target.nextSibling.classList.toggle('visible'))
     div.appendChild(span)
 
-
-    //Extra details: author and page numbers if you click the display.
-    next_div = document.createElement('div');
-    next_div.setAttribute('class', 'popup');
-    div.appendChild(next_div);
-
-    const auth = document.createElement('p')
-    auth.textContent =  `Author: ${details.author}`
-    next_div.appendChild(auth);
-
-    const pages = document.createElement('p');
-    pages.textContent = `No. of pages: ${details.pageQuant}`
-    next_div.appendChild(pages);
-
     //Read Status display, including functionality/
-    let readbtn = document.createElement('button');
+    const readbtn = document.createElement('button');
     readbtn.setAttribute('class', 'status')
     readbtn.textContent = details.readStatus;
     readbtn.addEventListener('click', function(e){
@@ -87,12 +91,8 @@ form.addEventListener('submit', function(e){
      })
     div.appendChild(readbtn);    
      
+
     
-    
-
-    //Remove button. 
-
-
     //Reverting form to default state 
 
     form.style.visibility = 'hidden';
