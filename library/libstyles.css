@@ -32,27 +32,51 @@ label {
     margin: 0.5rem;
 }
 
-
-.book {
-    border: 5px groove green;
-    padding: 1rem;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
-    height: min-content;
-    margin-left: 0.25rem;
-    writing-mode:vertical-lr;
-    text-orientation: mixed;
-    background-color: #dcedc8;
+.bookCont {
+    display: contents;
 }
 
+
+.book {
+    display:flex;
+    align-self:end;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    background-color: #dcedc8;
+    border: 5px groove green;
+    margin-left: 0.25rem;
+    padding: 1rem;
+    height: max-content;
+    max-height: 25vh;
+    writing-mode:vertical-rl;
+    text-orientation: mixed;
+    cursor: pointer;
+ 
+}
+
+
 .popup {
+    display: none;
+    writing-mode: horizontal-tb;
+
+
+}
+
+.visible {
+    display:inline;
     position: relative;
     z-index: 1;
-    visibility: hidden;
-    width: min-content;
-    height: 30vh;
-    writing-mode: horizontal-tb;
-    left: 1rem;
-    top: 1rem
+    right: 1rem;
+    background-color: #ffff88;
+    padding: 1rem;  
+}
+
+.status {
+    display: block;
+    margin: 0.2rem;
+    padding: 1rem;
+    background-color:#808000;
+    cursor: pointer;
+    height: min-content;
 
 }
 
