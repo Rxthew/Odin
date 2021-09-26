@@ -13,14 +13,15 @@ const game = (function(){
             function(outelem){
                 let row = document.createElement('div');
                 row.setAttribute('class','row');
-                row.setAttribute('id', `row${gameBoard.indexOf(outelem)}`)
+                row.setAttribute('id', `row${gameBoard.indexOf(outelem)}`);
                 container.appendChild(row);
 
-                outelem.forEach(elem){
+                outelem.forEach(
+                    function(elem){
                     let block = document.createElement('span');
-                    block.setAttribute('id', `${gameBoard.indexOf(outelem)}+${outelem.indexOf(elem)}`);
+                    block.setAttribute('id', `${gameBoard.indexOf(outelem)}${outelem.indexOf(elem)}`);
                     row.appendChild(block);
-                }
+                })
             }
         )
 
@@ -33,8 +34,9 @@ const game = (function(){
 
     const choosePlayer = function(){}
 
-    return {board, 'player1': player(player1), 'player2': player(player2)};
+    return {board//, 'player1': player(player1), 'player2': player(player2)
+};
 })()
 
 
-console.log(game);
+
