@@ -19,5 +19,9 @@ body {
 }
 
 #form{
-    visibility: visible;
+    position: absolute;
+    border: 1px solid;
+    padding: 2rem;
+    left: 50vw;
+    top: 35vh;
 }

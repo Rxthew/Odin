@@ -28,25 +28,27 @@ const game = (function(){
         return gameBoard
     }());
 
-    const choosePlayer = function(){
+    const choosePlayer = (function(){
         const form = document.querySelector('#form');
-        const player1 = document.querySelector('#O');
-        const player2 = document.querySelector('#X');
+        let player1 = document.querySelector('#O');
+        let player2 = document.querySelector('#X');
         const container = document.querySelector('#container');
-        form.addEventListener(function(e){
-            if (e.target.checked == player2){
+        form.addEventListener('submit', function(e){
+            e.preventDefault()
+            if (player2.checked){
                 [player1, player2] = [player2, player1];
             }
-            form.style.visibilty = 'hidden';
+            form.style.visibility = 'hidden';
             container.style.visibility = 'visible'; 
-            
+            console.log(container.style.visibility)
         })
 
         return {player1: player1.value, player2: player2.value}
 
-    }
+    })()
 
-    return {board//, 'player1': choosePlayer.player1, 'player2': choosePlayer.player2
+    return {
+        board, 'player1': choosePlayer.player1, 'player2': choosePlayer.player2
 };
 })()
 
