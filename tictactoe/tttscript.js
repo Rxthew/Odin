@@ -94,7 +94,7 @@ const game = (function(){
     }
 };
     const populateBlock = function(e){
-        game.board.gameBoard[this.id[0]][this.id[1]] = currentPlayer(current); //need to fix it so can't switch
+        game.board.gameBoard[this.id[0]][this.id[1]] = currentPlayer(current); 
         e.target.textContent = current[1];
         isItOver(game.board.gameBoard);
     }
