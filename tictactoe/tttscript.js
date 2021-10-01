@@ -112,7 +112,7 @@ const game = (function(){
                     let block = document.createElement('span');
                     block.setAttribute('class', 'block');
                     block.setAttribute('id', `${outIndex}${elemIndex}`);
-                    block.addEventListener('click', populateBlock);
+                    block.addEventListener('click', populateBlock, {once: true});
                     row.appendChild(block);
                     })
                 }
@@ -159,7 +159,7 @@ const game = (function(){
             formInputSelect()
             hideForm(form);
             revealContainer(container);
-        })
+        }, {once: true})
         return {player1: player1.value, player2: player2.value}
 
     })()
