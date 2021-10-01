@@ -26,7 +26,6 @@ const game = (function(){
         gameBoard.forEach(function(outelem){
             column.push(outelem[index]);
         });
-        console.log(column);
         if (column[0] === column[1] && column[1] === column[2] && column[2] !== ''){
             return true;
         }
@@ -64,16 +63,21 @@ const game = (function(){
 
     const isItOver = function(gameBoard){
         if (isItADraw(gameBoard)){
-            return alert('Alas! This game is a stalemate.')
+            alert('Alas! This game is a stalemate.'); 
+            return window.location.reload()
+               
         }
         else if (rowWin(gameBoard)){
-            return alert(`The winner is ${current[0]}`)
+            alert(`The winner is ${current[0]}`)
+            return window.location.reload()
         }
         else if (columnWin(gameBoard)){
-            return alert(`The winner is ${current[0]}`)
+            alert(`The winner is ${current[0]}`)
+            return window.location.reload()
         }
         else if (crossWin(gameBoard)){
-            return alert(`The winner is ${current[0]}`)
+            alert(`The winner is ${current[0]}`)
+            return window.location.reload()
         }
     }
 
