@@ -6,6 +6,32 @@ const game = (function(){
     document.body.appendChild(container);
     let current = [];
 
+    
+    const isItADraw = function(gameBoard){
+        const isEmpty = function(elem){
+         return  elem === '';
+        }
+
+      return  gameBoard.every(function(outelem){
+            if (outelem.some(isEmpty) === true){ 
+                return false
+            }
+            return true
+        })
+        
+    }
+    
+    const isItOver = function(gameBoard){
+        if (isItADraw(gameBoard)){
+            return alert('Game is a draw.')
+        }
+
+        //Win By Column
+        //Win By Row
+        //Win by Diagonal
+        
+    }
+
     const currentPlayer = function(current){
         if (current === []){ 
             current.push(game.player1)
@@ -23,6 +49,7 @@ const game = (function(){
     const populateBlock = function(e){
         game.board.gameBoard[this.id[0]][this.id[1]] = currentPlayer(current);
         e.target.textContent = current[0];
+        isItOver(game.board.gameBoard);
     }
     
     const initDOMBoard = function(gameBoard){
