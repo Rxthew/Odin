@@ -6,23 +6,23 @@ const game = (function(){
     document.body.appendChild(container);
     let current = [];
 
-    const currentPlayer = function(current){//STILL NEED TO TEST THIS.
+    const currentPlayer = function(current){
         if (current === []){ 
             current.push(game.player1)
             return current[0];
     }
         else if (current[0] === game.player1){
-            current[0] = game.player2;
+            current.splice(0,1,game.player2)  
             return current[0];
         }
 
-        else {current[0] = game.player1;
+        else {current.splice(0,1,game.player1);
               return current[0];
     }
 };
     const populateBlock = function(e){
         game.board.gameBoard[this.id[0]][this.id[1]] = currentPlayer(current);
-        e.target.textContent = currentPlayer(current);
+        e.target.textContent = current[0];
     }
     
     const initDOMBoard = function(gameBoard){
