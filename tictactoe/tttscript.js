@@ -62,12 +62,7 @@ const game = (function(){
     
 
     const isItOver = function(gameBoard){
-        if (isItADraw(gameBoard)){
-            alert('Alas! This game is a stalemate.'); 
-            return window.location.reload()
-               
-        }
-        else if (rowWin(gameBoard)){
+        if (rowWin(gameBoard)){
             alert(`The winner is ${current[0]}`)
             return window.location.reload()
         }
@@ -78,6 +73,11 @@ const game = (function(){
         else if (crossWin(gameBoard)){
             alert(`The winner is ${current[0]}`)
             return window.location.reload()
+        }
+        else if (isItADraw(gameBoard)){
+            alert('Alas! This game is a stalemate.'); 
+            return window.location.reload()
+               
         }
     }
 
