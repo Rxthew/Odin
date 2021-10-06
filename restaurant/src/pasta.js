@@ -1,12 +1,11 @@
-
-
-function pasta(){
+export default function pasta(){
 
     const element = document.createElement('div');
     const header = document.createElement('h2');
     const para = document.createElement('p');
     const image = new Image();
     
+    element.setAttribute('id', 'Pasta');
     header.textContent = 'Pasta';
     para.textContent = 'Got to watch those carbs';
     image.src = 'https://cdn.pixabay.com/photo/2015/07/27/19/44/spaghetti-863304_960_720.jpg';
@@ -19,4 +18,4 @@ function pasta(){
     return element
     }
     
-    document.body.appendChild(pasta());
+    
