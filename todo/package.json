@@ -1,0 +1,20 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "build" : "webpack"
+  },
+  "keywords": [
+    "todo"
+  ],
+  "author": "rxthew",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.58.0",
+    "webpack-cli": "^4.9.0"
+  }
+}
