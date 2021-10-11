@@ -1,54 +1,65 @@
-const eventsMod = function(){
+export const events = function(){
 
-    myEvents = {}
+    const _myEvents = {};
 
-    const events = function(name){
+    const _isEventHere = function(name){
+        return _myEvents.hasOwnProperty(name);
+    }
 
-        name = name;
-
-        (function(){
-            myEvents[name] = [];
-        })()
-
-        const addHandler = function(){
-
-        };
-
-        const removeHandler = function(){
-
-        };
-
-        const fireMe = function(){
-
-        };
-
-    //const eventsManager = function(){}---from here onward nested in this (except the return, gotta move that up)       
-          
-        const getMyEvent = function(anEvent){
-    
-        }; 
-       
-        const publish = function(){
-            let yourEvent = getMyEvent(anEvent);
-            yourEvent.fireMe()
-    
-        };
-
-        const  subscribe = function(){
-            let yourEvent = getMyEvent(anEvent);
-            yourEvent.addHandler(newHandler)
-        }; 
-            
-        return {
-            addHandler,
-            removeHandler,
-            fireMe,
-        }
+    const _addHandler = function(name, newHandler){       
         
+        if (!_isEventHere(name)){
+                _myEvents[name] = [];
+            }
+
+        _myEvents[name].push(newHandler)                          
+     };
+
+    const removeHandler = function(name, toRemove){
+
+        if (!_isEventHere(name)){
+                return;
+        }
+            
+        const index = _myEvents[name].indexOf(toRemove);
+        _myEvents[name].splice(index, 1)
+
     };
 
+    const _fireMe = function(name, optionalArg){
+            
+        if (!_isEventHere(name)){
+            _myEvents[name] = [];
+        }
 
-    
-    
+        _myEvents[name].forEach(function(h){
+               return h(optionalArg)
+        })
+    };
+
+    const publish = function(name, optionalArg){ 
+       
+        if (!_isEventHere(name)){
+            _myEvents[name] = [];
+        };
+
+        _fireMe(name, optionalArg)
+    };
+
+    const subscribe = function(name, newHandler){
+
+        if (!_isEventHere(name)){
+            _myEvents[name] = [];
+        };
+   
+        _addHandler(name, newHandler)
+    }; 
+
+            
+    return {
+        publish,
+        subscribe,
+        removeHandler
+    }    
 }
 
