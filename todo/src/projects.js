@@ -1,5 +1,5 @@
-import { baseCreate } from "./base";
-import { projectEvents } from "./Events/projectevents";
+import { baseCreate } from "./helpers/base";
+import { projectEvents } from "./projectevents";
 
 const todoStore = function(){
     
@@ -13,12 +13,17 @@ const todoStore = function(){
      }
 
      const removeFromProject = function(toDoNote){
+        
+
+     }
+
+     const moveProjLocation = function(){
 
      }
 
      projectEvents.subscribe('TBDaddEVENTPLACEHOLDER', addToProject);
      projectEvents.subscribe('TBDremoveEVENTPLACEHOLDER', addToProject)
-
+     projectEvents.subscribe('TBDmoveEVENTPLACEHOLDER', addToProject)    
 ///CONTINUE
 
 
