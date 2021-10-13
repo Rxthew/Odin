@@ -1,5 +1,6 @@
 import * as projects from './projects';
 import { DOMGeneral } from "./helpers/DOM";
+import './style.css';
 
 
 
