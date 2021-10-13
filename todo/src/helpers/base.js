@@ -48,7 +48,14 @@ const move = function(index, target){
         const moved = _storage[index];
         _storage.splice(index,1);
         _storage.splice(target,0,moved)
-    }       
+    
+    }   
+    else if(index >= 0 && index <_storage.length && target >= _storage.length) {
+        const replacement = _storage[index];
+        _storage.splice(index, 1);
+        _storage.push(replacement);
+
+    }    
 };
 
 const swap = function(indexA, indexB){
@@ -76,3 +83,4 @@ const copy = function (index){
         copy
     }   
 }
+
