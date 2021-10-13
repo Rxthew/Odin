@@ -1,35 +1,36 @@
 export const DOMGeneral = function(){
     
     const elementInit = function(elem, attrsObj={},textString=''){
-        document.createElement(elem);
+        
+        const element = document.createElement(elem);
         
         if (Object.keys(attrsObj).length > 0){
             Object.keys(attrsObj).forEach(function(att){
-            elem.setAttribute(att, attrsObj[att])
+            element.setAttribute(att, attrsObj[att])
         })
     }   
-        if(textString.length > 0){
-            elem.textContent = textString;
+        if (textString.length > 0){
+            element.textContent = textString;
         }
 
-        return {
-            elem
-        }
+        return element       
 
-    }
+    };
 
-   const selectELem = function(selectorString){
-       if(selectorString[0] === '#'){
+   const selectElem = function(selectorString){
+
+       if (selectorString[0] === '#'){
            return document.querySelector(selectorString)
        }
        else {
            return document.querySelectorAll(selectorString);
        }
-   }
+       
+   };
 
-   const appendElem = function(parent, child){
-       parent.appendChild(child)
-
+   return {
+       elementInit, 
+       selectElem,
    }
 
 }

@@ -43,7 +43,7 @@ export const singleProj = function(name){
    const removeFromProject = function(index){
       const todo = projstorage[index];
       project.remove(todo, index);  
-   }, 
+   } 
 
    const movetoDo = function(index, target){
       project.move(index, target);
