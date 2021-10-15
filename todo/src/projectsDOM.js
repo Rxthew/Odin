@@ -6,7 +6,15 @@ export const templateDOMStructs = function (){
 
     const DOM = DOMGeneral()
 
-    const projbuttons = function(){
+    const projButtons = function(){
+        
+        const viewProjectBtn = DOM.elementInit('button', {'id':'viewProjectBtn'}, 'View Inside');
+        const addToDoListBtn = DOM.elementInit('button', {'id': 'addtoDoListBtn'}, 'Add To-Do List');
+        
+        return {
+            viewProjectBtn,
+            addToDoListBtn
+        }
         
         //template for project buttons to be
         //used below. Remember data-attribute
@@ -18,6 +26,8 @@ export const templateDOMStructs = function (){
          const proj = DOM.elementInit('div',{'id': `${name}${reference.length}`,
                                              'class': 'project'},name
                                              )
+        proj.appendChild(projButtons().viewProjectBtn);
+        proj.appendChild(projButtons().addToDoListBtn);
         //attach event listener to proj.[projevntdelegator]
         //this delegated to buttons.                                     
         //add buttons as children re: adding to do, collapsing etc. above                                                                          

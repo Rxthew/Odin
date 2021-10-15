@@ -18,5 +18,9 @@ body {
     visibility: hidden
 }
 
+.project {
+    border: 1px solid black;
+}
+
 
 
