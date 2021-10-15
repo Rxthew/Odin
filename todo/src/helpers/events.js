@@ -44,7 +44,7 @@ export const events = function(){
         };
 
         _fireMe(name, optionalArg)
-        console.log(_myEvents);
+        
     };
 
     const subscribe = function(name, newHandler){
@@ -54,7 +54,7 @@ export const events = function(){
         };
    
         _addHandler(name, newHandler)
-        console.log(_myEvents);
+        
     }; 
 
             

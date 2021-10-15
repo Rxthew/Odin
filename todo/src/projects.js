@@ -31,9 +31,10 @@ export const singletoDoNote = function(name){
 
 export const singleProj = function(name){
 
-   project.name = name;
+   
    const _projstorage = new Array();
    const project = baseCreate(_projstorage);
+   project.name = name;
 
    const addToProject = function(name){
       const todo = singletoDoNote(name)
