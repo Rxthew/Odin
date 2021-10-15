@@ -7,6 +7,12 @@ projectEvents.headerDelegator = function(event){
 
 }
 
+projectEvents.formDelegator = function(event){
+   const name = document.querySelector('#titleInp').textContent;
+   event.target.id === 'submit' ? projectEvents.publish('create', name) : false;
+   event.preventDefault();
+}
+
 //projectEvents.projEvntDelegator = function(event){
     
 //      switch(event.target.id){

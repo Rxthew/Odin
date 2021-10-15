@@ -1,12 +1,12 @@
 import { baseCreate } from "./helpers/base";
-import { projectEvents } from "./projectevents";
+
 
 //Template for a todo-note 
 
 export const singletoDoNote = function(name){
 
    toDoNote.name = name;
-   _notestorage = new Array();
+   const _notestorage = new Array();
    const toDoNote = baseCreate(_notestorage);
 
    const addNote = function(note){
@@ -32,7 +32,7 @@ export const singletoDoNote = function(name){
 export const singleProj = function(name){
 
    project.name = name;
-   _projstorage = new Array();
+   const _projstorage = new Array();
    const project = baseCreate(_projstorage);
 
    const addToProject = function(name){
@@ -58,7 +58,7 @@ export const singleProj = function(name){
 
 export const mainInterface = function(){
    
-   _overallStorage = new Array();
+   const _overallStorage = new Array();
    const allToDo = baseCreate(_overallStorage);
 
    const newProj = function(name){
@@ -77,10 +77,11 @@ export const mainInterface = function(){
 
    } 
    
-   const eventsSubscribed = (function(){
-      projectEvents.subscribe('TBDaddEVENTPLACEHOLDER', newProj);
-      //add the rest.
-   })()
+   return {
+      newProj
+      //just this for now.
+   }
+  
    
 }
 

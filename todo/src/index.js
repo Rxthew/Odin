@@ -9,9 +9,12 @@ const revealToDo = (function(){
 
     const DOM = DOMGeneral();
     const structs = templateDOMStructs();
+    const newProj = projects.mainInterface().newProj
+    const createProject = structs.createProject
 
     //events
     const headEvent = projectEvents.headerDelegator;
+    const formEvent = projectEvents.formDelegator;
     //more events here please
 
 
@@ -52,12 +55,20 @@ const revealToDo = (function(){
          const form = DOM.elementInit('form',{'id':'createForm',
                                                'class':'hidden'
                                             });
+         form.appendChild(DOM.elementInit('br'));                                   
          form.appendChild(DOM.elementInit('label',{'for':'titleInp'},'Project Title'))
+         form.appendChild(DOM.elementInit('br'));
          form.appendChild(DOM.elementInit('input',{'type':'text',
                                                     'id' : 'titleInp',        
                                                     'name':'titleInp'}));
-        
+         form.appendChild(DOM.elementInit('button',{'type':'submit',
+                                                      'id':'submit'},'submit'));
+
+         projectEvents.subscribe('create', createProject);
+         projectEvents.subscribe('create', newProj);
          projectEvents.subscribe('reveal', revealCreateForm);
+
+         form.onsubmit = formEvent;
          mainContainer.appendChild(form);
          return form; 
     })()
