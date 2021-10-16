@@ -63,7 +63,8 @@ const revealToDo = (function(){
                                                     'name':'titleInp'}));
          form.appendChild(DOM.elementInit('button',{'type':'submit',
                                                       'id':'submit'},'submit'));
-
+         
+                                                      
          projectEvents.subscribe('create', createProject);
          projectEvents.subscribe('create', newProj);
          projectEvents.subscribe('reveal', revealCreateForm);
@@ -71,8 +72,9 @@ const revealToDo = (function(){
          form.onsubmit = formEvent;
          mainContainer.appendChild(form);
          return form; 
-    })()
-
+})()
+     
+    
 
 
 
