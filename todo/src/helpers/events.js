@@ -26,24 +26,24 @@ export const events = function(){
 
     };
 
-    const _fireMe = function(name, optionalArg){
+    const _fireMe = function(name, ...optionalArg){
             
         if (!_isEventHere(name)){
             _myEvents[name] = [];
         }
 
         _myEvents[name].forEach(function(h){
-               return h(optionalArg)
+               return h(...optionalArg)
         })
     };
 
-    const publish = function(name, optionalArg){ 
+    const publish = function(name, ...optionalArg){ 
        
         if (!_isEventHere(name)){
             _myEvents[name] = [];
         };
 
-        _fireMe(name, optionalArg)
+        _fireMe(name, ...optionalArg)
         
     };
 
