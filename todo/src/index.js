@@ -15,6 +15,7 @@ const revealToDo = (function(){
     //events
     const headEvent = projectEvents.headerDelegator;
     const formEvent = projectEvents.formDelegator;
+    const localStore = projectEvents.localStore;
     //more events here please
 
 
@@ -68,7 +69,7 @@ const revealToDo = (function(){
          projectEvents.subscribe('create', createProject);
          projectEvents.subscribe('create', newProj);
          projectEvents.subscribe('reveal', revealCreateForm);
-
+ 
          form.onsubmit = formEvent;
          mainContainer.appendChild(form);
          return form; 

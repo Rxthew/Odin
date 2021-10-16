@@ -14,9 +14,9 @@ projectEvents.formDelegator = function(event){
 }
 
 projectEvents.localStore = function(func,...optArgs){ //TO REVISE
-   const args = JSON.stringify(Array.from(optArgs));
-   const funcString = JSON.stringify(func);
-   return localStorage.setItem(funcString,args)
+   optArgs.unshift(func)
+   const args = JSON.stringify(optArgs)
+   return localStorage.setItem('access', args)
    
 }
 
