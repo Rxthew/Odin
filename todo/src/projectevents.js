@@ -13,6 +13,15 @@ projectEvents.formDelegator = function(event){
    event.preventDefault();
 }
 
+projectEvents.localStore = function(func,...optArgs){ //TO REVISE
+   const args = JSON.stringify(Array.from(optArgs));
+   const funcString = JSON.stringify(func);
+   return localStorage.setItem(funcString,args)
+   
+}
+
+
+
 //projectEvents.projEvntDelegator = function(event){
     
 //      switch(event.target.id){
