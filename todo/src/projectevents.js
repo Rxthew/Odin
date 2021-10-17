@@ -13,11 +13,17 @@ projectEvents.formDelegator = function(event){
    event.preventDefault();
 }
 
-projectEvents.localStore = function(func,...optArgs){ //TO REVISE
+projectEvents.localStore = function(func,...optArgs){ 
    optArgs.unshift(func)
    const args = JSON.stringify(optArgs)
+   if(!localStorage.getItem('access')) {
    return localStorage.setItem('access', args)
-   
+   }
+
+   else{ 
+      const addedArgs = localStorage.getItem('access') + ' , ' + args;
+      return localStorage.setItem('access', addedArgs)
+   } //REVIEW PARSING
 }
 
 
