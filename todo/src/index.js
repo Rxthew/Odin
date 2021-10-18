@@ -18,6 +18,14 @@ const revealToDo = (function(){
     const localStore = projectEvents.localStore;
     //more events here please
 
+    //one-time events
+    const revealCreateForm = function(){
+        let hidden = DOM.selectElem('#createForm');
+        hidden.classList.toggle('hidden', false);
+        
+}
+    
+
 
     //Initial elements
     const mainContainer = (function(){
@@ -46,11 +54,13 @@ const revealToDo = (function(){
         return head;
 })()
 
-    const revealCreateForm = function(){
-        let hidden = DOM.selectElem('#createForm');
-        hidden.classList.toggle('hidden', false);
-        
-}
+    const renderLocalStorage = function(){
+        //This will use localStorage to check
+        //if the user has any saved instances
+        //of projects and render them if so. 
+    }
+
+
      
     const createForm = (function(){
          const form = DOM.elementInit('form',{'id':'createForm',
