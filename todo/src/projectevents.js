@@ -7,14 +7,8 @@ projectEvents.headerDelegator = function(event){
 
 }
 
-projectEvents.formDelegator = function(event){
-   const name = document.querySelector('#titleInp').value;
-   projectEvents.publish('create', name)
-   event.preventDefault();
-}
 
 projectEvents.localStore = function(func,...optArgs){ 
-   
    
    if (!localStorage.getItem('handlers') && !localStorage.getItem('functions')){
       
@@ -47,6 +41,14 @@ projectEvents.localStore = function(func,...optArgs){
    return
 
 }
+}
+
+projectEvents.formDelegator = function(event){
+   const name = document.querySelector('#titleInp').value;
+   projectEvents.publish('create', name);
+   projectEvents.publish('saved', 'createProject', name);
+   projectEvents.publish('saved', 'newProj', name);
+   event.preventDefault();
 }
 
 

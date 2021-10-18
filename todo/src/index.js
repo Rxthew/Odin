@@ -68,6 +68,7 @@ const revealToDo = (function(){
                                                       
          projectEvents.subscribe('create', createProject);
          projectEvents.subscribe('create', newProj);
+         projectEvents.subscribe('saved', localStore);
          projectEvents.subscribe('reveal', revealCreateForm);
  
          form.onsubmit = formEvent;
