@@ -14,16 +14,39 @@ projectEvents.formDelegator = function(event){
 }
 
 projectEvents.localStore = function(func,...optArgs){ 
-   optArgs.unshift(func)
-   const args = JSON.stringify(optArgs)
-   if(!localStorage.getItem('access')) {
-   return localStorage.setItem('access', args)
-   }
+   
+   
+   if (!localStorage.getItem('handlers') && !localStorage.getItem('functions')){
+      
+      let args = JSON.stringify([optArgs]);
+      let funcName = JSON.stringify([[func]]); 
 
-   else{ 
-      const addedArgs = localStorage.getItem('access') + ' , ' + args;
-      return localStorage.setItem('access', addedArgs)
-   } //REVIEW PARSING
+      localStorage.setItem('handlers', args);
+      localStorage.setItem('functions', funcName);
+
+   return 
+}
+
+   else {
+     
+      let args = JSON.stringify(optArgs);
+      let funcName = JSON.stringify([func]); 
+      
+      let newHandlers = JSON.parse(localStorage.getItem('handlers'));
+      let newFunction = JSON.parse(localStorage.getItem('functions'));
+
+      newHandlers.push(args);
+      newFunction.push(funcName);
+
+      newHandlers = JSON.stringify(newHandlers);
+      newFunction = JSON.stringify(newFunction);
+
+      localStorage.setItem('handlers', newHandlers);
+      localStorage.setItem('functions', newFunction);
+
+   return
+
+}
 }
 
 
