@@ -38,12 +38,12 @@ const revealToDo = (function(){
 
     const header = (function(){
         
-        //Initialise event listeners
+        //Initialise elements
         const head = DOM.elementInit('header', {'id':'header'});
         const title = DOM.elementInit('h1',{'id': 'title'}, 'This is your To-Do list');
         const revealForm = DOM.elementInit('button',{'id':'revealForm'},'New Project');
         
-        //Add event listener
+        //Add header event listener
         head.onclick = headEvent;
         
         //Append to document
@@ -53,11 +53,17 @@ const revealToDo = (function(){
 
         return head;
 })()
+    
+    const defaultProject = (function(){
+        
+    })()
 
+    
     const renderLocalStorage = function(){
         //This will use localStorage to check
         //if the user has any saved instances
         //of projects and render them if so. 
+        //Remember to take account the case for empty lists
     }
 
 
@@ -86,10 +92,6 @@ const revealToDo = (function(){
          return form; 
 })()
      
-    
-
-
-
 
 })()
 
