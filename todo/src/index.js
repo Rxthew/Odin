@@ -9,8 +9,9 @@ const revealToDo = (function(){
 
     const DOM = DOMGeneral();
     const structs = templateDOMStructs();
-    const newProj = projects.mainInterface().newProj
-    const createProject = structs.createProject
+    const newProj = projects.mainInterface().newProj;
+    const createProject = structs.createProject;
+    const revealCreateForm = structs.revealCreateForm
 
     //events
     const headEvent = projectEvents.headerDelegator;
@@ -18,14 +19,8 @@ const revealToDo = (function(){
     const localStore = projectEvents.localStore;
     //more events here please
 
-    //one-time events
-    const revealCreateForm = function(){
-        let hidden = DOM.selectElem('#createForm');
-        hidden.classList.toggle('hidden', false);
-        
-}
     
-
+   
 
     //Initial elements
     const mainContainer = (function(){

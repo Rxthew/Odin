@@ -28,6 +28,8 @@ export const templateDOMStructs = function (){
                                              )
         proj.appendChild(projButtons().viewProjectBtn);
         proj.appendChild(projButtons().addToDoListBtn);
+        
+        
         //attach event listener to proj.[projevntdelegator]
         //this delegated to buttons.                                     
         //add buttons as children re: adding to do, collapsing etc. above                                                                          
@@ -40,7 +42,12 @@ export const templateDOMStructs = function (){
      const createToDoNote = function (){
 
      }
-
+     
+     const revealCreateForm = function(){
+        let hidden = DOM.selectElem('#createForm');
+        hidden.classList.toggle('hidden', false);
+        
+     }
 
      const toggleProjectSize = function(){
          //toggle class to expand/collapse project & reveal
@@ -49,6 +56,7 @@ export const templateDOMStructs = function (){
 
      return {
          createProject,
-         createToDoNote
+         createToDoNote,
+         revealCreateForm
      }
 }
