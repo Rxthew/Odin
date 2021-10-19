@@ -5,6 +5,7 @@ import { projectEvents } from "./projectevents";
 export const templateDOMStructs = function (){
 
     const DOM = DOMGeneral()
+    const evtDelegator = projectEvents.evtDelegator
 
     const projButtons = function(){
         
@@ -31,6 +32,7 @@ export const templateDOMStructs = function (){
         
         
         //attach event listener to proj.[projevntdelegator]
+        proj.onclick = evtDelegator;
         //this delegated to buttons.                                     
         //add buttons as children re: adding to do, collapsing etc. above                                                                          
         const container = DOM.selectElem('#container');

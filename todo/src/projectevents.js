@@ -7,7 +7,6 @@ projectEvents.headerDelegator = function(event){
 
 }
 
-
 projectEvents.formDelegator = function(event){
    const name = document.querySelector('#titleInp').value;
    projectEvents.publish('create', name);
@@ -53,16 +52,16 @@ projectEvents.localStore = function(func,...optArgs){
 
 
 
-//projectEvents.projEvntDelegator = function(event){
-    
-//      switch(event.target.id){
-//         case 'removeProject': projectEvents.publish();
-//            break;
-//         case 'addProject': projectEvents.publish();
-//            break;
+projectEvents.evtDelegator = function(event){
+      switch(event.target.id){
+         case 'viewProjectBtn': projectEvents.publish();//modify
+           break;
+         case 'addtoDoListBtn': projectEvents.publish();//modify
+           break;
+      //add more read below. 
 
-//      }
-
+}}
+ 
 //      return
    
       //   switch case statement. If event.target.dataset or
