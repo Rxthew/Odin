@@ -71,7 +71,8 @@ const revealToDo = (function(){
          form.appendChild(DOM.elementInit('label',{'for':'titleInp'},'Project Title'))
          form.appendChild(DOM.elementInit('br'));
          form.appendChild(DOM.elementInit('input',{'type':'text',
-                                                    'id' : 'titleInp',        
+                                                    'id' : 'titleInp',
+                                                    'autocomplete': 'off',        
                                                     'name':'titleInp'}));
          form.appendChild(DOM.elementInit('button',{'type':'submit',
                                                       'id':'submit'},'submit'));
