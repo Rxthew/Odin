@@ -15,7 +15,7 @@ projectEvents.formDelegator = function(event){
    event.preventDefault();
 }
 
-projectEvents.localStore = function(func,...optArgs){ 
+projectEvents.localStore = function(func,...optArgs){ //potentially put this functionality projects, to make use of backend.
    
    if (!localStorage.getItem('handlers') && !localStorage.getItem('functions')){
       
@@ -54,7 +54,7 @@ projectEvents.localStore = function(func,...optArgs){
 
 projectEvents.evtDelegator = function(event){
       switch(event.target.id){
-         case 'viewProjectBtn': projectEvents.publish();//modify
+         case 'viewProjectBtn': projectEvents.publish('viewProject', event); 
            break;
          case 'addtoDoListBtn': projectEvents.publish();//modify
            break;
@@ -62,12 +62,6 @@ projectEvents.evtDelegator = function(event){
 
 }}
  
-//      return
-   
-      //   switch case statement. If event.target.dataset or
-   // other identifier for the button. events.publish
-   // the event associated with button. 
-   //
    //Remember to include conditionalst and such to prevent
    // firing unless e.g project is expanded or while form
    // is visible.

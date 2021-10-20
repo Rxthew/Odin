@@ -28,13 +28,13 @@ export const templateDOMStructs = function (){
                                              'class': 'project'},name
                                              )
         proj.appendChild(projButtons().viewProjectBtn);
+        proj.appendChild(DOM.elementInit('div',{'class':'none'}));
         proj.appendChild(projButtons().addToDoListBtn);
+
+        projectEvents.subscribe('viewProject', toggleProjectSize)
         
-        
-        //attach event listener to proj.[projevntdelegator]
         proj.onclick = evtDelegator;
-        //this delegated to buttons.                                     
-        //add buttons as children re: adding to do, collapsing etc. above                                                                          
+                                                                      
         const container = DOM.selectElem('#container');
         container.appendChild(proj);
         return proj
@@ -51,9 +51,10 @@ export const templateDOMStructs = function (){
         
      }
 
-     const toggleProjectSize = function(){
-         //toggle class to expand/collapse project & reveal
-         //todos. 
+     const toggleProjectSize = function(event){
+         if (event.target.id === 'viewProjectBtn'){
+             event.target.nextElementSibling.classList.toggle('none')
+         }
      }
 
      return {
