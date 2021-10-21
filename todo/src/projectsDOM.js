@@ -11,7 +11,7 @@ export const templateDOMStructs = function (){
         
         const viewProjectBtn = DOM.elementInit('button', {
                                                           'class': 'viewProject'}, 'View Inside');
-        const addToDoListBtn = DOM.elementInit('button', {'id': 'addtoDoListBtn'}, 'Add To-Do List');
+        const addToDoListBtn = DOM.elementInit('button', {'class': 'addtoDoList'}, 'Add To-Do List');
         
         return {
             viewProjectBtn,
