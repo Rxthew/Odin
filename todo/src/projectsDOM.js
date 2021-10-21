@@ -9,7 +9,8 @@ export const templateDOMStructs = function (){
 
     const projButtons = function(){
         
-        const viewProjectBtn = DOM.elementInit('button', {'id':'viewProjectBtn'}, 'View Inside');
+        const viewProjectBtn = DOM.elementInit('button', {
+                                                          'class': 'viewProject'}, 'View Inside');
         const addToDoListBtn = DOM.elementInit('button', {'id': 'addtoDoListBtn'}, 'Add To-Do List');
         
         return {
@@ -25,13 +26,14 @@ export const templateDOMStructs = function (){
     const createProject = function(name){
          const reference = DOM.selectElem('.project'); 
          const proj = DOM.elementInit('div',{'id': `${name}${reference.length}`,
+                                             'data-id': `${name}`, 
                                              'class': 'project'},name
                                              )
         proj.appendChild(projButtons().viewProjectBtn);
-        proj.appendChild(DOM.elementInit('div',{'class':'none'}));
+        proj.appendChild(DOM.elementInit('div',{'data-id':`${name}`,
+                                                'class':'none'}));
         proj.appendChild(projButtons().addToDoListBtn);
 
-        projectEvents.subscribe('viewProject', toggleProjectSize)
         
         proj.onclick = evtDelegator;
                                                                       
@@ -52,14 +54,13 @@ export const templateDOMStructs = function (){
      }
 
      const toggleProjectSize = function(event){
-         if (event.target.id === 'viewProjectBtn'){
-             event.target.nextElementSibling.classList.toggle('none')
-         }
+            event.target.nextElementSibling.classList.toggle('none');
      }
 
      return {
          createProject,
          createToDoNote,
-         revealCreateForm
+         revealCreateForm,
+         toggleProjectSize
      }
 }

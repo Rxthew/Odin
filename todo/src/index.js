@@ -6,21 +6,29 @@ import { projectEvents } from './projectevents';
 
 
 const revealToDo = (function(){ 
-
+    
+    //Calling module Objects
     const DOM = DOMGeneral();
     const structs = templateDOMStructs();
-    const newProj = projects.mainInterface().newProj;
-    const createProject = structs.createProject;
-    const revealCreateForm = structs.revealCreateForm
+    const main = projects.mainInterface();
 
-    //events
+    //Module methods to be used
+    const newProj = main.newProj;
+    const localStore = main.transferToLocalStorage;
+    const createProject = structs.createProject;
+    const revealCreateForm = structs.revealCreateForm;
+    const toggleProjectSize = structs.toggleProjectSize;
     const headEvent = projectEvents.headerDelegator;
     const formEvent = projectEvents.formDelegator;
-    const localStore = projectEvents.localStore;
-    //more events here please
-
     
-   
+    
+    //Event Subscriptions
+    projectEvents.subscribe('viewProject', toggleProjectSize);
+    projectEvents.subscribe('create', createProject);
+    projectEvents.subscribe('create', newProj);
+    projectEvents.subscribe('saved', localStore);
+    projectEvents.subscribe('reveal', revealCreateForm);
+    
 
     //Initial elements
     const mainContainer = (function(){
@@ -58,7 +66,7 @@ const revealToDo = (function(){
         //This will use localStorage to check
         //if the user has any saved instances
         //of projects and render them if so. 
-        //Remember to take account the case for empty lists
+        //Remember to take account any differences in data between backend and DOM
     }
 
 
@@ -77,11 +85,6 @@ const revealToDo = (function(){
          form.appendChild(DOM.elementInit('button',{'type':'submit',
                                                       'id':'submit'},'submit'));
          
-                                                      
-         projectEvents.subscribe('create', createProject);
-         projectEvents.subscribe('create', newProj);
-         projectEvents.subscribe('saved', localStore);
-         projectEvents.subscribe('reveal', revealCreateForm);
  
          form.onsubmit = formEvent;
          mainContainer.appendChild(form);

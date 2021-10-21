@@ -31,7 +31,6 @@ export const singletoDoNote = function(name){
 
 export const singleProj = function(name){
 
-   
    const _projstorage = new Array();
    const project = baseCreate(_projstorage);
    project.name = name;
@@ -51,6 +50,8 @@ export const singleProj = function(name){
          
    }
 
+   return project
+
 } 
 
 //
@@ -59,14 +60,15 @@ export const singleProj = function(name){
 
 export const mainInterface = function(){
    
-   const _overallStorage = new Array();
+   let _overallStorage = new Array();
    const allToDo = baseCreate(_overallStorage);
 
    const newProj = function(name){
       const proj = singleProj(name);
-      allToDo.add(proj); 
-        
+      allToDo.add(proj);
+
    }
+
 
    const removeProj = function(index){
       const proj = _overallStorage[index];
@@ -76,10 +78,17 @@ export const mainInterface = function(){
    const moveProj = function(index, target){
       allToDo.move(index, target);
 
-   } 
+   }
+   
+   const transferToLocalStorage = function(){
+         return localStorage.setItem('access', JSON.stringify(_overallStorage))
+   }
+
+  
    
    return {
-      newProj
+      newProj,
+      transferToLocalStorage
       //just this for now.
    }
   
