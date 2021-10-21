@@ -26,12 +26,11 @@ export const templateDOMStructs = function (){
     const createProject = function(name){
          const reference = DOM.selectElem('.project'); 
          const proj = DOM.elementInit('div',{'id': `${name}${reference.length}`,
-                                             'data-id': `${name}`, 
+                                             'data-id': `${reference.length}`, 
                                              'class': 'project'},name
                                              )
         proj.appendChild(projButtons().viewProjectBtn);
-        proj.appendChild(DOM.elementInit('div',{'data-id':`${name}`,
-                                                'class':'none'}));
+        proj.appendChild(DOM.elementInit('div',{ 'class':'none'}));
         proj.appendChild(projButtons().addToDoListBtn);
 
         
