@@ -10,8 +10,10 @@ export const singletoDoNote = function(name){
    const toDoNote = baseCreate(_notestorage);
    
    toDoNote.name = name;
+   toDoNote.type = type();
    
-   const type = function(type){
+   
+   const type = function(type='input'){
       return type
    }
    const addNote = function(note){
