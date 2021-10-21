@@ -5,10 +5,15 @@ import { baseCreate } from "./helpers/base";
 
 export const singletoDoNote = function(name){
 
-   toDoNote.name = name;
+
    const _notestorage = new Array();
    const toDoNote = baseCreate(_notestorage);
-
+   
+   toDoNote.name = name;
+   
+   const type = function(type){
+      return type
+   }
    const addNote = function(note){
       toDoNote.add(note);
    }
@@ -22,7 +27,8 @@ export const singletoDoNote = function(name){
       toDoNote.move(index, target);
         
    }
-
+   
+   return toDoNote
 }
 
 //
@@ -60,7 +66,7 @@ export const singleProj = function(name){
 
 export const mainInterface = function(){
    
-   let _overallStorage = new Array();
+   const _overallStorage = new Array();
    const allToDo = baseCreate(_overallStorage);
 
    const newProj = function(name){
