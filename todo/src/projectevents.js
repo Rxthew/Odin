@@ -21,6 +21,7 @@ projectEvents.evtDelegator = function(event){
            break;
          case 'addtoDoList': projectEvents.publish('inputOrList', event)
            break;
+         case 'selectedNoteType' : projectEvents.publish('noteToDoType', event)
       //add more read below. 
 
 }}

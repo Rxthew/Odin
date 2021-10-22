@@ -30,6 +30,8 @@ const revealToDo = (function(){
     projectEvents.subscribe('saved', localStore);
     projectEvents.subscribe('reveal', revealCreateForm);
     projectEvents.subscribe('inputOrList', chooseNoteType);
+    //projectEvents.subscribe('noteToDoType', functionRe:TypeChosenBackendUpdate)
+    //projectEvents.subscribe('noteToDoTYpe', functionRe: SetupChecklistOrFreeform inDOM)
     
 
     //Initial elements

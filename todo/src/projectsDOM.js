@@ -61,7 +61,8 @@ export const templateDOMStructs = function (){
                                                          'class': 'checklist'},'Checklist');
          const inputOpt = DOM.elementInit('option',{'name': 'input',
                                                      'class': 'input'},'Freeform');
-         const choice = DOM.elementInit('button', {'type':'submit'}, 'Submit');
+         const choice = DOM.elementInit('button', {'type':'submit',
+                                                    'class':'selectedNoteType' }, 'Submit');
          
          select.appendChild(optGroup);
          optGroup.appendChild(checklistOpt);
@@ -72,7 +73,7 @@ export const templateDOMStructs = function (){
          form.appendChild(choice);
 
          
-         //form.onsubmit
+         form.onsubmit = evtDelegator;
          domProject.appendChild(form);
 
          return form
