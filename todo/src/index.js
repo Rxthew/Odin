@@ -19,7 +19,7 @@ const revealToDo = (function(){
     const revealCreateForm = structs.revealCreateForm;
     const toggleProjectSize = structs.toggleProjectSize;
     const chooseNoteType = structs.chooseNoteType;
-    const evtDelegator = projectEvents.evtDelegator;
+    const delegator = projectEvents.delegator;
 
     
     
@@ -53,7 +53,7 @@ const revealToDo = (function(){
         const revealForm = DOM.elementInit('button',{'class':'revealForm'},'New Project');
         
         //Add header event listener
-        head.onclick = evtDelegator;
+        head.onclick = delegator;
         
         //Append to document
         head.appendChild(title);
@@ -93,7 +93,7 @@ const revealToDo = (function(){
                                                       'id':'submit'},'submit'));
          
  
-         form.onsubmit = evtDelegator;
+         form.onsubmit = delegator;
          mainContainer.appendChild(form);
          return form; 
 })()

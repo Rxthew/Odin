@@ -2,7 +2,7 @@ import { events } from "./helpers/events";
 
 let projectEvents = events();
 
-projectEvents.evtDelegator = function(event){//not working
+projectEvents.delegator = function(event){//not working
       switch(event.target.className){
          case 'revealForm': projectEvents.publish('reveal');
            break;
