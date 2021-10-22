@@ -19,7 +19,7 @@ projectEvents.evtDelegator = function(event){
       switch(event.target.className){
          case 'viewProject': projectEvents.publish('viewProject', event);
            break;
-         case 'addtoDoList': projectEvents.publish();//modify
+         case 'addtoDoList': projectEvents.publish('inputOrList', event)
            break;
       //add more read below. 
 

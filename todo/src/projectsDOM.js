@@ -45,6 +45,40 @@ export const templateDOMStructs = function (){
      const createToDoNote = function (){
 
      }
+
+     const chooseNoteType = function(event){
+        const domProject = event.target.parentElement;
+
+        if (domProject.lastElementChild.className === 'chooseNoteType'){
+            return
+        }
+
+         const form =  DOM.elementInit('form', {'class': 'chooseNoteType'})
+         const label = DOM.elementInit('label',{'for':'choooseNoteType'},'Choose Your Note Type');
+         const select = DOM.elementInit('select',{'class':'select'});
+         const optGroup = DOM.elementInit('optgroup',{'label': 'Note Options'}, 'Choose your note type');
+         const checklistOpt = DOM.elementInit('option',{'name': 'checklist',
+                                                         'class': 'checklist'},'Checklist');
+         const inputOpt = DOM.elementInit('option',{'name': 'input',
+                                                     'class': 'input'},'Freeform');
+         const choice = DOM.elementInit('button', {'type':'submit'}, 'Submit');
+         
+         select.appendChild(optGroup);
+         optGroup.appendChild(checklistOpt);
+         optGroup.appendChild(inputOpt);
+         form.appendChild(label);
+         form.appendChild(select);
+         form.appendChild(DOM.elementInit('br'));
+         form.appendChild(choice);
+
+         
+         //form.onsubmit
+         domProject.appendChild(form);
+
+         return form
+                  
+
+     }
      
      const revealCreateForm = function(){
         let hidden = DOM.selectElem('#createForm');
@@ -60,6 +94,7 @@ export const templateDOMStructs = function (){
          createProject,
          createToDoNote,
          revealCreateForm,
-         toggleProjectSize
+         toggleProjectSize,
+         chooseNoteType,
      }
 }

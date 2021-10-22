@@ -18,6 +18,7 @@ const revealToDo = (function(){
     const createProject = structs.createProject;
     const revealCreateForm = structs.revealCreateForm;
     const toggleProjectSize = structs.toggleProjectSize;
+    const chooseNoteType = structs.chooseNoteType;
     const headEvent = projectEvents.headerDelegator;
     const formEvent = projectEvents.formDelegator;
     
@@ -28,6 +29,7 @@ const revealToDo = (function(){
     projectEvents.subscribe('create', newProj);
     projectEvents.subscribe('saved', localStore);
     projectEvents.subscribe('reveal', revealCreateForm);
+    projectEvents.subscribe('inputOrList', chooseNoteType);
     
 
     //Initial elements
