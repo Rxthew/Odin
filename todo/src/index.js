@@ -19,8 +19,8 @@ const revealToDo = (function(){
     const revealCreateForm = structs.revealCreateForm;
     const toggleProjectSize = structs.toggleProjectSize;
     const chooseNoteType = structs.chooseNoteType;
-    const headEvent = projectEvents.headerDelegator;
-    const formEvent = projectEvents.formDelegator;
+    const evtDelegator = projectEvents.evtDelegator;
+
     
     
     //Event Subscriptions
@@ -30,8 +30,10 @@ const revealToDo = (function(){
     projectEvents.subscribe('saved', localStore);
     projectEvents.subscribe('reveal', revealCreateForm);
     projectEvents.subscribe('inputOrList', chooseNoteType);
-    //projectEvents.subscribe('noteToDoType', functionRe:TypeChosenBackendUpdate)
-    //projectEvents.subscribe('noteToDoTYpe', functionRe: SetupChecklistOrFreeform inDOM)
+    //projectEvents.subscribe('noteToDoType', functionRe: SetupChecklistOrFreeform inDOM)
+    //projectEvents.subscribe('noteToDoType', function Store selected type to be retrieved by backend later.)
+    //projectEvents.subscribe('addToDoNote', functionRe:BackendUpdate  with user submission & including type chosen, remember localStorage update as well.)
+    //projectEvents.subscribe('addToDoNote, function Re: DOM update with user submissions)
     
 
     //Initial elements
@@ -48,10 +50,10 @@ const revealToDo = (function(){
         //Initialise elements
         const head = DOM.elementInit('header', {'id':'header'});
         const title = DOM.elementInit('h1',{'id': 'title'}, 'This is your To-Do list');
-        const revealForm = DOM.elementInit('button',{'id':'revealForm'},'New Project');
+        const revealForm = DOM.elementInit('button',{'class':'revealForm'},'New Project');
         
         //Add header event listener
-        head.onclick = headEvent;
+        head.onclick = evtDelegator;
         
         //Append to document
         head.appendChild(title);
@@ -77,7 +79,7 @@ const revealToDo = (function(){
      
     const createForm = (function(){
          const form = DOM.elementInit('form',{'id':'createForm',
-                                               'class':'hidden'
+                                              'class':'hidden projectForm'
                                             });
          form.appendChild(DOM.elementInit('br'));                                   
          form.appendChild(DOM.elementInit('label',{'for':'titleInp'},'Project Title'))
@@ -87,10 +89,11 @@ const revealToDo = (function(){
                                                     'autocomplete': 'off',        
                                                     'name':'titleInp'}));
          form.appendChild(DOM.elementInit('button',{'type':'submit',
+                                                     'class': 'submit',
                                                       'id':'submit'},'submit'));
          
  
-         form.onsubmit = formEvent;
+         form.onsubmit = evtDelegator;
          mainContainer.appendChild(form);
          return form; 
 })()

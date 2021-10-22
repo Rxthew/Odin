@@ -2,26 +2,20 @@ import { events } from "./helpers/events";
 
 let projectEvents = events();
 
-projectEvents.headerDelegator = function(event){
-     event.target.id === 'revealForm' ? projectEvents.publish('reveal') : false;
-
-}
-
-projectEvents.formDelegator = function(event){
-   const name = document.querySelector('#titleInp').value;
-   projectEvents.publish('create', name);
-   projectEvents.publish('saved');
-   event.preventDefault();
-}
-
-
-projectEvents.evtDelegator = function(event){
+projectEvents.evtDelegator = function(event){//not working
       switch(event.target.className){
+         case 'revealForm': projectEvents.publish('reveal');
+           break;
+         case 'projectForm': projectEvents.publish('create', document.querySelector('#titleInp').value);
+                             projectEvents.publish('saved');
+                             event.preventDefault();
+           break;
          case 'viewProject': projectEvents.publish('viewProject', event);
            break;
          case 'addtoDoList': projectEvents.publish('inputOrList', event)
            break;
-         case 'selectedNoteType' : projectEvents.publish('noteToDoType', event)
+         case 'selectedNoteType': projectEvents.publish('noteToDoType', event)
+         break;
       //add more read below. 
 
 }}
