@@ -9,9 +9,9 @@ export const templateDOMStructs = function (){
 
     const projButtons = function(){
         
-        const viewProjectBtn = DOM.elementInit('button', {
-                                                          'class': 'viewProject'}, 'View Inside');
-        const addToDoListBtn = DOM.elementInit('button', {'class': 'addtoDoList'}, 'Add To-Do List');
+        const viewProjectBtn = DOM.elementInit('button', {'class': 'viewProject'}, 'View Inside');
+        const addToDoListBtn = DOM.elementInit('button', {'class': 'addtoDoList',
+                                                           'id': `add${DOM.selectElem('.project').length}`}, 'Add To-Do List');
         
         return {
             viewProjectBtn,
@@ -46,6 +46,7 @@ export const templateDOMStructs = function (){
      const createToDoNote = function (){
        //remember to replace input.
        //also you need to place it in the div which is not displayed.
+       //re-enable add to do button.
         
 
      }
@@ -53,7 +54,7 @@ export const templateDOMStructs = function (){
      const chooseNoteType = function(event){
         const domProject = event.target.parentElement;
 
-        if (domProject.lastElementChild.className === 'chooseNoteType'){
+        if (domProject.lastElementChild.className === 'chooseNoteType') {
             return
         }
 
@@ -101,6 +102,7 @@ export const templateDOMStructs = function (){
              return select.options[select.selectedIndex].value;
         })()
         
+        
         const project = DOM.selectElem('#noteTypeForm').parentElement;
         const container = DOM.selectElem(`#container${project.dataset.id}`);
         projectEvents.publish('deleteNoteTypeForm');
@@ -109,6 +111,12 @@ export const templateDOMStructs = function (){
         const submit = DOM.elementInit('button',{'type':'submit',
                                                   'class':'submitNote'},'Submit Note')
         form.onsubmit = delegator; 
+
+
+        const disableAddToDoBtn = function(){
+           const selectButton =  DOM.selectElem(`#add${project.dataset.id}`);
+           return selectButton.classList.toggle('none',true);
+        }
 
         const generateChecklist = function(){
             const checkbox = DOM.elementInit('input',{'type':'checkbox'});
@@ -121,20 +129,26 @@ export const templateDOMStructs = function (){
             form.appendChild(add);
             form.appendChild(submit);
 
+            
             container.classList.toggle('none', false);
+            
             container.appendChild(form);
-
+            
         };
 
         const generatefreeForm = function(){
             const freeForm = DOM.elementInit('input',{'type':'text'});
             form.appendChild(freeForm);
             form.appendChild(submit);
-            project.appendChild(form);
             
+            
+            container.classList.toggle('none', false);
+                        
+            container.appendChild(form);
 
         };
           
+        disableAddToDoBtn()
         return getSelected === 'Checklist' ? generateChecklist() : generatefreeForm() 
 
      }
