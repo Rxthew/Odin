@@ -26,11 +26,12 @@ export const templateDOMStructs = function (){
     const createProject = function(name){
          const reference = DOM.selectElem('.project'); 
          const proj = DOM.elementInit('div',{'id': `${name}${reference.length}`,
-                                             'data-id': `${reference.length}`, 
+                                             'data-id':`${reference.length}`, 
                                              'class': 'project'},name
                                              )
         proj.appendChild(projButtons().viewProjectBtn);
-        proj.appendChild(DOM.elementInit('div',{ 'class':'none'}));
+        proj.appendChild(DOM.elementInit('div',{ 'class':'none',
+                                                   'id':`container${reference.length}`}));
         proj.appendChild(projButtons().addToDoListBtn);
 
         
@@ -101,23 +102,27 @@ export const templateDOMStructs = function (){
         })()
         
         const project = DOM.selectElem('#noteTypeForm').parentElement;
+        const container = DOM.selectElem(`#container${project.dataset.id}`);
         projectEvents.publish('deleteNoteTypeForm');
         
-        const form = DOM.elementInit('form',{})//continue
+        const form = DOM.elementInit('form',{'class': 'toDoNoteInput'})//continue
         const submit = DOM.elementInit('button',{'type':'submit',
                                                   'class':'submitNote'},'Submit Note')
         form.onsubmit = delegator; 
 
         const generateChecklist = function(){
             const checkbox = DOM.elementInit('input',{'type':'checkbox'});
-            const label = DOM.elementInit('input',{'type':'text'});
-            const Add = DOM.elementInit('button', {'class': 'addCheck'},'Add item');
-            Add.onclick = delegator;
+            const label = DOM.elementInit('input',{'type':'text',
+                                                   'class': 'label'});
+            const add = DOM.elementInit('button', {'class': 'addCheck'},'Add item');
+            add.onclick = delegator;
             form.appendChild(checkbox);
             form.appendChild(label);
-            form.appendChild(Add);
+            form.appendChild(add);
             form.appendChild(submit);
-            project.appendChild(form);
+
+            container.classList.toggle('none', false);
+            container.appendChild(form);
 
         };
 

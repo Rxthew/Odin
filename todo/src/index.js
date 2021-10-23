@@ -35,7 +35,7 @@ const revealToDo = (function(){
     projectEvents.subscribe('noteToDoType', noteTypeGenerator);
     //projectEvents.subscribe('noteToDoType', function Store selected type to be retrieved by backend later.)
     projectEvents.subscribe('deleteNoteTypeForm', deleteAddNoteForm)
-    //projectEvents.subscribe('addToDoNote', functionRe:BackendUpdate  with user submission & including type chosen, remember localStorage update as well.)
+    //projectEvents.subscribe('addToDoNote', functionRe:BackendUpdate  with user submission & including type chosen && whether items are checked or not (if checkbox), remember localStorage update as well.)
     //projectEvents.subscribe('addToDoNote', function Re: DOM update with user submissions)
     
 
