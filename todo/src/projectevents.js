@@ -2,7 +2,7 @@ import { events } from "./helpers/events";
 
 let projectEvents = events();
 
-projectEvents.delegator = function(event){//not working
+projectEvents.delegator = function(event){
       switch(event.target.className){
          case 'revealForm': projectEvents.publish('reveal');
            break;
@@ -14,17 +14,14 @@ projectEvents.delegator = function(event){//not working
            break;
          case 'addtoDoList': projectEvents.publish('inputOrList', event)
            break;
-         case 'selectedNoteType': projectEvents.publish('noteToDoType', event)
+         case 'chooseNoteType': projectEvents.publish('noteToDoType', event);
+                                event.preventDefault();
          break;
-      //add more read below. 
+      //add more. 
 
 }}
  
-   //Remember to include conditionalst and such to prevent
-   // firing unless e.g project is expanded or while form
-   // is visible.
-//}
-
+       
 
 
 

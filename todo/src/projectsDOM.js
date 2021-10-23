@@ -5,7 +5,7 @@ import { projectEvents } from "./projectevents";
 export const templateDOMStructs = function (){
 
     const DOM = DOMGeneral()
-    const evtDelegator = projectEvents.evtDelegator
+    const delegator = projectEvents.delegator
 
     const projButtons = function(){
         
@@ -34,7 +34,7 @@ export const templateDOMStructs = function (){
         proj.appendChild(projButtons().addToDoListBtn);
 
         
-        proj.onclick = evtDelegator;
+        proj.onclick = delegator;
                                                                       
         const container = DOM.selectElem('#container');
         container.appendChild(proj);
@@ -43,6 +43,8 @@ export const templateDOMStructs = function (){
      }
 
      const createToDoNote = function (){
+
+        
 
      }
 
@@ -53,16 +55,17 @@ export const templateDOMStructs = function (){
             return
         }
 
-         const form =  DOM.elementInit('form', {'class': 'chooseNoteType'})
-         const label = DOM.elementInit('label',{'for':'choooseNoteType'},'Choose Your Note Type');
-         const select = DOM.elementInit('select',{'class':'select'});
+         const form =  DOM.elementInit('form', {'class': 'chooseNoteType',
+                                                    'id': 'noteTypeForm'                      })
+         const label = DOM.elementInit('label',{'for':'chooseNoteType'},'Choose Your Note Type');
+         const select = DOM.elementInit('select',{'class':'select',
+                                                    'id': 'select' });
          const optGroup = DOM.elementInit('optgroup',{'label': 'Note Options'}, 'Choose your note type');
          const checklistOpt = DOM.elementInit('option',{'name': 'checklist',
                                                          'class': 'checklist'},'Checklist');
          const inputOpt = DOM.elementInit('option',{'name': 'input',
                                                      'class': 'input'},'Freeform');
-         const choice = DOM.elementInit('button', {'type':'submit',
-                                                    'class':'selectedNoteType' }, 'Submit');
+         const choice = DOM.elementInit('button', {'type':'submit'}, 'Submit');
          
          select.appendChild(optGroup);
          optGroup.appendChild(checklistOpt);
@@ -73,13 +76,11 @@ export const templateDOMStructs = function (){
          form.appendChild(choice);
 
          
-         form.onsubmit = evtDelegator;
+         form.onsubmit = delegator;
          domProject.appendChild(form);
 
          return form
-                  
-
-     }
+ }
      
      const revealCreateForm = function(){
         let hidden = DOM.selectElem('#createForm');
@@ -91,11 +92,32 @@ export const templateDOMStructs = function (){
             event.target.nextElementSibling.classList.toggle('none');
      }
 
+     const noteTypeGenerator = function(){
+
+        const getSelected = (function(){
+             const select =  DOM.selectElem('#select');
+             return select.options[select.selectedIndex].value;
+        })()
+
+        projectEvents.publish('deleteNoteTypeForm')
+
+      return getSelected;
+
+     }
+
+     const deleteAddNoteForm = function(){
+         const deleted = DOM.selectElem('#noteTypeForm');
+         deleted.remove();
+    }
+    
+
      return {
          createProject,
          createToDoNote,
          revealCreateForm,
          toggleProjectSize,
          chooseNoteType,
+         noteTypeGenerator,
+         deleteAddNoteForm
      }
 }

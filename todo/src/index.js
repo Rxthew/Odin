@@ -19,6 +19,8 @@ const revealToDo = (function(){
     const revealCreateForm = structs.revealCreateForm;
     const toggleProjectSize = structs.toggleProjectSize;
     const chooseNoteType = structs.chooseNoteType;
+    const noteTypeGenerator = structs.noteTypeGenerator;
+    const deleteAddNoteForm = structs.deleteAddNoteForm;
     const delegator = projectEvents.delegator;
 
     
@@ -30,8 +32,9 @@ const revealToDo = (function(){
     projectEvents.subscribe('saved', localStore);
     projectEvents.subscribe('reveal', revealCreateForm);
     projectEvents.subscribe('inputOrList', chooseNoteType);
-    //projectEvents.subscribe('noteToDoType', functionRe: SetupChecklistOrFreeform inDOM)
+    projectEvents.subscribe('noteToDoType', noteTypeGenerator);
     //projectEvents.subscribe('noteToDoType', function Store selected type to be retrieved by backend later.)
+    projectEvents.subscribe('deleteNoteTypeForm', deleteAddNoteForm)
     //projectEvents.subscribe('addToDoNote', functionRe:BackendUpdate  with user submission & including type chosen, remember localStorage update as well.)
     //projectEvents.subscribe('addToDoNote, function Re: DOM update with user submissions)
     
