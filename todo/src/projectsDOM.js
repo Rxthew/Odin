@@ -43,7 +43,8 @@ export const templateDOMStructs = function (){
      }
 
      const createToDoNote = function (){
-
+       //remember to replace input.
+       //also you need to place it in the div which is not displayed.
         
 
      }
@@ -98,17 +99,55 @@ export const templateDOMStructs = function (){
              const select =  DOM.selectElem('#select');
              return select.options[select.selectedIndex].value;
         })()
+        
+        const project = DOM.selectElem('#noteTypeForm').parentElement;
+        projectEvents.publish('deleteNoteTypeForm');
+        
+        const form = DOM.elementInit('form',{})//continue
+        const submit = DOM.elementInit('button',{'type':'submit',
+                                                  'class':'submitNote'},'Submit Note')
+        form.onsubmit = delegator; 
 
-        projectEvents.publish('deleteNoteTypeForm')
+        const generateChecklist = function(){
+            const checkbox = DOM.elementInit('input',{'type':'checkbox'});
+            const label = DOM.elementInit('input',{'type':'text'});
+            const Add = DOM.elementInit('button', {'class': 'addCheck'},'Add item');
+            Add.onclick = delegator;
+            form.appendChild(checkbox);
+            form.appendChild(label);
+            form.appendChild(Add);
+            form.appendChild(submit);
+            project.appendChild(form);
 
-      return getSelected;
+        };
+
+        const generatefreeForm = function(){
+            const freeForm = DOM.elementInit('input',{'type':'text'});
+            form.appendChild(freeForm);
+            form.appendChild(submit);
+            project.appendChild(form);
+            
+
+        };
+          
+        return getSelected === 'Checklist' ? generateChecklist() : generatefreeForm() 
 
      }
+
+
+     
+    
+
+
+    //continue getSelected === 'Checklist' ? return generateChecklist : return generatefreeForm 
+
 
      const deleteAddNoteForm = function(){
          const deleted = DOM.selectElem('#noteTypeForm');
          deleted.remove();
     }
+
+
     
 
      return {
