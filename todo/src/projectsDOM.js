@@ -45,7 +45,39 @@ export const templateDOMStructs = function (){
 
      const createToDoNote = function(chosenType){
        const input = DOM.selectElem('#temporaryInput').value;
-       //do that generateChecklist thing.
+
+       //This is the form 
+       //const form = DOM.elementInit('form',{'class': 'toDoNoteInput'})//continue
+       //const submit = DOM.elementInit('button',{'type':'submit',
+       //                                          'class':'submitNote'},'Submit Note')
+       //form.onsubmit = delegator;
+        
+
+       
+
+       //before chosen type you have to transfer the submit note
+       // button thing into here. Submit note is the final piece of
+       // the jigsaw, and it shouldn't be in noteType.
+
+
+       //Next, you check for chosen type and if freeform: Put the
+       //submit note button as part of a form and once that event goes
+       // temporary input is transformed into some text content. 
+
+       //if generateChecklist. then do the same as above...
+        
+       //at the end reenable the addtodo button
+
+
+       //const project = DOM.selectElem('#noteTypeForm').parentElement;
+       //const container = DOM.selectElem(`#container${project.dataset.id}`);
+       //projectEvents.publish('deleteNoteTypeForm');
+       
+       
+       //const form = DOM.elementInit('form',{'class': 'toDoNoteInput'})//continue
+       //const submit = DOM.elementInit('button',{'type':'submit',
+       //                                          'class':'submitNote'},'Submit Note')
+       //form.onsubmit = delegator; 
 
        //const generateChecklist = function(){
        //const checkbox = DOM.elementInit('input',{'type':'checkbox'});//generate check
@@ -77,7 +109,7 @@ export const templateDOMStructs = function (){
 
    // };
 
-        
+    //continue getSelected === 'Checklist' ? return generateChecklist : return generatefreeForm    
 
      }
 
@@ -137,12 +169,13 @@ export const templateDOMStructs = function (){
         //projectEvents.publish('createNoteThing', getSelected)
         //disableaddtodo() subscirbed to deleteNotetypeform event,
         //in index.js probably.  
+        //return DOM.initElem #temporary input 
 
         //remember createnote thing will apply to the backend as well,
         // so when you pass in that argument, that's when the 'type'
         // of the note will be stored in there. 
         
-        
+
         const project = DOM.selectElem('#noteTypeForm').parentElement;
         const container = DOM.selectElem(`#container${project.dataset.id}`);
         projectEvents.publish('deleteNoteTypeForm');
@@ -154,10 +187,7 @@ export const templateDOMStructs = function (){
         form.onsubmit = delegator; 
 
 
-        const disableAddToDoBtn = function(){
-           const selectButton =  DOM.selectElem(`#add${project.dataset.id}`);
-           return selectButton.classList.toggle('none',true);
-        }
+
 
         const generateChecklist = function(){
             const checkbox = DOM.elementInit('input',{'type':'checkbox'});//generate check
@@ -189,26 +219,22 @@ export const templateDOMStructs = function (){
 
         };
           
-        disableAddToDoBtn()
         
         return getSelected === 'Checklist' ? generateChecklist() : generatefreeForm() 
 
      }
 
 
-     
-    
 
-
-    //continue getSelected === 'Checklist' ? return generateChecklist : return generatefreeForm 
-
-
-     const deleteAddNoteForm = function(){
+    const deleteAddNoteForm = function(){
          const deleted = DOM.selectElem('#noteTypeForm');
          deleted.remove();
     }
 
-
+    const disableAddToDoBtn = function(){
+        const selectButton =  DOM.selectElem(`#add${project.dataset.id}`);
+        return selectButton.classList.toggle('none',true);
+     }
     
 
      return {
@@ -218,6 +244,7 @@ export const templateDOMStructs = function (){
          toggleProjectSize,
          chooseNoteType,
          noteTypeGenerator,
-         deleteAddNoteForm
+         deleteAddNoteForm,
+         disableAddToDoBtn,
      }
 }
