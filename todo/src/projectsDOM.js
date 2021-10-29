@@ -45,6 +45,8 @@ export const templateDOMStructs = function (){
 
      const createToDoNote = function(chosenType){
        const input = DOM.selectElem('#temporaryInput').value;
+       
+
 
        //This is the form 
        //const form = DOM.elementInit('form',{'class': 'toDoNoteInput'})//continue
@@ -163,65 +165,25 @@ export const templateDOMStructs = function (){
              const select =  DOM.selectElem('#select');
              return select.options[select.selectedIndex].value;
         })()
+        
+        const generateTemporaryInput = (function(){
+            const project = DOM.selectElem('#noteTypeForm').parentElement;
+            const temporaryInput = DOM.elementInit('input',{'type':'text',
+                                                            'id':'temporaryInput'}); 
+            project.appendChild(temporaryInput);      
+        })()
+        
+        projectEvents.publish('deleteNoteTypeForm');
 
-        //What this will do: 
-        //projectEvents.publish('deleteNoteTypeForm');
-        //projectEvents.publish('createNoteThing', getSelected)
-        //disableaddtodo() subscirbed to deleteNotetypeform event,
-        //in index.js probably.  
-        //return DOM.initElem #temporary input 
+
+        //projectEvents.publish('createNote', getSelected)
 
         //remember createnote thing will apply to the backend as well,
         // so when you pass in that argument, that's when the 'type'
         // of the note will be stored in there. 
         
-
-        const project = DOM.selectElem('#noteTypeForm').parentElement;
-        const container = DOM.selectElem(`#container${project.dataset.id}`);
-        projectEvents.publish('deleteNoteTypeForm');
         
-        
-        const form = DOM.elementInit('form',{'class': 'toDoNoteInput'})//continue
-        const submit = DOM.elementInit('button',{'type':'submit',
-                                                  'class':'submitNote'},'Submit Note')
-        form.onsubmit = delegator; 
-
-
-
-
-        const generateChecklist = function(){
-            const checkbox = DOM.elementInit('input',{'type':'checkbox'});//generate check
-            const label = DOM.elementInit('input',{'type':'text',
-                                                   'class': 'label'});
-            const add = DOM.elementInit('button', {'class': 'addCheck'},'Add item');
-            add.onclick = delegator;
-            form.appendChild(add);
-            form.appendChild(checkbox);
-            form.appendChild(label);
-            form.appendChild(submit);
-
-            
-            container.classList.toggle('none', false);
-            
-            container.appendChild(form);
-            
-        };
-
-        const generatefreeForm = function(){
-            const freeForm = DOM.elementInit('input',{'type':'text'});
-            form.appendChild(freeForm);
-            form.appendChild(submit);
-            
-            
-            container.classList.toggle('none', false);
-                        
-            container.appendChild(form);
-
-        };
-          
-        
-        return getSelected === 'Checklist' ? generateChecklist() : generatefreeForm() 
-
+        return getSelected
      }
 
 
@@ -232,7 +194,10 @@ export const templateDOMStructs = function (){
     }
 
     const disableAddToDoBtn = function(){
-        const selectButton =  DOM.selectElem(`#add${project.dataset.id}`);
+        const  project = DOM.selectElem('#temporaryInput').parentElement;
+
+        const selectButton = DOM.selectElem(`#add${project.dataset.id}`);
+        
         return selectButton.classList.toggle('none',true);
      }
     
