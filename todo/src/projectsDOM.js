@@ -44,22 +44,32 @@ export const templateDOMStructs = function (){
      }
 
      const createToDoNote = function(chosenType){
-       const input = DOM.selectElem('#temporaryInput').value;
+       const input = DOM.selectElem('#temporaryInput');
+
+       const project = DOM.selectElem('#temporaryInput').parentElement;
+       const container = DOM.selectElem(`#container${project.dataset.id}`);
        
-
-
-       //This is the form 
-       //const form = DOM.elementInit('form',{'class': 'toDoNoteInput'})//continue
-       //const submit = DOM.elementInit('button',{'type':'submit',
-       //                                          'class':'submitNote'},'Submit Note')
-       //form.onsubmit = delegator;
+       const form = DOM.elementInit('form',{'class': 'toDoNoteInput'})//continue
+       const submit = DOM.elementInit('button',{'type':'submit',
+                                                 'class':'submitNote'},'Submit Note')
+       
+       form.appendChild(input);
+       form.appendChild(submit);
+       form.onsubmit = delegator; //(event here: submits note, removes temp, reenables add)   
         
+       container.classList.toggle('none', false);
+       submit.classList.toggle('none', true);
+        
+       container.appendChild(form);
+
+       const checkContent = function(){
+           input.value === '' ? submit.classList.toggle('none',true) : submit.classList.toggle('none',false)
+       }
+
+       input.oninput = checkContent;
+
 
        
-
-       //before chosen type you have to transfer the submit note
-       // button thing into here. Submit note is the final piece of
-       // the jigsaw, and it shouldn't be in noteType.
 
 
        //Next, you check for chosen type and if freeform: Put the
@@ -71,9 +81,7 @@ export const templateDOMStructs = function (){
        //at the end reenable the addtodo button
 
 
-       //const project = DOM.selectElem('#noteTypeForm').parentElement;
-       //const container = DOM.selectElem(`#container${project.dataset.id}`);
-       //projectEvents.publish('deleteNoteTypeForm');
+       
        
        
        //const form = DOM.elementInit('form',{'class': 'toDoNoteInput'})//continue
@@ -174,6 +182,7 @@ export const templateDOMStructs = function (){
         })()
         
         projectEvents.publish('deleteNoteTypeForm');
+        projectEvents.publish('createNote', getSelected);
 
 
         //projectEvents.publish('createNote', getSelected)
