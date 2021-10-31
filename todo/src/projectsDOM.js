@@ -91,7 +91,6 @@ export const templateDOMStructs = function (){
           
            const submitCheck = function(event){
                event.preventDefault();
-               console.log(add.textContent);
                if (add.textContent === 'Submit Item'){
                 generateCheckItem()
            }
@@ -198,6 +197,7 @@ export const templateDOMStructs = function (){
         const generateTemporaryInput = (function(){
             const project = DOM.selectElem('#noteTypeForm').parentElement;
             const temporaryInput = DOM.elementInit('input',{'type':'text',
+                                                            'autocomplete':'off',
                                                             'id':'temporaryInput'}); 
             project.appendChild(temporaryInput);      
         })()
@@ -223,12 +223,15 @@ export const templateDOMStructs = function (){
          deleted.remove();
     }
 
-    const disableAddToDoBtn = function(){
+    const disableBtns = function(){
         const  project = DOM.selectElem('#temporaryInput').parentElement;
 
-        const selectButton = DOM.selectElem(`#add${project.dataset.id}`);
-        
-        return selectButton.classList.toggle('none',true);
+        const addtoDoButton = DOM.selectElem(`#add${project.dataset.id}`);
+        const newProjectButton = DOM.selectElem('#submit');
+
+        addtoDoButton.disabled = true;
+        newProjectButton.disabled = true;
+        return 
      }
     
 
@@ -240,6 +243,6 @@ export const templateDOMStructs = function (){
          chooseNoteType,
          noteTypeGenerator,
          deleteAddNoteForm,
-         disableAddToDoBtn,
+         disableBtns,
      }
 }
