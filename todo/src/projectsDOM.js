@@ -83,30 +83,39 @@ export const templateDOMStructs = function (){
        const generateChecklist = function(){ 
            const add = DOM.elementInit('button', {'class':'addCheck'}, 'Submit Item');
            
-        const convertCheckButton = function(){
-             return  input.value === '' ? add.textContent = 'Add Item' : add.textContent = 'Submit Item';  
-        }
+           const convertCheckButton = function(){
+               return  input.value === '' ? add.textContent = 'Add Item' : add.textContent = 'Submit Item';  
+            }
 
-        input.addEventListener('input',convertCheckButton) ;
-          
-        const submitCheck = function(event){
-            event.preventDefault();
-            if (add.textContent === 'Submit Item'){
-            generateCheckItem();
-            input.classList.toggle('none', true);
-            add.textContent = 'Add Item';
-        }
-            else {
-            input.classList.toggle('none',false);
-            add.textContent = 'Submit Item'
-        }
-            return
-        }
-           add.onclick =  submitCheck; //shift to delegator  
-           form.appendChild(add)
+           input.addEventListener('input',convertCheckButton) ;//shift to delegator, this will be trickier.
+                                                               // (because the event handler is not applicable if type
+           const submitCheck = function(event){                // is freeform, so either remove/add it each time, or set 
+               event.preventDefault();                         // put a conditional statement in there to preempt errors)
+               if (add.textContent === 'Submit Item'){
+               generateCheckItem();
+               input.classList.toggle('none', true);
+               add.textContent = 'Add Item';
+            }
+               else {
+               input.classList.toggle('none',false);
+               add.textContent = 'Submit Item'
+            }
+              return {
+                  convertCheckButton,
+                  submitCheck,
+              }
+            }
+
+            add.onclick =  submitCheck; //shift to delegator  
+            form.appendChild(add)
        }
 
-       return chosenType === 'Checklist' ? generateChecklist() : generateChecklist;  
+       chosenType === 'Checklist' ? generateChecklist() : generateChecklist;  
+
+       return {
+           checkContent, //include the rest re: stuff you need to use delegator for. 
+           generateChecklist //you need to refer the factory methods inside of this....-__-
+       }
 
      }
 
