@@ -11,6 +11,7 @@ const revealToDo = (function(){
     const DOM = DOMGeneral();
     const structs = templateDOMStructs();
     const main = projects.mainInterface();
+    
 
     //Module methods to be used
     const newProj = main.newProj;
@@ -23,6 +24,8 @@ const revealToDo = (function(){
     const deleteAddNoteForm = structs.deleteAddNoteForm;
     const disableBtns = structs.disableBtns;
     const createToDoNote = structs.createToDoNote;
+    const enableBtns = structs.enableBtns;
+    const removeTempInput = structs.removeTempInput;
     const delegator = projectEvents.delegator;
 
     
@@ -39,8 +42,9 @@ const revealToDo = (function(){
     projectEvents.subscribe('deleteNoteTypeForm', disableBtns);
     projectEvents.subscribe('deleteNoteTypeForm', deleteAddNoteForm);
     //projectEvents.subscribe('createNote', functionRe:BackendUpdate  with user submission & including type chosen && whether items are checked or not (if checkbox), remember localStorage update as well.)
-    projectEvents.subscribe('createNote', createToDoNote)
-    
+    projectEvents.subscribe('createNote', createToDoNote);
+    projectEvents.subscribe('submitNote', enableBtns);
+    projectEvents.subscribe('submitNote', removeTempInput);
 
     //Initial elements
     const mainContainer = (function(){

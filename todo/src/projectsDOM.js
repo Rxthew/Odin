@@ -110,11 +110,13 @@ export const templateDOMStructs = function (){
             form.appendChild(add)
        }
 
+
        chosenType === 'Checklist' ? generateChecklist() : generateChecklist;  
 
        return {
            checkContent, //include the rest re: stuff you need to use delegator for. 
-           generateChecklist //you need to refer the factory methods inside of this....-__-
+           generateChecklist, //you need to refer the factory methods inside of this....-__-
+
        }
 
      }
@@ -207,6 +209,28 @@ export const templateDOMStructs = function (){
         newProjectButton.disabled = true;
         return 
      }
+
+    const removeTempInput = function(){
+        const deleted = DOM.selectElem('#temporaryInput');
+        deleted.remove();
+
+        return
+
+    }
+
+    const enableBtns = function(event){
+
+     const project = event.target.parentElement.parentElement.parentElement;
+
+     const addtoDoButton = DOM.selectElem(`#add${project.dataset.id}`);
+     const newProjectButton = DOM.selectElem('#submit');
+
+     addtoDoButton.disabled = false;
+     newProjectButton.disabled = false;
+
+     return
+
+    } 
     
 
      return {
@@ -218,5 +242,7 @@ export const templateDOMStructs = function (){
          noteTypeGenerator,
          deleteAddNoteForm,
          disableBtns,
+         enableBtns,
+         removeTempInput
      }
 }
