@@ -12,7 +12,7 @@ export const templateDOMStructs = function (){
         const viewProjectBtn = DOM.elementInit('button', {'class': 'viewProject'}, 'View Inside');
         const addToDoListBtn = DOM.elementInit('button', {'class': 'addtoDoList',
                                                            'id': `add${DOM.selectElem('.project').length}`}, 'Add To-Do List');
-        
+        //transfer the the todolist buttons here
         return {
             viewProjectBtn,
             addToDoListBtn
@@ -66,7 +66,7 @@ export const templateDOMStructs = function (){
             input.value === '' ? submit.classList.toggle('none',true) : submit.classList.toggle('none',false)
         }
  
-        input.oninput = checkContent;
+        input.oninput = checkContent; //shift to delegator
  
         const generateCheckItem = function(){
             const checkbox = DOM.elementInit('input', {'type':'checkbox'});
@@ -87,22 +87,22 @@ export const templateDOMStructs = function (){
              return  input.value === '' ? add.textContent = 'Add Item' : add.textContent = 'Submit Item';  
         }
 
-           input.addEventListener('input',convertCheckButton) ;
+        input.addEventListener('input',convertCheckButton) ;
           
-           const submitCheck = function(event){
-               event.preventDefault();
-               if (add.textContent === 'Submit Item'){
-                generateCheckItem();
-                input.classList.toggle('none', true);
-                add.textContent = 'Add Item';
-           }
-               else {
-                input.classList.toggle('none',false);
-                add.textContent = 'Submit Item'
-           }
-               return
+        const submitCheck = function(event){
+            event.preventDefault();
+            if (add.textContent === 'Submit Item'){
+            generateCheckItem();
+            input.classList.toggle('none', true);
+            add.textContent = 'Add Item';
         }
-           add.onclick =  submitCheck;   
+            else {
+            input.classList.toggle('none',false);
+            add.textContent = 'Submit Item'
+        }
+            return
+        }
+           add.onclick =  submitCheck; //shift to delegator  
            form.appendChild(add)
        }
 
