@@ -92,7 +92,13 @@ export const templateDOMStructs = function (){
            const submitCheck = function(event){
                event.preventDefault();
                if (add.textContent === 'Submit Item'){
-                generateCheckItem()
+                generateCheckItem();
+                input.classList.toggle('none', true);
+                add.textContent = 'Add Item';
+           }
+               else {
+                input.classList.toggle('none',false);
+                add.textContent = 'Submit Item'
            }
                return
         }
@@ -100,46 +106,7 @@ export const templateDOMStructs = function (){
            form.appendChild(add)
        }
 
-       return chosenType === 'Checklist' ? generateChecklist() : generateChecklist; 
-
-       //const generateChecklist = function(){
-       //const checkbox = DOM.elementInit('input',{'type':'checkbox'});//generate check
-       // const label = DOM.elementInit('input',{'type':'text',
-       //                                        'class': 'label'});
-       // const add = DOM.elementInit('button', {'class': 'addCheck'},'Add item');
-       // add.onclick = delegator;
-       // form.appendChild(add);
-       // form.appendChild(checkbox);
-       // form.appendChild(label);
-       
-
-       
-
-
-       //Next, you check for chosen type and if freeform: Put the
-       //submit note button as part of a form and once that event goes
-       // temporary input is transformed into some text content. 
-
-       //if generateChecklist. then do the same as above...
-        
-       //at the end reenable the addtodo button
-
-        
-    //};
-
-    //const generatefreeForm = function(){
-     //   const freeForm = DOM.elementInit('input',{'type':'text'});
-     //   form.appendChild(freeForm);
-     //   form.appendChild(submit);
-        
-        
-     //   container.classList.toggle('none', false);
-                    
-     //   container.appendChild(form);
-
-   // };
-
-    //continue getSelected === 'Checklist' ? return generateChecklist : return generatefreeForm    
+       return chosenType === 'Checklist' ? generateChecklist() : generateChecklist;  
 
      }
 
@@ -205,8 +172,6 @@ export const templateDOMStructs = function (){
         projectEvents.publish('deleteNoteTypeForm');
         projectEvents.publish('createNote', getSelected);
 
-
-        //projectEvents.publish('createNote', getSelected)
 
         //remember createnote thing will apply to the backend as well,
         // so when you pass in that argument, that's when the 'type'
