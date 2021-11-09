@@ -18,7 +18,7 @@ projectEvents.delegator = function(event){
                                 event.preventDefault();
          break;
          case 'submitNote' : projectEvents.publish('submitNote', event);
-                                event.preventDefault();
+                             event.preventDefault();
          break;  
       //add more. 
 

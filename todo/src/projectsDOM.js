@@ -176,7 +176,8 @@ export const templateDOMStructs = function (){
             const project = DOM.selectElem('#noteTypeForm').parentElement;
             const temporaryInput = DOM.elementInit('input',{'type':'text',
                                                             'autocomplete':'off',
-                                                            'id':'temporaryInput'}); 
+                                                            'id':'temporaryInput',
+                                                           'class': 'temporaryInput'}); 
             project.appendChild(temporaryInput);      
         })()
         
