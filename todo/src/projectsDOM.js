@@ -213,10 +213,11 @@ export const templateDOMStructs = function (){
     const cleanToDoForm = function(){
         let deleted = DOM.selectElem('#temporaryInput');
         deleted.remove();
-        deleted = DOM.selectElem('#addCheck');
-        deleted.remove();
         deleted = DOM.selectElem('#submitNote');
         deleted.remove()
+        deleted = DOM.selectElem('#addCheck');
+
+        deleted ? deleted.remove(): false
 
         return
 
@@ -237,17 +238,25 @@ export const templateDOMStructs = function (){
     }
     
     //const checkContent = function(){
+    //    const input = DOM.selectElem('#temporaryInput');  
+    //    const submit = DOM.selectElem('#submitNote');      
     //    input.value === '' ? submit.classList.toggle('none',true) : submit.classList.toggle('none',false)
     //}
 
 
     //const convertCheckButton = function(){
+    //    const input = DOM.selectElem('#temporaryInput'); 
+    //    const add = DOM.selectElem('#addCheck')
+    //    if(!add){return}       
     //    return  input.value === '' ? add.textContent = 'Add Item' : add.textContent = 'Submit Item';  
      //}
 
 
-     //const submitCheck = function(event){                
-     //   event.preventDefault();                         
+     //const submitCheck = function(event){
+     //   const add = DOM.selectElem('#addCheck')
+     //   const input = DOM.selectElem('#temporaryInput');                     
+     //   event.preventDefault();
+     //    if(!add){return}                         
      //   if (add.textContent === 'Submit Item'){
      //   generateCheckItem();
      //   input.classList.toggle('none', true);
