@@ -63,12 +63,8 @@ export const templateDOMStructs = function (){
         submit.classList.toggle('none', true);
          
         container.appendChild(form);
- 
-        const checkContent = function(){
-            input.value === '' ? submit.classList.toggle('none',true) : submit.classList.toggle('none',false)
-        }
- 
-        input.oninput = checkContent; //shift to delegator
+  
+        input.oninput = delegator; 
  
         const generateCheckItem = function(){
             const checkbox = DOM.elementInit('input', {'type':'checkbox'});
@@ -237,11 +233,11 @@ export const templateDOMStructs = function (){
 
     }
     
-    //const checkContent = function(){
-    //    const input = DOM.selectElem('#temporaryInput');  
-    //    const submit = DOM.selectElem('#submitNote');      
-    //    input.value === '' ? submit.classList.toggle('none',true) : submit.classList.toggle('none',false)
-    //}
+    const checkContent = function(){
+        const input = DOM.selectElem('#temporaryInput');  
+        const submit = DOM.selectElem('#submitNote');      
+        input.value === '' ? submit.classList.toggle('none',true) : submit.classList.toggle('none',false)
+    }
 
 
     //const convertCheckButton = function(){
@@ -296,6 +292,7 @@ export const templateDOMStructs = function (){
          deleteAddNoteForm,
          disableBtns,
          enableBtns,
-         cleanToDoForm
+         cleanToDoForm,
+         checkContent
      }
 }
