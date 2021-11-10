@@ -52,6 +52,7 @@ export const templateDOMStructs = function (){
         const form = DOM.elementInit('form',{'class': 'toDoNoteInput',
                                                  'id': `toDoNoteForm${project.dataset.id}`})//continue
         const submit = DOM.elementInit('button',{'type':'submit',
+                                                   'id': 'submitNote', 
                                                   'class':'submitNote'},'Submit Note')
         
         
@@ -82,7 +83,8 @@ export const templateDOMStructs = function (){
         }
 
        const generateChecklist = function(){ 
-           const add = DOM.elementInit('button', {'class':'addCheck'}, 'Submit Item');
+           const add = DOM.elementInit('button', {'class':'addCheck',
+                                                     'id':'addCheck'}, 'Submit Item');
            
            const convertCheckButton = function(){
                return  input.value === '' ? add.textContent = 'Add Item' : add.textContent = 'Submit Item';  
@@ -208,9 +210,13 @@ export const templateDOMStructs = function (){
         return 
      }
 
-    const removeTempInput = function(){
-        const deleted = DOM.selectElem('#temporaryInput');
+    const cleanToDoForm = function(){
+        let deleted = DOM.selectElem('#temporaryInput');
         deleted.remove();
+        deleted = DOM.selectElem('#addCheck');
+        deleted.remove();
+        deleted = DOM.selectElem('#submitNote');
+        deleted.remove()
 
         return
 
@@ -281,6 +287,6 @@ export const templateDOMStructs = function (){
          deleteAddNoteForm,
          disableBtns,
          enableBtns,
-         removeTempInput
+         cleanToDoForm
      }
 }
