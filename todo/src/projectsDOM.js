@@ -231,7 +231,19 @@ export const templateDOMStructs = function (){
 
      return
 
-    } 
+    }
+    
+    //const checkContent = function(event){
+
+    //}
+
+    //const convertCheckButton = function(event){
+
+    //}
+
+    //const submitCheckButton = function(event){
+
+    //}
     
 
      return {
