@@ -17,6 +17,8 @@ projectEvents.delegator = function(event){
          case 'chooseNoteType': projectEvents.publish('noteToDoType', event);
                                 event.preventDefault();
          break;
+        // case 'temporaryInput': projectEvents.publish('populateTempInput', event);
+        // break;
          case 'submitNote' : projectEvents.publish('submitNote', event);
                              event.preventDefault();
          break;  
