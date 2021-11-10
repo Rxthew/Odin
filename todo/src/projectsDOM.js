@@ -49,7 +49,8 @@ export const templateDOMStructs = function (){
         const project = DOM.selectElem('#temporaryInput').parentElement;
         const container = DOM.selectElem(`#container${project.dataset.id}`);
         
-        const form = DOM.elementInit('form',{'class': 'toDoNoteInput'})//continue
+        const form = DOM.elementInit('form',{'class': 'toDoNoteInput',
+                                                 'id': `toDoNoteForm${project.dataset.id}`})//continue
         const submit = DOM.elementInit('button',{'type':'submit',
                                                   'class':'submitNote'},'Submit Note')
         
@@ -100,10 +101,6 @@ export const templateDOMStructs = function (){
                input.classList.toggle('none',false);
                add.textContent = 'Submit Item'
             }
-              return {
-                  convertCheckButton,
-                  submitCheck,
-              }
             }
 
             add.onclick =  submitCheck; //shift to delegator  
@@ -233,16 +230,44 @@ export const templateDOMStructs = function (){
 
     }
     
-    //const checkContent = function(event){
-
+    //const checkContent = function(){
+    //    input.value === '' ? submit.classList.toggle('none',true) : submit.classList.toggle('none',false)
     //}
 
-    //const convertCheckButton = function(event){
 
-    //}
+    //const convertCheckButton = function(){
+    //    return  input.value === '' ? add.textContent = 'Add Item' : add.textContent = 'Submit Item';  
+     //}
 
-    //const submitCheckButton = function(event){
 
+     //const submitCheck = function(event){                
+     //   event.preventDefault();                         
+     //   if (add.textContent === 'Submit Item'){
+     //   generateCheckItem();
+     //   input.classList.toggle('none', true);
+     //   add.textContent = 'Add Item';
+    // }
+    //    else {
+    //    input.classList.toggle('none',false);
+    //    add.textContent = 'Submit Item'
+    // }
+    // }
+
+    //  const generateCheckItem = function(){
+    //    const input = DOM.selectElem('#temporaryInput');
+    //    const project = DOM.selectElem('#temporaryInput').parentElement;
+   //     const form = DOM.selectElem(`#toDoNoteForm${project.dataset.id}`);
+   //    
+    //    
+    //    const checkbox = DOM.elementInit('input', {'type':'checkbox'});
+    //    const label = DOM.elementInit('label', {'for': `${input.value}`},`${input.value}`);
+    //    const br = DOM.elementInit('br');
+
+    //    input.value = '';
+    //    form.appendChild(checkbox);
+    //    form.appendChild(label);
+    //    form.appendChild(br);
+    //    return
     //}
     
 
