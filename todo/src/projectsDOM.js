@@ -67,6 +67,7 @@ export const templateDOMStructs = function (){
         input.oninput = delegator; 
  
         const generateCheckItem = function(){
+            
             const checkbox = DOM.elementInit('input', {'type':'checkbox'});
             const label = DOM.elementInit('label', {'for': `${input.value}`},`${input.value}`);
             const br = DOM.elementInit('br');
@@ -83,11 +84,14 @@ export const templateDOMStructs = function (){
                                                      'id':'addCheck'}, 'Submit Item');
            
 
-           input.addEventListener('input',delegator) ;//shift to delegator, this will be trickier.
-                                                               // (because the event handler is not applicable if type
-           const submitCheck = function(event){                // is freeform, so either remove/add it each time, or set 
-               event.preventDefault();                         // put a conditional statement in there to preempt errors)
-               if (add.textContent === 'Submit Item'){
+           input.addEventListener('input',delegator) ;
+                                                               
+           const submitCheck = function(event){                
+               event.preventDefault(); 
+              if (input.value === '' && add.textContent === 'Submit Item'){
+                  return
+              }                         
+              else if (add.textContent === 'Submit Item'){
                generateCheckItem();
                input.classList.toggle('none', true);
                add.textContent = 'Add Item';
@@ -245,7 +249,7 @@ export const templateDOMStructs = function (){
      //   const add = DOM.selectElem('#addCheck')
      //   const input = DOM.selectElem('#temporaryInput');                     
      //   event.preventDefault();
-     //    if(!add){return}                         
+     //   if(!add){return};                         
      //   if (add.textContent === 'Submit Item'){
      //   generateCheckItem();
      //   input.classList.toggle('none', true);
@@ -262,7 +266,6 @@ export const templateDOMStructs = function (){
     //    const project = DOM.selectElem('#temporaryInput').parentElement;
    //     const form = DOM.selectElem(`#toDoNoteForm${project.dataset.id}`);
    //    
-    //    
     //    const checkbox = DOM.elementInit('input', {'type':'checkbox'});
     //    const label = DOM.elementInit('label', {'for': `${input.value}`},`${input.value}`);
     //    const br = DOM.elementInit('br');
