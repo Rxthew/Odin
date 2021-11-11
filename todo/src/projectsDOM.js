@@ -60,7 +60,7 @@ export const templateDOMStructs = function (){
         form.onsubmit = delegator; //(event here: submits note, removes temp, reenables add)   
          
         container.classList.toggle('none', false);
-        submit.classList.toggle('none', true);
+        
          
         container.appendChild(form);
   
@@ -236,7 +236,7 @@ export const templateDOMStructs = function (){
     const checkContent = function(){
         const input = DOM.selectElem('#temporaryInput');  
         const submit = DOM.selectElem('#submitNote');      
-        input.value === '' ? submit.classList.toggle('none',true) : submit.classList.toggle('none',false)
+        input.value === '' ? submit.disabled = true : submit.disabled = false
     }
 
 
