@@ -82,11 +82,8 @@ export const templateDOMStructs = function (){
            const add = DOM.elementInit('button', {'class':'addCheck',
                                                      'id':'addCheck'}, 'Submit Item');
            
-           const convertCheckButton = function(){
-               return  input.value === '' ? add.textContent = 'Add Item' : add.textContent = 'Submit Item';  
-            }
 
-           input.addEventListener('input',convertCheckButton) ;//shift to delegator, this will be trickier.
+           input.addEventListener('input',delegator) ;//shift to delegator, this will be trickier.
                                                                // (because the event handler is not applicable if type
            const submitCheck = function(event){                // is freeform, so either remove/add it each time, or set 
                event.preventDefault();                         // put a conditional statement in there to preempt errors)
@@ -108,11 +105,7 @@ export const templateDOMStructs = function (){
 
        chosenType === 'Checklist' ? generateChecklist() : generateChecklist;  
 
-       return {
-           checkContent, //include the rest re: stuff you need to use delegator for. 
-           generateChecklist, //you need to refer the factory methods inside of this....-__-
-
-       }
+       return 
 
      }
 
@@ -240,12 +233,12 @@ export const templateDOMStructs = function (){
     }
 
 
-    //const convertCheckButton = function(){
-    //    const input = DOM.selectElem('#temporaryInput'); 
-    //    const add = DOM.selectElem('#addCheck')
-    //    if(!add){return}       
-    //    return  input.value === '' ? add.textContent = 'Add Item' : add.textContent = 'Submit Item';  
-     //}
+    const convertCheckButton = function(){
+        const input = DOM.selectElem('#temporaryInput'); 
+        const add = DOM.selectElem('#addCheck')
+        if(!add){return}       
+        return  input.value === '' ? add.textContent = 'Add Item' : add.textContent = 'Submit Item';  
+     }
 
 
      //const submitCheck = function(event){
@@ -293,6 +286,7 @@ export const templateDOMStructs = function (){
          disableBtns,
          enableBtns,
          cleanToDoForm,
-         checkContent
+         checkContent,
+         convertCheckButton
      }
 }
