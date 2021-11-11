@@ -53,7 +53,8 @@ export const templateDOMStructs = function (){
                                                  'id': `toDoNoteForm${project.dataset.id}`})//continue
         const submit = DOM.elementInit('button',{'type':'submit',
                                                    'id': 'submitNote', 
-                                                  'class':'submitNote'},'Submit Note')
+                                                  'class':'submitNote none',
+                                                   },'Submit Note')
         
         
         form.appendChild(submit);
@@ -81,18 +82,20 @@ export const templateDOMStructs = function (){
 
        const generateChecklist = function(){ 
            const add = DOM.elementInit('button', {'class':'addCheck',
-                                                     'id':'addCheck'}, 'Submit Item');
+                                                     'id':'addCheck',
+                                                     }, 'Add Item');
            
-
-           input.addEventListener('input',delegator) ;
                                                                
            const submitCheck = function(event){                
                event.preventDefault(); 
               if (input.value === '' && add.textContent === 'Submit Item'){
+                  add.textContent = 'Add Item';
+                  input.classList.toggle('none',true)
                   return
               }                         
               else if (add.textContent === 'Submit Item'){
                generateCheckItem();
+               submit.classList.toggle('none',false);
                input.classList.toggle('none', true);
                add.textContent = 'Add Item';
             }
@@ -168,8 +171,9 @@ export const templateDOMStructs = function (){
             const project = DOM.selectElem('#noteTypeForm').parentElement;
             const temporaryInput = DOM.elementInit('input',{'type':'text',
                                                             'autocomplete':'off',
+                                                            'required':'required',
                                                             'id':'temporaryInput',
-                                                           'class': 'temporaryInput'}); 
+                                                           'class': 'temporaryInput none'}); 
             project.appendChild(temporaryInput);      
         })()
         
@@ -206,10 +210,11 @@ export const templateDOMStructs = function (){
     const cleanToDoForm = function(){
         let deleted = DOM.selectElem('#temporaryInput');
         deleted.remove();
+
         deleted = DOM.selectElem('#submitNote');
         deleted.remove()
-        deleted = DOM.selectElem('#addCheck');
 
+        deleted = DOM.selectElem('#addCheck');
         deleted ? deleted.remove(): false
 
         return
@@ -231,18 +236,18 @@ export const templateDOMStructs = function (){
     }
     
     const checkContent = function(){
-        const input = DOM.selectElem('#temporaryInput');  
-        const submit = DOM.selectElem('#submitNote');      
-        input.value === '' ? submit.disabled = true : submit.disabled = false
+        const input = DOM.selectElem('#temporaryInput');
+        const add = DOM.selectElem('#addCheck');  
+        
+        if (input.value === ''){
+            add.disabled = true; 
+        }
+        else {
+            add.disabled = false
+        }
+        
+        return 
     }
-
-
-    const convertCheckButton = function(){
-        const input = DOM.selectElem('#temporaryInput'); 
-        const add = DOM.selectElem('#addCheck')
-        if(!add){return}       
-        return  input.value === '' ? add.textContent = 'Add Item' : add.textContent = 'Submit Item';  
-     }
 
 
      //const submitCheck = function(event){
@@ -290,6 +295,5 @@ export const templateDOMStructs = function (){
          enableBtns,
          cleanToDoForm,
          checkContent,
-         convertCheckButton
      }
 }
