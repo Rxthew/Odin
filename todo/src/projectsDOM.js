@@ -66,46 +66,11 @@ export const templateDOMStructs = function (){
         container.appendChild(form);
   
         input.oninput = delegator; 
- 
-        const generateCheckItem = function(){
-            
-            const checkbox = DOM.elementInit('input', {'type':'checkbox'});
-            const label = DOM.elementInit('label', {'for': `${input.value}`},`${input.value}`);
-            const br = DOM.elementInit('br');
- 
-            input.value = '';
-            form.appendChild(checkbox);
-            form.appendChild(label);
-            form.appendChild(br);
-            return
-        }
 
        const generateChecklist = function(){ 
            const add = DOM.elementInit('button', {'class':'addCheck',
                                                      'id':'addCheck',
-                                                     }, 'Add Item');
-           
-                                                               
-           const submitCheck = function(event){                
-               event.preventDefault(); 
-              if (input.value === '' && add.textContent === 'Submit Item'){
-                  add.textContent = 'Add Item';
-                  input.classList.toggle('none',true)
-                  return
-              }                         
-              else if (add.textContent === 'Submit Item'){
-               generateCheckItem();
-               submit.classList.toggle('none',false);
-               input.classList.toggle('none', true);
-               add.textContent = 'Add Item';
-            }
-               else {
-               input.classList.toggle('none',false);
-               add.textContent = 'Submit Item'
-            }
-            }
-
-            add.onclick =  submitCheck; //shift to delegator  
+                                                     }, 'Add Item');                                                                      
             form.appendChild(add)
        }
 
@@ -250,37 +215,45 @@ export const templateDOMStructs = function (){
     }
 
 
-     //const submitCheck = function(event){
-     //   const add = DOM.selectElem('#addCheck')
-     //   const input = DOM.selectElem('#temporaryInput');                     
-     //   event.preventDefault();
-     //   if(!add){return};                         
-     //   if (add.textContent === 'Submit Item'){
-     //   generateCheckItem();
-     //   input.classList.toggle('none', true);
-     //   add.textContent = 'Add Item';
-    // }
-    //    else {
-    //    input.classList.toggle('none',false);
-    //    add.textContent = 'Submit Item'
-    // }
-    // }
+     const submitCheck = function(event){
+        event.preventDefault();
+        const add = DOM.selectElem('#addCheck');
+        const input = DOM.selectElem('#temporaryInput');                     
+        const submit = DOM.selectElem('#submitNote');
 
-    //  const generateCheckItem = function(){
-    //    const input = DOM.selectElem('#temporaryInput');
-    //    const project = DOM.selectElem('#temporaryInput').parentElement;
-   //     const form = DOM.selectElem(`#toDoNoteForm${project.dataset.id}`);
-   //    
-    //    const checkbox = DOM.elementInit('input', {'type':'checkbox'});
-    //    const label = DOM.elementInit('label', {'for': `${input.value}`},`${input.value}`);
-    //    const br = DOM.elementInit('br');
+        if (input.value === '' && add.textContent === 'Submit Item'){
+            add.textContent = 'Add Item';
+            input.classList.toggle('none',true)
+            return
+        }
 
-    //    input.value = '';
-    //    form.appendChild(checkbox);
-    //    form.appendChild(label);
-    //    form.appendChild(br);
-    //    return
-    //}
+        else if (add.textContent === 'Submit Item'){
+            _generateCheckItem();
+            submit.classList.toggle('none',false);
+            input.classList.toggle('none', true);
+            add.textContent = 'Add Item';
+        }
+        else {
+            input.classList.toggle('none',false);
+            add.textContent = 'Submit Item'
+            }                         
+        }
+    
+      const _generateCheckItem = function(){
+        const input = DOM.selectElem('#temporaryInput');
+        const project = DOM.selectElem('#temporaryInput').parentElement;
+        const form = DOM.selectElem(`#toDoNoteForm${project.dataset.id}`);
+       
+        const checkbox = DOM.elementInit('input', {'type':'checkbox'});
+        const label = DOM.elementInit('label', {'for': `${input.value}`},`${input.value}`);
+        const br = DOM.elementInit('br');
+
+        input.value = '';
+        form.appendChild(checkbox);
+        form.appendChild(label);
+        form.appendChild(br);
+        return
+    }
     
 
      return {
@@ -295,5 +268,6 @@ export const templateDOMStructs = function (){
          enableBtns,
          cleanToDoForm,
          checkContent,
+         submitCheck,
      }
 }

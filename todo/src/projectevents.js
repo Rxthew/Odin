@@ -19,6 +19,8 @@ projectEvents.delegator = function(event){
          break;
          case 'temporaryInput': projectEvents.publish('populateTempInput', event);
          break;
+         case 'addCheck': projectEvents.publish('newCheckItem', event);
+         break;
          case 'submitNote' : projectEvents.publish('submitNote', event);
                              event.preventDefault();
          break;  
