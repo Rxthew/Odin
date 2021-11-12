@@ -29,6 +29,7 @@ const revealToDo = (function(){
     const checkContent = structs.checkContent;
     const cancelNote = structs.cancelNote;
     const submitCheck = structs.submitCheck;
+    const submitTextItem = structs.submitTextItem;
     const delegator = projectEvents.delegator;
 
     
@@ -51,6 +52,7 @@ const revealToDo = (function(){
     projectEvents.subscribe('createNote', createToDoNote);
     projectEvents.subscribe('submitNote', enableBtns);
     projectEvents.subscribe('submitNote', cleanToDoForm);
+    projectEvents.subscribe('submitNote', submitTextItem);
 
 
     //Initial elements

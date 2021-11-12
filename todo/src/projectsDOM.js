@@ -303,10 +303,14 @@ export const templateDOMStructs = function (){
     }
 
     const submitTextItem = function(){
+    
     const input = DOM.selectElem('#temporaryInput');
     const form = DOM.selectElem('#submitNote').parentElement;
+
+    if (form.classList.contains('checkbox')){
+        return
+    }
     
-   
     const text = DOM.elementInit('p', {'class':'text'}, `${input.value}`);
     form.appendChild(text);
     return
@@ -327,5 +331,6 @@ export const templateDOMStructs = function (){
          checkContent,
          cancelNote,
          submitCheck,
+         submitTextItem
      }
 }
