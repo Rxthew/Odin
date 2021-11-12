@@ -47,11 +47,10 @@ export const templateDOMStructs = function (){
                                                    },'Submit Note')
         const remove = DOM.elementInit('button', {'class':'remove none',
                                                    'id':`remove${project.dataset.id}${formReference.length}`}, 'X');
-        const modify = DOM.elementInit('button', {'class': 'modify none',
-                                                     'id':`modify${project.dataset.id}${formReference.length}`},'Edit')
+        
         form.appendChild(submit);
         form.appendChild(remove);
-        form.appendChild(modify);
+        
 
         input.oninput = delegator;
         form.onsubmit = delegator;   
@@ -87,8 +86,17 @@ export const templateDOMStructs = function (){
 
      }
 
-     const modifyToDoNote = function(){
-
+     const modifyToDoNote = function(event){
+         event.preventDefault();
+         const form = event.target.parentElement;
+         
+         if(form.classList.contains('checkbox')) {
+            return//revisit later.
+         }
+         else{
+           //use className as basis for modification.  
+         }
+           
 
      }
 
@@ -204,7 +212,7 @@ export const templateDOMStructs = function (){
 
      const project = event.target.parentElement.parentElement.parentElement;
      const form = DOM.selectElem('#submitNote').parentElement;
-     const modify = DOM.selectElem(`#modify${project.dataset.id}${form.dataset.id}`)
+     //const remove = DOM.selectElem(`#remove${project.dataset.id}${form.dataset.id}`)
 
      const addtoDoButton = DOM.selectElem(`#add${project.dataset.id}`);
      const newProjectButton = DOM.selectElem('#submit');
@@ -212,7 +220,7 @@ export const templateDOMStructs = function (){
      addtoDoButton.disabled = false;
      newProjectButton.disabled = false;
 
-     modify.classList.toggle('none',false);
+     
 
      return
 
