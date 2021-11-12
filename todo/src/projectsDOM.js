@@ -78,13 +78,6 @@ export const templateDOMStructs = function (){
        }
 
        const _generateFreeForm = function(){
-        const input = DOM.selectElem('#temporaryInput');
-        const project = DOM.selectElem('#temporaryInput').parentElement;
-        const form = DOM.selectElem(`#toDoNoteForm${project.dataset.id}`);
-        
-       
-        const text = DOM.elementInit('p', {'class':'text'}, `${input.value}`);
-
 
         input.value = '';
         form.classList.add('freeForm')
@@ -224,20 +217,29 @@ export const templateDOMStructs = function (){
     }
     
     const checkContent = function(){
+
         const input = DOM.selectElem('#temporaryInput');
+        const project = input.parentElement;
+        const form = DOM.selectElem(`#toDoNoteForm${project.dataset.id}`);
         const add = DOM.selectElem('#addCheck');
         const cancel = DOM.selectElem('#cancel')  
+
+        if (form.classList.contains('checkbox')){     
+             if (input.value === ''){
+                 add.disabled = true;
+                 cancel.classList.toggle('none',false); 
+            }
+            else {
+                 add.disabled = false
+                 cancel.classList.toggle('none', true);
+            }
         
-        if (input.value === ''){
-            add.disabled = true;
-            cancel.classList.toggle('none',false); 
+            return
         }
+        
         else {
-            add.disabled = false
-            cancel.classList.toggle('none', true);
+
         }
-        
-        return 
     }
 
     const cancelNote = function(event){
@@ -295,7 +297,18 @@ export const templateDOMStructs = function (){
         form.appendChild(br);
         return
     }
+
+    const _generateTextItem = function(){
+    const input = DOM.selectElem('#temporaryInput');
+    const project = DOM.selectElem('#temporaryInput').parentElement;
+    const form = DOM.selectElem(`#toDoNoteForm${project.dataset.id}`);
     
+   
+    const text = DOM.elementInit('p', {'class':'text'}, `${input.value}`);
+    form.appendChild(text);
+    return
+    
+    }
 
      return {
          createProject,
