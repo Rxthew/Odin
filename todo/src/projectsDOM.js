@@ -197,7 +197,7 @@ export const templateDOMStructs = function (){
         deleted ? deleted.remove(): false
 
         deleted = DOM.selectElem('#cancel');
-        deleted.remove()
+        deleted ? deleted.remove(): false
 
         return
 
@@ -220,9 +220,11 @@ export const templateDOMStructs = function (){
     const checkContent = function(){
 
         const input = DOM.selectElem('#temporaryInput');
-        const form = DOM.selectElem('#submitNote').parentElement;
+        const submit = DOM.selectElem('#submitNote');
+        const form = submit.parentElement;
         const add = DOM.selectElem('#addCheck');
-        const cancel = DOM.selectElem('#cancel')  
+        const cancel = DOM.selectElem('#cancel');
+          
 
         if (form.classList.contains('checkbox')){     
              if (input.value === ''){

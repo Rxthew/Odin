@@ -50,9 +50,10 @@ const revealToDo = (function(){
     projectEvents.subscribe('newCheckItem', submitCheck);
     //projectEvents.subscribe('createNote', functionRe:BackendUpdate  with user submission & including type chosen && whether items are checked or not (if checkbox), remember localStorage update as well.)
     projectEvents.subscribe('createNote', createToDoNote);
+    projectEvents.subscribe('submitNote', submitTextItem);
     projectEvents.subscribe('submitNote', enableBtns);
     projectEvents.subscribe('submitNote', cleanToDoForm);
-    projectEvents.subscribe('submitNote', submitTextItem);
+    
 
 
     //Initial elements
