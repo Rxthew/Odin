@@ -46,10 +46,11 @@ export const templateDOMStructs = function (){
      const createToDoNote = function(chosenType){
         const input = DOM.selectElem('#temporaryInput') 
         const project = input.parentElement;
+        const formReference = DOM.selectElem('.toDoNoteInput')
         const container = DOM.selectElem(`#container${project.dataset.id}`);
         
         const form = DOM.elementInit('form',{'class': 'toDoNoteInput',
-                                                 'id': `toDoNoteForm${project.dataset.id}`})//continue
+                                                 'id': `toDoNoteForm${project.dataset.id}${formReference.length}`})//continue
         const submit = DOM.elementInit('button',{'type':'submit',
                                                    'id': 'submitNote', 
                                                   'class':'submitNote none',
@@ -68,9 +69,6 @@ export const templateDOMStructs = function (){
          
         container.appendChild(form);
 
-
-           
-
         const _generateChecklist = function(){ 
            const add = DOM.elementInit('button', {'class':'addCheck',
                                                      'id':'addCheck',
@@ -82,10 +80,8 @@ export const templateDOMStructs = function (){
        const _generateFreeForm = function(){
 
         input.value = '';
-        form.classList.add('freeForm')
-        form.appendChild(text);
         input.classList.toggle('none',false);
-
+        form.classList.add('freeForm')
         
        }
 
@@ -198,7 +194,7 @@ export const templateDOMStructs = function (){
         deleted ? deleted.remove(): false
 
         deleted = DOM.selectElem('#cancel');
-        deleted ? deleted.remove(): false;
+        deleted.remove()
 
         return
 
@@ -235,13 +231,14 @@ export const templateDOMStructs = function (){
                  add.disabled = false
                  cancel.classList.toggle('none', true);
             }
-        
+
             return
         }
         
-        else {
-
-
+        else { 
+              submit.classList.toggle('none',false);
+              input.value === '' ? cancel.classList.toggle('none',false) : cancel.classList.toggle('none',true);
+            
 
         }
     }
@@ -251,12 +248,18 @@ export const templateDOMStructs = function (){
         const add = DOM.selectElem('#addCheck');
         const input = DOM.selectElem('#temporaryInput');
         const cancel = DOM.selectElem('#cancel');
+        const project = input.parentElement;
+        const form = DOM.selectElem(`#toDoNoteForm${project.dataset.id}`);
+        const container = DOM.selectElem(`#container${project.dataset.id}`);
 
         cancel.classList.toggle('none',true);
-        input.classList.toggle('none',true);
         input.value = '';
+        container.classList.toggle('none',true);
+
+        if (form.classList.contains('checkbox')){
         add.textContent = 'Add Item';
         add.disabled = false;
+        };
 
         return        
     }
@@ -302,7 +305,7 @@ export const templateDOMStructs = function (){
         return
     }
 
-    const _generateTextItem = function(){
+    const submitTextItem = function(){
     const input = DOM.selectElem('#temporaryInput');
     const project = DOM.selectElem('#temporaryInput').parentElement;
     const form = DOM.selectElem(`#toDoNoteForm${project.dataset.id}`);
