@@ -55,11 +55,10 @@ export const templateDOMStructs = function (){
                                                    'id': 'submitNote', 
                                                   'class':'submitNote none',
                                                    },'Submit Note')
-        const cancel = DOM.elementInit('button', {'class':'cancel none',
-                                                   'id':'cancel'}, 'Cancel Note');
-        
+        const remove = DOM.elementInit('button', {'class':'remove none',
+                                                   'id':'remove'}, 'X');
         form.appendChild(submit);
-        form.appendChild(cancel);
+        form.appendChild(remove);
 
         input.oninput = delegator;
         form.onsubmit = delegator;   
@@ -72,8 +71,12 @@ export const templateDOMStructs = function (){
         const _generateChecklist = function(){ 
            const add = DOM.elementInit('button', {'class':'addCheck',
                                                      'id':'addCheck',
-                                                     }, 'Add Item');                                                                   
+                                                     }, 'Add Item');
+            const cancel = DOM.elementInit('button', {'class':'cancel none',
+                                                     'id':'cancel'}, 'Cancel Note');                                                                   
             form.appendChild(add);
+            form.appendChild(cancel);
+
             form.classList.add('checkbox')
        }
 
@@ -236,9 +239,7 @@ export const templateDOMStructs = function (){
         
         else { 
               submit.classList.toggle('none',false);
-              input.value === '' ? cancel.classList.toggle('none',false) : cancel.classList.toggle('none',true);
-            
-
+              
         }
     }
 
@@ -248,18 +249,16 @@ export const templateDOMStructs = function (){
         const input = DOM.selectElem('#temporaryInput');
         const cancel = DOM.selectElem('#cancel');
         const project = input.parentElement;
-        const form = DOM.selectElem('#submitNote').parentElement;
         const container = DOM.selectElem(`#container${project.dataset.id}`);
 
         cancel.classList.toggle('none',true);
         input.value = '';
         container.classList.toggle('none',true);
-
-        if (form.classList.contains('checkbox')){
+        input.classList.toggle('none',true);
+        
         add.textContent = 'Add Item';
         add.disabled = false;
-        };
-
+        
         return        
     }
 
