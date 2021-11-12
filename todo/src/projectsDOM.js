@@ -30,6 +30,7 @@ export const templateDOMStructs = function (){
         return proj
 
      }
+     
 
      const createToDoNote = function(chosenType){
         const input = DOM.selectElem('#temporaryInput') 
@@ -38,15 +39,19 @@ export const templateDOMStructs = function (){
         const container = DOM.selectElem(`#container${project.dataset.id}`);
         
         const form = DOM.elementInit('form',{'class': 'toDoNoteInput',
-                                                 'id': `toDoNoteForm${project.dataset.id}${formReference.length}`})//continue
+                                                 'id': `toDoNoteForm${project.dataset.id}${formReference.length}`,
+                                                  'data-id':`${formReference.length}` })
         const submit = DOM.elementInit('button',{'type':'submit',
                                                    'id': 'submitNote', 
                                                   'class':'submitNote none',
                                                    },'Submit Note')
         const remove = DOM.elementInit('button', {'class':'remove none',
-                                                   'id':'remove'}, 'X');
+                                                   'id':`remove${project.dataset.id}${formReference.length}`}, 'X');
+        const modify = DOM.elementInit('button', {'class': 'modify none',
+                                                     'id':`modify${project.dataset.id}${formReference.length}`},'Edit')
         form.appendChild(submit);
         form.appendChild(remove);
+        form.appendChild(modify);
 
         input.oninput = delegator;
         form.onsubmit = delegator;   
@@ -76,10 +81,14 @@ export const templateDOMStructs = function (){
         
        }
 
-
        chosenType === 'Checklist' ? _generateChecklist() : _generateFreeForm();  
 
        return 
+
+     }
+
+     const modifyToDoNote = function(){
+
 
      }
 
@@ -194,12 +203,16 @@ export const templateDOMStructs = function (){
     const enableBtns = function(event){
 
      const project = event.target.parentElement.parentElement.parentElement;
+     const form = DOM.selectElem('#submitNote').parentElement;
+     const modify = DOM.selectElem(`#modify${project.dataset.id}${form.dataset.id}`)
 
      const addtoDoButton = DOM.selectElem(`#add${project.dataset.id}`);
      const newProjectButton = DOM.selectElem('#submit');
 
      addtoDoButton.disabled = false;
      newProjectButton.disabled = false;
+
+     modify.classList.toggle('none',false);
 
      return
 
