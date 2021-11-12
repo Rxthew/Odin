@@ -59,14 +59,14 @@ export const templateDOMStructs = function (){
         form.appendChild(submit);
 
         input.oninput = delegator;
-        form.onsubmit = delegator; //(event here: submits note, removes temp, reenables add)   
+        form.onsubmit = delegator;   
          
         container.classList.toggle('none', false);
         
          
         container.appendChild(form);
 
-       const generateChecklist = function(){ 
+        const _generateChecklist = function(){ 
            const add = DOM.elementInit('button', {'class':'addCheck',
                                                      'id':'addCheck',
                                                      }, 'Add Item'); 
@@ -74,10 +74,28 @@ export const templateDOMStructs = function (){
                                                         'id':'cancel'}, 'Cancel Note');                                                                     
             form.appendChild(add);
             form.appendChild(cancel);
+            form.classList.add('checkbox')
+       }
+
+       const _generateFreeForm = function(){
+        const input = DOM.selectElem('#temporaryInput');
+        const project = DOM.selectElem('#temporaryInput').parentElement;
+        const form = DOM.selectElem(`#toDoNoteForm${project.dataset.id}`);
+        
+       
+        const text = DOM.elementInit('p', {'class':'text'}, `${input.value}`);
+
+
+        input.value = '';
+        form.classList.add('freeForm')
+        form.appendChild(text);
+        input.classList.toggle('none',false);
+
+        return
        }
 
 
-       chosenType === 'Checklist' ? generateChecklist() : generateChecklist;  
+       chosenType === 'Checklist' ? _generateChecklist() : _generateFreeForm();  
 
        return 
 
