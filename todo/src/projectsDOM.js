@@ -7,32 +7,19 @@ export const templateDOMStructs = function (){
     const DOM = DOMGeneral()
     const delegator = projectEvents.delegator
 
-    const projButtons = function(){
-        
-        const viewProjectBtn = DOM.elementInit('button', {'class': 'viewProject'}, 'View Inside');
-        const addToDoListBtn = DOM.elementInit('button', {'class': 'addtoDoList',
-                                                           'id': `add${DOM.selectElem('.project').length}`}, 'Add To-Do List');
-        //transfer the the todolist buttons here
-        return {
-            viewProjectBtn,
-            addToDoListBtn
-        }
-        
-        //template for project buttons to be
-        //used below. Remember data-attribute
-        //event delegation to be used. 
-    }
-
     const createProject = function(name){
          const reference = DOM.selectElem('.project'); 
          const proj = DOM.elementInit('div',{'id': `${name}${reference.length}`,
                                              'data-id':`${reference.length}`, 
                                              'class': 'project'},name
                                              )
-        proj.appendChild(projButtons().viewProjectBtn);
+        const viewProjectBtn = DOM.elementInit('button', {'class': 'viewProject'}, 'View Inside');
+        const addToDoListBtn = DOM.elementInit('button', {'class': 'addtoDoList',
+                                                           'id': `add${DOM.selectElem('.project').length}`}, 'Add To-Do List');
+        proj.appendChild(viewProjectBtn);
         proj.appendChild(DOM.elementInit('div',{ 'class':'none',
                                                    'id':`container${reference.length}`}));
-        proj.appendChild(projButtons().addToDoListBtn);
+        proj.appendChild(addToDoListBtn);
 
         
         proj.onclick = delegator;
