@@ -26,6 +26,7 @@ export const templateDOMStructs = function (){
                                                                       
         const container = DOM.selectElem('#container');
         container.appendChild(proj);
+        
         return proj
 
      }
