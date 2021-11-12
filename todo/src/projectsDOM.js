@@ -54,9 +54,11 @@ export const templateDOMStructs = function (){
                                                    'id': 'submitNote', 
                                                   'class':'submitNote none',
                                                    },'Submit Note')
-        
+        const cancel = DOM.elementInit('button', {'class':'cancel none',
+                                                   'id':'cancel'}, 'Cancel Note');
         
         form.appendChild(submit);
+        form.appendChild(cancel);
 
         input.oninput = delegator;
         form.onsubmit = delegator;   
@@ -66,14 +68,14 @@ export const templateDOMStructs = function (){
          
         container.appendChild(form);
 
+
+           
+
         const _generateChecklist = function(){ 
            const add = DOM.elementInit('button', {'class':'addCheck',
                                                      'id':'addCheck',
-                                                     }, 'Add Item'); 
-           const cancel = DOM.elementInit('button', {'class':'cancel none',
-                                                        'id':'cancel'}, 'Cancel Note');                                                                     
+                                                     }, 'Add Item');                                                                   
             form.appendChild(add);
-            form.appendChild(cancel);
             form.classList.add('checkbox')
        }
 
@@ -84,7 +86,7 @@ export const templateDOMStructs = function (){
         form.appendChild(text);
         input.classList.toggle('none',false);
 
-        return
+        
        }
 
 
@@ -238,6 +240,8 @@ export const templateDOMStructs = function (){
         }
         
         else {
+
+
 
         }
     }
