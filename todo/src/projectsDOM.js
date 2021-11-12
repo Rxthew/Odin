@@ -217,8 +217,7 @@ export const templateDOMStructs = function (){
     const checkContent = function(){
 
         const input = DOM.selectElem('#temporaryInput');
-        const project = input.parentElement;
-        const form = DOM.selectElem(`#toDoNoteForm${project.dataset.id}`);
+        const form = DOM.selectElem('#submitNote').parentElement;
         const add = DOM.selectElem('#addCheck');
         const cancel = DOM.selectElem('#cancel')  
 
@@ -249,7 +248,7 @@ export const templateDOMStructs = function (){
         const input = DOM.selectElem('#temporaryInput');
         const cancel = DOM.selectElem('#cancel');
         const project = input.parentElement;
-        const form = DOM.selectElem(`#toDoNoteForm${project.dataset.id}`);
+        const form = DOM.selectElem('#submitNote').parentElement;
         const container = DOM.selectElem(`#container${project.dataset.id}`);
 
         cancel.classList.toggle('none',true);
@@ -291,8 +290,7 @@ export const templateDOMStructs = function (){
     
       const _generateCheckItem = function(){
         const input = DOM.selectElem('#temporaryInput');
-        const project = DOM.selectElem('#temporaryInput').parentElement;
-        const form = DOM.selectElem(`#toDoNoteForm${project.dataset.id}`);
+        const form = DOM.selectElem('#submitNote').parentElement;
        
         const checkbox = DOM.elementInit('input', {'type':'checkbox'});
         const label = DOM.elementInit('label', {'for': `${input.value}`},`${input.value}`);
@@ -307,8 +305,7 @@ export const templateDOMStructs = function (){
 
     const submitTextItem = function(){
     const input = DOM.selectElem('#temporaryInput');
-    const project = DOM.selectElem('#temporaryInput').parentElement;
-    const form = DOM.selectElem(`#toDoNoteForm${project.dataset.id}`);
+    const form = DOM.selectElem('#submitNote').parentElement;
     
    
     const text = DOM.elementInit('p', {'class':'text'}, `${input.value}`);
