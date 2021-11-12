@@ -21,6 +21,9 @@ projectEvents.delegator = function(event){
          break;
          case 'addCheck': projectEvents.publish('newCheckItem', event);
          break;
+         case 'cancel':projectEvents.publish('cancelNote',event);
+                       event.preventDefault()
+         break;
          case 'submitNote' : projectEvents.publish('submitNote', event);
                              event.preventDefault();
          break;  

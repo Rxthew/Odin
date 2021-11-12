@@ -44,9 +44,8 @@ export const templateDOMStructs = function (){
      }
 
      const createToDoNote = function(chosenType){
-        const input = DOM.selectElem('#temporaryInput');
- 
-        const project = DOM.selectElem('#temporaryInput').parentElement;
+        const input = DOM.selectElem('#temporaryInput') 
+        const project = input.parentElement;
         const container = DOM.selectElem(`#container${project.dataset.id}`);
         
         const form = DOM.elementInit('form',{'class': 'toDoNoteInput',
@@ -58,20 +57,23 @@ export const templateDOMStructs = function (){
         
         
         form.appendChild(submit);
+
+        input.oninput = delegator;
         form.onsubmit = delegator; //(event here: submits note, removes temp, reenables add)   
          
         container.classList.toggle('none', false);
         
          
         container.appendChild(form);
-  
-        input.oninput = delegator; 
 
        const generateChecklist = function(){ 
            const add = DOM.elementInit('button', {'class':'addCheck',
                                                      'id':'addCheck',
-                                                     }, 'Add Item');                                                                      
-            form.appendChild(add)
+                                                     }, 'Add Item'); 
+           const cancel = DOM.elementInit('button', {'class':'cancel none',
+                                                        'id':'cancel'}, 'Cancel Note');                                                                     
+            form.appendChild(add);
+            form.appendChild(cancel);
        }
 
 
@@ -182,6 +184,9 @@ export const templateDOMStructs = function (){
         deleted = DOM.selectElem('#addCheck');
         deleted ? deleted.remove(): false
 
+        deleted = DOM.selectElem('#cancel');
+        deleted ? deleted.remove(): false;
+
         return
 
     }
@@ -202,16 +207,34 @@ export const templateDOMStructs = function (){
     
     const checkContent = function(){
         const input = DOM.selectElem('#temporaryInput');
-        const add = DOM.selectElem('#addCheck');  
+        const add = DOM.selectElem('#addCheck');
+        const cancel = DOM.selectElem('#cancel')  
         
         if (input.value === ''){
-            add.disabled = true; 
+            add.disabled = true;
+            cancel.classList.toggle('none',false); 
         }
         else {
             add.disabled = false
+            cancel.classList.toggle('none', true);
         }
         
         return 
+    }
+
+    const cancelNote = function(event){
+
+        const add = DOM.selectElem('#addCheck');
+        const input = DOM.selectElem('#temporaryInput');
+        const cancel = DOM.selectElem('#cancel');
+
+        cancel.classList.toggle('none',true);
+        input.classList.toggle('none',true);
+        input.value = '';
+        add.textContent = 'Add Item';
+        add.disabled = false;
+
+        return        
     }
 
 
@@ -268,6 +291,7 @@ export const templateDOMStructs = function (){
          enableBtns,
          cleanToDoForm,
          checkContent,
+         cancelNote,
          submitCheck,
      }
 }
