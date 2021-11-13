@@ -31,6 +31,7 @@ const revealToDo = (function(){
     const modifyToDoNote = structs.modifyToDoNote;
     const submitCheck = structs.submitCheck;
     const submitTextItem = structs.submitTextItem;
+    const submitModifiedNote = structs.submitModifiedNote;
     const delegator = projectEvents.delegator;
 
     
@@ -55,6 +56,7 @@ const revealToDo = (function(){
     projectEvents.subscribe('submitNote', enableBtns);
     projectEvents.subscribe('submitNote', cleanToDoForm);
     projectEvents.subscribe('modifyNote', modifyToDoNote);
+    projectEvents.subscribe('submitModNote', submitModifiedNote)
     //projectEvent.subscribe('modifyComplete, /);
 
 

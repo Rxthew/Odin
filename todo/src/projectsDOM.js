@@ -118,14 +118,28 @@ export const templateDOMStructs = function (){
      const submitModifiedNote = function(event){
         
         event.preventDefault();
-        const form = event.target.parentElement
+        const form = event.target.parentElement;
+        const input = event.target.previousElementSibling;
+        const label = DOM.elementInit('label', {'for': `${input.value}`},`${input.value}`);
+        const text = DOM.elementInit('p', {'class':'text'}, `${input.value}`);
+        const modify = DOM.elementInit('button', {'class':'edit'},
+        'Edit');        
 
-        if(form.classList.contains('checkbox')) {
+        if(form.classList.contains('checkbox')){
+            label.appendChild(modify);
+            input.replaceWith(label);
 
         }
         else{
-          //use className as basis for modification.  
-        }         
+            text.appendChild(modify);
+            input.replaceWith(text); 
+        }
+         
+        //enablebuttons && add revert btn 
+        event.target.remove()
+
+
+        return         
      }
 
      const chooseNoteType = function(event){
@@ -364,7 +378,6 @@ export const templateDOMStructs = function (){
     return
     
     }
-
      return {
          createProject,
          createToDoNote,
@@ -380,6 +393,7 @@ export const templateDOMStructs = function (){
          modifyToDoNote,
          cancelNote,
          submitCheck,
-         submitTextItem
+         submitTextItem,
+         submitModifiedNote
      }
 }

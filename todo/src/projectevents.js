@@ -28,6 +28,8 @@ projectEvents.delegator = function(event){
          break;
          case 'submitNote' : projectEvents.publish('submitNote', event);
                              event.preventDefault();
+         break;
+         case 'submitMod': projectEvents.publish('submitModNote',event);
          break;  
       //add more. 
 
