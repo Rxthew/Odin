@@ -90,7 +90,7 @@ export const templateDOMStructs = function (){
 
      const modifyToDoNote = function(event){
          
-        event.preventDefault();
+         event.preventDefault();
          
          const modInput = DOM.elementInit('input',{'type':'text',
          'autocomplete':'off',
@@ -369,6 +369,8 @@ export const templateDOMStructs = function (){
         const add = DOM.selectElem('#addCheck');
         const input = DOM.selectElem('#temporaryInput');                     
         const submit = DOM.selectElem('#submitNote');
+        const form = submit.parentElement;
+        const remove = DOM.selectElem(`#remove${input.parentElement.dataset.id}${form.dataset.id}`)
 
         if (input.value === '' && add.textContent === 'Submit Item'){
             add.textContent = 'Add Item';
@@ -379,6 +381,7 @@ export const templateDOMStructs = function (){
         else if (add.textContent === 'Submit Item'){
             _generateCheckItem();
             submit.classList.toggle('none',false);
+            remove.classList.toggle('none',false);
             input.classList.toggle('none', true);
             add.textContent = 'Add Item';
         }
@@ -410,6 +413,7 @@ export const templateDOMStructs = function (){
     
     const input = DOM.selectElem('#temporaryInput');
     const form = DOM.selectElem('#submitNote').parentElement;
+    const remove = DOM.selectElem(`#remove${input.parentElement.dataset.id}${form.dataset.id}`);
     const modify = DOM.elementInit('button', {'class':'edit'},
     'Edit');
 
@@ -421,6 +425,8 @@ export const templateDOMStructs = function (){
     const text = DOM.elementInit('p', {'class':'text'}, `${input.value}`);
     text.appendChild(modify);
     form.appendChild(text);
+    remove.classList.toggle('none',false);
+
     return
     
     }
