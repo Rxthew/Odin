@@ -332,6 +332,7 @@ export const templateDOMStructs = function (){
             else {
                  add.disabled = false
                  cancel.classList.toggle('none', true);
+                 submit.classList.toggle('none',true);
             }
 
             return
