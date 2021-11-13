@@ -99,6 +99,10 @@ export const templateDOMStructs = function (){
          const submit = DOM.elementInit('button',{'type':'submit',
         'class':'submitMod',
          },'Submit Note')
+         const revert = DOM.elementInit('button',{
+         'class':'revertMod',
+         'data-transfer':`${event.target.parentElement.firstChild.nodeValue}` //temporary, update to use local storage & backend
+          },'Revert Back') 
          
          const _disableAllOtherBtns = (function(){
              const all = document.querySelectorAll('button');
@@ -109,6 +113,7 @@ export const templateDOMStructs = function (){
              modInput.value = event.target.parentElement.firstChild.nodeValue; 
              event.target.parentElement.replaceWith(modInput);
              modInput.insertAdjacentElement('afterend',submit);
+             submit.insertAdjacentElement('afterend',revert);
         })() 
          
         return   
@@ -120,6 +125,7 @@ export const templateDOMStructs = function (){
         event.preventDefault();
         const form = event.target.parentElement;
         const input = event.target.previousElementSibling;
+        const revert = event.target.nextElementSibling;
         const label = DOM.elementInit('label', {'for': `${input.value}`},`${input.value}`);
         const text = DOM.elementInit('p', {'class':'text'}, `${input.value}`);
         const modify = DOM.elementInit('button', {'class':'edit'},
@@ -135,12 +141,51 @@ export const templateDOMStructs = function (){
             input.replaceWith(text); 
         }
          
-        //enablebuttons && add revert btn 
+        const _enableAllOtherBtns = (function(){
+            const all = document.querySelectorAll('button');
+            all.forEach(btn => btn.disabled = false);
+        })()
+    
+        revert.remove();
         event.target.remove()
 
 
         return         
      }
+
+     const revertModifiedNote = function(event){
+        
+        event.preventDefault();
+        const form = event.target.parentElement;
+        const submit = event.target.previousElementSibling;
+        const input = submit.previousElementSibling;
+        const label = DOM.elementInit('label', {'for': `${event.target.dataset.transfer}`},`${event.target.dataset.transfer}`); //temporary, update to use local storage & backend
+        const text = DOM.elementInit('p', {'class':'text'}, `${event.target.dataset.transfer}`); //temporary, update to use local storage & backend
+        const modify = DOM.elementInit('button', {'class':'edit'},
+        'Edit');        
+
+        if(form.classList.contains('checkbox')){
+            label.appendChild(modify);
+            input.replaceWith(label);
+
+        }
+        else{
+            text.appendChild(modify);
+            input.replaceWith(text); 
+        }
+         
+        const _enableAllOtherBtns = (function(){
+            const all = document.querySelectorAll('button');
+            all.forEach(btn => btn.disabled = false);
+        })()
+    
+        submit.remove();
+        event.target.remove()
+
+
+        return         
+     }     
+
 
      const chooseNoteType = function(event){
         const domProject = event.target.parentElement;
