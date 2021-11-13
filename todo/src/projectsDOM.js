@@ -47,6 +47,7 @@ export const templateDOMStructs = function (){
                                                    },'Submit Note')
         const remove = DOM.elementInit('button', {'class':'remove none',
                                                    'id':`remove${project.dataset.id}${formReference.length}`}, 'X');
+
         
         form.appendChild(submit);
         form.appendChild(remove);
@@ -65,7 +66,8 @@ export const templateDOMStructs = function (){
                                                      'id':'addCheck',
                                                      }, 'Add Item');
             const cancel = DOM.elementInit('button', {'class':'cancel none',
-                                                     'id':'cancel'}, 'Cancel Note');                                                                   
+                                                     'id':'cancel'}, 'Cancel Note');
+                                                     
             form.appendChild(add);
             form.appendChild(cancel);
 
@@ -301,12 +303,16 @@ export const templateDOMStructs = function (){
       const _generateCheckItem = function(){
         const input = DOM.selectElem('#temporaryInput');
         const form = DOM.selectElem('#submitNote').parentElement;
+        const modify = DOM.elementInit('button', {'class':'edit'},
+        'Edit');
        
         const checkbox = DOM.elementInit('input', {'type':'checkbox'});
         const label = DOM.elementInit('label', {'for': `${input.value}`},`${input.value}`);
         const br = DOM.elementInit('br');
 
         input.value = '';
+        modify.onclick = delegator;
+        label.appendChild(modify);
         form.appendChild(checkbox);
         form.appendChild(label);
         form.appendChild(br);
