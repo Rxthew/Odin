@@ -89,27 +89,42 @@ export const templateDOMStructs = function (){
      }
 
      const modifyToDoNote = function(event){
-         event.preventDefault();
-         const form = event.target.parentElement.parentElement;
+         
+        event.preventDefault();
+         
          const modInput = DOM.elementInit('input',{'type':'text',
          'autocomplete':'off',
          'required':'required',
          'class': 'modInput'});
+         const submit = DOM.elementInit('button',{'type':'submit',
+        'class':'submitMod',
+         },'Submit Note')
          
          const _disableAllOtherBtns = function(){
 
          }
+
+         const _replaceWithInput = (function(){
+             modInput.value = event.target.parentElement.firstChild.nodeValue; 
+             event.target.parentElement.replaceWith(modInput);
+             modInput.insertAdjacentElement('afterend',submit);
+        })() 
          
-         if(form.classList.contains('checkbox')) {
-            modInput.value = event.target.parentElement.firstChild.nodeValue; 
-            event.target.parentElement.replaceWith(modInput);
-            return
-         }
-         else{
-           //use className as basis for modification.  
-         }
         return   
 
+     }
+
+     const submitModifiedNote = function(event){
+        
+        event.preventDefault();
+        const form = event.target.parentElement
+
+        if(form.classList.contains('checkbox')) {
+
+        }
+        else{
+          //use className as basis for modification.  
+        }         
      }
 
      const chooseNoteType = function(event){
@@ -228,9 +243,11 @@ export const templateDOMStructs = function (){
 
      const addtoDoButton = DOM.selectElem(`#add${project.dataset.id}`);
      const newProjectButton = DOM.selectElem('#submit');
+     const modifyBtns = DOM.selectElem('.edit');
 
      addtoDoButton.disabled = false;
      newProjectButton.disabled = false;
+     modifyBtns.forEach(btn => btn.classList.toggle('none',false));
 
      
 
@@ -313,7 +330,7 @@ export const templateDOMStructs = function (){
       const _generateCheckItem = function(){
         const input = DOM.selectElem('#temporaryInput');
         const form = DOM.selectElem('#submitNote').parentElement;
-        const modify = DOM.elementInit('button', {'class':'edit'},
+        const modify = DOM.elementInit('button', {'class':'edit none'},
         'Edit');
        
         const checkbox = DOM.elementInit('input', {'type':'checkbox'});
@@ -332,12 +349,16 @@ export const templateDOMStructs = function (){
     
     const input = DOM.selectElem('#temporaryInput');
     const form = DOM.selectElem('#submitNote').parentElement;
+    const modify = DOM.elementInit('button', {'class':'edit'},
+    'Edit');
+
 
     if (form.classList.contains('checkbox')){
         return
     }
     
     const text = DOM.elementInit('p', {'class':'text'}, `${input.value}`);
+    text.appendChild(modify);
     form.appendChild(text);
     return
     
