@@ -29,6 +29,8 @@ projectEvents.delegator = function(event){
          case 'submitNote' : projectEvents.publish('submitNote', event);
                              event.preventDefault();
          break;
+         case 'revertMod' : projectEvents.publish('revert',event);
+         break;
          case 'submitMod': projectEvents.publish('submitModNote',event);
          break;  
       //add more. 

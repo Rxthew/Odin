@@ -437,6 +437,7 @@ export const templateDOMStructs = function (){
          checkContent,
          modifyToDoNote,
          cancelNote,
+         revertModifiedNote,
          submitCheck,
          submitTextItem,
          submitModifiedNote

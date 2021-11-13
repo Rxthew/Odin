@@ -28,6 +28,7 @@ const revealToDo = (function(){
     const cleanToDoForm = structs.cleanToDoForm;
     const checkContent = structs.checkContent;
     const cancelNote = structs.cancelNote;
+    const revertModifiedNote = structs.revertModifiedNote;
     const modifyToDoNote = structs.modifyToDoNote;
     const submitCheck = structs.submitCheck;
     const submitTextItem = structs.submitTextItem;
@@ -56,8 +57,9 @@ const revealToDo = (function(){
     projectEvents.subscribe('submitNote', enableBtns);
     projectEvents.subscribe('submitNote', cleanToDoForm);
     projectEvents.subscribe('modifyNote', modifyToDoNote);
+    projectEvents.subscribe('revert', revertModifiedNote);
     projectEvents.subscribe('submitModNote', submitModifiedNote)
-    //projectEvent.subscribe('modifyComplete, /);
+    
 
 
     //Initial elements
