@@ -90,15 +90,25 @@ export const templateDOMStructs = function (){
 
      const modifyToDoNote = function(event){
          event.preventDefault();
-         const form = event.target.parentElement;
+         const form = event.target.parentElement.parentElement;
+         const modInput = DOM.elementInit('input',{'type':'text',
+         'autocomplete':'off',
+         'required':'required',
+         'class': 'modInput'});
+         
+         const _disableAllOtherBtns = function(){
+
+         }
          
          if(form.classList.contains('checkbox')) {
-            return//revisit later.
+            modInput.value = event.target.parentElement.firstChild.nodeValue; 
+            event.target.parentElement.replaceWith(modInput);
+            return
          }
          else{
            //use className as basis for modification.  
          }
-           
+        return   
 
      }
 
@@ -156,10 +166,10 @@ export const templateDOMStructs = function (){
         const generateTemporaryInput = (function(){
             const project = DOM.selectElem('#noteTypeForm').parentElement;
             const temporaryInput = DOM.elementInit('input',{'type':'text',
-                                                            'autocomplete':'off',
-                                                            'required':'required',
-                                                            'id':'temporaryInput',
-                                                           'class': 'temporaryInput none'}); 
+            'autocomplete':'off',
+            'required':'required',
+            'id':'temporaryInput',
+           'class': 'temporaryInput none'});  
             project.appendChild(temporaryInput);      
         })()
         
@@ -311,7 +321,6 @@ export const templateDOMStructs = function (){
         const br = DOM.elementInit('br');
 
         input.value = '';
-        modify.onclick = delegator;
         label.appendChild(modify);
         form.appendChild(checkbox);
         form.appendChild(label);
@@ -346,6 +355,7 @@ export const templateDOMStructs = function (){
          enableBtns,
          cleanToDoForm,
          checkContent,
+         modifyToDoNote,
          cancelNote,
          submitCheck,
          submitTextItem

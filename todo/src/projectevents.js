@@ -24,6 +24,8 @@ projectEvents.delegator = function(event){
          case 'cancel':projectEvents.publish('cancelNote',event);
                        event.preventDefault()
          break;
+         case 'edit': projectEvents.publish('modifyNote',event);
+         break;
          case 'submitNote' : projectEvents.publish('submitNote', event);
                              event.preventDefault();
          break;  
