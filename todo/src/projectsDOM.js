@@ -91,31 +91,67 @@ export const templateDOMStructs = function (){
      const modifyToDoNote = function(event){
          
          event.preventDefault();
+         const form = event.target.parentElement.parentElement;
          
          const modInput = DOM.elementInit('input',{'type':'text',
          'autocomplete':'off',
          'required':'required',
-         'class': 'modInput'});
+         'class': 'modInput',
+          'id':'modInput'});
          const submit = DOM.elementInit('button',{'type':'submit',
         'class':'submitMod',
+         'id': 'submitMod'
          },'Submit Note')
          const revert = DOM.elementInit('button',{
          'class':'revertMod',
          'data-transfer':`${event.target.parentElement.firstChild.nodeValue}` //temporary, update to use local storage & backend
-          },'Revert Back') 
+          },'Revert Back')
+          const add = DOM.elementInit('button', {'class':'addCheck',
+          'id':'addCheck',
+          }, 'Add Item');
+          const cancel = DOM.elementInit('button', {'class':'cancel none',
+          'id':'cancel'}, 'Cancel Note');
+           
          
          const _disableAllOtherBtns = (function(){
              const all = document.querySelectorAll('button');
              all.forEach(btn => btn.disabled = true);
          })()
 
-         const _replaceWithInput = (function(){
-             modInput.value = event.target.parentElement.firstChild.nodeValue; 
-             event.target.parentElement.replaceWith(modInput);
-             modInput.insertAdjacentElement('afterend',submit);
-             submit.insertAdjacentElement('afterend',revert);
-        })() 
-         
+         const _replaceWithInput = function(){
+            modInput.value = event.target.parentElement.firstChild.nodeValue; 
+            event.target.parentElement.replaceWith(modInput);
+            modInput.insertAdjacentElement('afterend',submit);
+            submit.insertAdjacentElement('afterend',revert);
+        }
+
+         if (form.classList.contains('checkbox')){
+             
+            const project = form.parentElement.parentElement;
+            const temporaryInput = DOM.elementInit('input',{'type':'text',
+            'autocomplete':'off',
+            'required':'required',
+            'id':'temporaryInput',
+           'class': 'temporaryInput none'});
+            
+           project.appendChild(temporaryInput);
+            
+           const originalSubmit = DOM.elementInit('button',{'type':'submit',
+            'id': 'submitNote', 
+           'class':'submitNote none',
+            },'Submit Note')
+            
+            form.appendChild(originalSubmit);
+            form.appendChild(add);
+            form.appendChild(cancel);  
+
+            return    
+         }
+
+         //Modified above re: check items context. Need to add back the functionality with modInput. Also:
+         // disable buttons is not compatible with this yet && submitnote none is an issue since there's
+         // already something there, but if you change it functionality is not the same. 
+                  
         return   
 
      }
@@ -147,7 +183,8 @@ export const templateDOMStructs = function (){
         })()
     
         revert.remove();
-        event.target.remove()
+        add ? add.remove() : false; 
+        event.target.remove();
 
 
         return         
@@ -368,9 +405,11 @@ export const templateDOMStructs = function (){
         event.preventDefault();
         const add = DOM.selectElem('#addCheck');
         const input = DOM.selectElem('#temporaryInput');                     
-        const submit = DOM.selectElem('#submitNote');
-        const form = submit.parentElement;
-        const remove = DOM.selectElem(`#remove${input.parentElement.dataset.id}${form.dataset.id}`)
+        const submit = DOM.selectElem('#submitNote');      
+        //const form = submit.parentElement; Put something else here. Remove should be reserved for whole form. 
+        //const remove = DOM.selectElem(`#remove${input.parentElement.dataset.id}${form.dataset.id}`)
+
+
 
         if (input.value === '' && add.textContent === 'Submit Item'){
             add.textContent = 'Add Item';
@@ -381,7 +420,7 @@ export const templateDOMStructs = function (){
         else if (add.textContent === 'Submit Item'){
             _generateCheckItem();
             submit.classList.toggle('none',false);
-            remove.classList.toggle('none',false);
+            //remove.classList.toggle('none',false);
             input.classList.toggle('none', true);
             add.textContent = 'Add Item';
         }
