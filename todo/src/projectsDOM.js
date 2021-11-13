@@ -100,9 +100,10 @@ export const templateDOMStructs = function (){
         'class':'submitMod',
          },'Submit Note')
          
-         const _disableAllOtherBtns = function(){
-
-         }
+         const _disableAllOtherBtns = (function(){
+             const all = document.querySelectorAll('button');
+             all.forEach(btn => btn.disabled = true);
+         })()
 
          const _replaceWithInput = (function(){
              modInput.value = event.target.parentElement.firstChild.nodeValue; 
