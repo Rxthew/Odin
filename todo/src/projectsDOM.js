@@ -88,6 +88,21 @@ export const templateDOMStructs = function (){
 
      }
 
+
+     const disableBtns = function(trgt='n/a'){
+        const all = document.querySelectorAll('button');
+        all.forEach(btn => btn.className === 'viewProject' || btn === trgt || btn.classList.contains('none') ? btn.disabled = false : btn.disabled = true);
+    }
+    
+    
+    const enableBtns = function(){
+        const all = document.querySelectorAll('button');
+        all.forEach(btn => btn.disabled = false);
+
+        const modifyBtns = DOM.selectElem('.edit');
+        modifyBtns.forEach(btn => btn.classList.toggle('none',false));        
+    }
+
      const modifyToDoNote = function(event){
          
          event.preventDefault();
@@ -107,12 +122,7 @@ export const templateDOMStructs = function (){
          'data-transfer':`${event.target.parentElement.firstChild.nodeValue}` //temporary, update to use local storage & backend
           },'Revert Back')
 
-           
-         
-         const _disableAllOtherBtns = (function(){
-             const all = document.querySelectorAll('button');
-             all.forEach(btn => btn.disabled = true);
-         })()
+        disableBtns();
 
          const _replaceWithInput = (function(){
             modInput.value = event.target.parentElement.firstChild.nodeValue; 
@@ -147,10 +157,7 @@ export const templateDOMStructs = function (){
             input.replaceWith(text); 
         }
         
-        const _enableAllOtherBtns = (function(){
-            const all = document.querySelectorAll('button');
-            all.forEach(btn => btn.disabled = false);
-        })()
+        enableBtns();
     
         revert.remove();
         event.target.remove();
@@ -180,10 +187,7 @@ export const templateDOMStructs = function (){
             input.replaceWith(text); 
         }
          
-        const _enableAllOtherBtns = (function(){
-            const all = document.querySelectorAll('button');
-            all.forEach(btn => btn.disabled = false);
-        })()
+        enableBtns();
     
         submit.remove();
         event.target.remove()
@@ -220,7 +224,7 @@ export const templateDOMStructs = function (){
          form.appendChild(DOM.elementInit('br'));
          form.appendChild(choice);
 
-         
+         disableBtns();
          form.onsubmit = delegator;
          domProject.appendChild(form);
 
@@ -271,13 +275,8 @@ export const templateDOMStructs = function (){
     const deleteAddNoteForm = function(){
          const deleted = DOM.selectElem('#noteTypeForm');
          deleted.remove();
+
     }
-
-    const disableBtns = function(trgt='n/a'){
-        const all = document.querySelectorAll('button');
-        all.forEach(btn => btn.className === 'viewProject' || btn === trgt || btn.classList.contains('none') ? btn.disabled = false : btn.disabled = true);
-    }         
-
 
     const cleanToDoForm = function(){
         
@@ -299,17 +298,7 @@ export const templateDOMStructs = function (){
 
         return
     }
-    
-    const enableBtns = function(){
-        const all = document.querySelectorAll('button');
-        all.forEach(btn => btn.disabled = false);
-
-        const modifyBtns = DOM.selectElem('.edit');
-        modifyBtns.forEach(btn => btn.classList.toggle('none',false));        
-    }
-
-
-    
+        
     const checkContent = function(){
         
 
