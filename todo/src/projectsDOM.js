@@ -63,10 +63,10 @@ export const templateDOMStructs = function (){
 
         const _generateChecklist = function(){ 
            const add = DOM.elementInit('button', {'class':'addCheck',
-                                                     'id':'addCheck',
+                                                     'id':`addCheck${project.dataset.id}${formReference.length}`,
                                                      }, 'Add Item');
             const cancel = DOM.elementInit('button', {'class':'cancel none',
-                                                     'id':'cancel'}, 'Cancel Note');
+                                                     'id':`cancel${project.dataset.id}${formReference.length}`}, 'Cancel Note');
                                                      
             form.appendChild(add);
             form.appendChild(cancel);
@@ -285,20 +285,29 @@ export const templateDOMStructs = function (){
      }
 
     const cleanToDoForm = function(){
+        
         let deleted = DOM.selectElem('#temporaryInput');
+        const project = deleted.parentElement;
         deleted.remove();
 
         deleted = DOM.selectElem('#submitNote');
+        const form = deleted.parentElement;
         deleted.remove()
 
-        deleted = DOM.selectElem('#addCheck');
-        deleted ? deleted.remove(): false
+        let convert = DOM.selectElem(`#addCheck${project.dataset.id}${form.dataset.id}`);
 
-        deleted = DOM.selectElem('#cancel');
-        deleted ? deleted.remove(): false
+        if (convert){
+            convert.removeAttribute('class');
+            convert.className = 'addCheckMod';       
+        }
+
+        convert = DOM.selectElem(`#cancel${project.dataset.id}${form.dataset.id}`);
+        if (convert){
+            convert.removeAttribute('class');
+            convert.className = 'cancelMod none';       
+        }
 
         return
-
     }
 
     const enableBtns = function(event){
@@ -322,12 +331,14 @@ export const templateDOMStructs = function (){
     }
     
     const checkContent = function(){
+        
 
         const input = DOM.selectElem('#temporaryInput');
         const submit = DOM.selectElem('#submitNote');
         const form = submit.parentElement;
-        const add = DOM.selectElem('#addCheck');
-        const cancel = DOM.selectElem('#cancel');
+        const project = input.parentElement;
+        const add = DOM.selectElem(`#addCheck${project.dataset.id}${form.dataset.id}`);
+        const cancel = DOM.selectElem(`#cancel${project.dataset.id}${form.dataset.id}`);
           
 
         if (form.classList.contains('checkbox')){     
@@ -351,11 +362,13 @@ export const templateDOMStructs = function (){
     }
 
     const cancelNote = function(event){
-
-        const add = DOM.selectElem('#addCheck');
+        
+        const cancel = event.target;
+        const form = cancel.parentElement;
         const input = DOM.selectElem('#temporaryInput');
-        const cancel = DOM.selectElem('#cancel');
         const project = input.parentElement;
+        const add = DOM.selectElem(`#addCheck${project.dataset.id}${form.dataset.id}`);
+
         const container = DOM.selectElem(`#container${project.dataset.id}`);
 
         cancel.classList.toggle('none',true);
@@ -396,13 +409,12 @@ export const templateDOMStructs = function (){
 
      const submitCheck = function(event){
         event.preventDefault();
-        const add = DOM.selectElem('#addCheck');
+        const add = event.target;
         const input = DOM.selectElem('#temporaryInput');                     
         const submit = DOM.selectElem('#submitNote');      
-        //const form = submit.parentElement; Put something else here. Remove should be reserved for whole form. 
+        //const form = add.parentElement; 
+        //Put something else below. Remove should be reserved for whole form. 
         //const remove = DOM.selectElem(`#remove${input.parentElement.dataset.id}${form.dataset.id}`)
-
-
 
         if (input.value === '' && add.textContent === 'Submit Item'){
             add.textContent = 'Add Item';
