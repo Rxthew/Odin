@@ -78,7 +78,8 @@ export const templateDOMStructs = function (){
 
         input.value = '';
         input.classList.toggle('none',false);
-        form.classList.add('freeForm')
+        form.classList.add('freeForm');
+        input.focus();
         
        }
 
@@ -296,6 +297,8 @@ export const templateDOMStructs = function (){
       
         }
 
+        form.children.length <= 1 ? form.remove() : false;
+
         return
     }
         
@@ -326,6 +329,7 @@ export const templateDOMStructs = function (){
         
         else { 
               submit.classList.toggle('none',false);
+
               
         }
     }
@@ -442,7 +446,8 @@ export const templateDOMStructs = function (){
     const remove = DOM.selectElem(`#remove${input.parentElement.dataset.id}${form.dataset.id}`);
     const modify = DOM.elementInit('button', {'class':'edit'},
     'Edit');
-
+    
+    if (input.value === ''){return};
 
     if (form.classList.contains('checkbox')){
         return
