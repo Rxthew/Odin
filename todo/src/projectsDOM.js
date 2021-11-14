@@ -101,7 +101,9 @@ export const templateDOMStructs = function (){
         all.forEach(btn => btn.disabled = false);
 
         const modifyBtns = DOM.selectElem('.edit');
-        modifyBtns.forEach(btn => btn.classList.toggle('none',false));        
+        modifyBtns.forEach(btn => btn.classList.toggle('none',false));
+        const deleteBtns = DOM.selectElem('.deleteCheck');
+        deleteBtns.forEach(btn => btn.classList.toggle('none',false));        
     }
 
      const modifyToDoNote = function(event){
@@ -334,13 +336,16 @@ export const templateDOMStructs = function (){
         }
     }
 
-    const cancelNote = function(event){
+    const cancelNote = function(event){//this needs reworking
         
         const cancel = event.target;
         const form = cancel.parentElement;
         const input = DOM.selectElem('#temporaryInput');
         const project = input.parentElement;
         const add = DOM.selectElem(`#addCheck${project.dataset.id}${form.dataset.id}`);
+        const submit = DOM.selectElem('#submitNote');
+
+        submit ? submit.classList.toggle('none',true) : false;
 
         const container = DOM.selectElem(`#container${project.dataset.id}`);
 
@@ -351,6 +356,7 @@ export const templateDOMStructs = function (){
         
         add.textContent = 'Add Item';
         add.disabled = false;
+
         
         return        
     }
