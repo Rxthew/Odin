@@ -146,7 +146,7 @@ export const templateDOMStructs = function (){
             text.appendChild(modify);
             input.replaceWith(text); 
         }
-         
+        
         const _enableAllOtherBtns = (function(){
             const all = document.querySelectorAll('button');
             all.forEach(btn => btn.disabled = false);
@@ -273,16 +273,11 @@ export const templateDOMStructs = function (){
          deleted.remove();
     }
 
-    const disableBtns = function(){
-        const  project = DOM.selectElem('#temporaryInput').parentElement;
+    const disableBtns = function(trgt='n/a'){
+        const all = document.querySelectorAll('button');
+        all.forEach(btn => btn.className === 'viewProject' || btn === trgt || btn.classList.contains('none') ? btn.disabled = false : btn.disabled = true);
+    }         
 
-        const addtoDoButton = DOM.selectElem(`#add${project.dataset.id}`);
-        const newProjectButton = DOM.selectElem('#submit');
-
-        addtoDoButton.disabled = true;
-        newProjectButton.disabled = true;
-        return 
-     }
 
     const cleanToDoForm = function(){
         
@@ -298,31 +293,19 @@ export const templateDOMStructs = function (){
 
         if (convert){
             convert.removeAttribute('class');
-            convert.className = 'addCheckMod';       
+            convert.className = 'addCheckMod';
+      
         }
 
         return
     }
-
-    const enableBtns = function(event){
-
-     const project = event.target.parentElement.parentElement.parentElement;
-     const form = DOM.selectElem('#submitNote').parentElement;
-     //const remove = DOM.selectElem(`#remove${project.dataset.id}${form.dataset.id}`)
-
-     const addtoDoButton = DOM.selectElem(`#add${project.dataset.id}`);
-     const newProjectButton = DOM.selectElem('#submit');
-     const modifyBtns = DOM.selectElem('.edit');
-
-     addtoDoButton.disabled = false;
-     newProjectButton.disabled = false;
-     modifyBtns.forEach(btn => btn.classList.toggle('none',false));
-
-     
-
-     return
-
+    
+    const enableBtns = function(){
+        const all = document.querySelectorAll('button');
+        all.forEach(btn => btn.disabled = false);
     }
+
+
     
     const checkContent = function(){
         
@@ -391,7 +374,7 @@ export const templateDOMStructs = function (){
         'class': 'temporaryInput none'});
 
         project.appendChild(temporaryInput);
-        disableBtns();
+        disableBtns(event.target);
         temporaryInput.oninput = delegator;
     
         }
