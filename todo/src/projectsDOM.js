@@ -303,6 +303,9 @@ export const templateDOMStructs = function (){
     const enableBtns = function(){
         const all = document.querySelectorAll('button');
         all.forEach(btn => btn.disabled = false);
+
+        const modifyBtns = DOM.selectElem('.edit');
+        modifyBtns.forEach(btn => btn.classList.toggle('none',false));        
     }
 
 
