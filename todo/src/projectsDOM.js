@@ -347,11 +347,8 @@ export const templateDOMStructs = function (){
 
         submit ? submit.classList.toggle('none',true) : false;
 
-        const container = DOM.selectElem(`#container${project.dataset.id}`);
-
         cancel.classList.toggle('none',true);
         input.value = '';
-        container.classList.toggle('none',true);
         input.classList.toggle('none',true);
         
         add.textContent = 'Add Item';
