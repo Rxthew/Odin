@@ -133,7 +133,9 @@ export const templateDOMStructs = function (){
         const label = DOM.elementInit('label', {'for': `${input.value}`},`${input.value}`);
         const text = DOM.elementInit('p', {'class':'text'}, `${input.value}`);
         const modify = DOM.elementInit('button', {'class':'edit'},
-        'Edit');        
+        'Edit');
+        
+        if(input.value === ''){return};
 
         if(form.classList.contains('checkbox')){
             label.appendChild(modify);
