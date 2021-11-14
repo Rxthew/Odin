@@ -106,11 +106,7 @@ export const templateDOMStructs = function (){
          'class':'revertMod',
          'data-transfer':`${event.target.parentElement.firstChild.nodeValue}` //temporary, update to use local storage & backend
           },'Revert Back')
-          const add = DOM.elementInit('button', {'class':'addCheck',
-          'id':'addCheck',
-          }, 'Add Item');
-          const cancel = DOM.elementInit('button', {'class':'cancel none',
-          'id':'cancel'}, 'Cancel Note');
+
            
          
          const _disableAllOtherBtns = (function(){
@@ -118,40 +114,12 @@ export const templateDOMStructs = function (){
              all.forEach(btn => btn.disabled = true);
          })()
 
-         const _replaceWithInput = function(){
+         const _replaceWithInput = (function(){
             modInput.value = event.target.parentElement.firstChild.nodeValue; 
             event.target.parentElement.replaceWith(modInput);
             modInput.insertAdjacentElement('afterend',submit);
             submit.insertAdjacentElement('afterend',revert);
-        }
-
-         if (form.classList.contains('checkbox')){
-             
-            const project = form.parentElement.parentElement;
-            const temporaryInput = DOM.elementInit('input',{'type':'text',
-            'autocomplete':'off',
-            'required':'required',
-            'id':'temporaryInput',
-           'class': 'temporaryInput none'});
-            
-           project.appendChild(temporaryInput);
-            
-           const originalSubmit = DOM.elementInit('button',{'type':'submit',
-            'id': 'submitNote', 
-           'class':'submitNote none',
-            },'Submit Note')
-            
-            form.appendChild(originalSubmit);
-            form.appendChild(add);
-            form.appendChild(cancel);  
-
-            return    
-         }
-
-         //Modified above re: check items context. Need to add back the functionality with modInput. Also:
-         // disable buttons is not compatible with this yet && submitnote none is an issue since there's
-         // already something there, but if you change it functionality is not the same. 
-                  
+       })() 
         return   
 
      }
@@ -183,7 +151,6 @@ export const templateDOMStructs = function (){
         })()
     
         revert.remove();
-        add ? add.remove() : false; 
         event.target.remove();
 
 
@@ -399,6 +366,30 @@ export const templateDOMStructs = function (){
         
         return        
     }
+
+    
+    //const updatedSubmitCheck = function(){}
+    //if (form.classList.contains('checkbox')){        
+    //    const project = form.parentElement.parentElement;
+    //    const temporaryInput = DOM.elementInit('input',{'type':'text',
+    //    'autocomplete':'off',
+    //    'required':'required',
+    //    'id':'temporaryInput',
+    //   'class': 'temporaryInput none'});
+        
+    //   project.appendChild(temporaryInput);
+        
+    //   const originalSubmit = DOM.elementInit('button',{'type':'submit',
+    //    'id': 'submitNote', 
+    //   'class':'submitNote none',
+    //    },'Submit Note')
+        
+    //    form.appendChild(originalSubmit);
+    //    form.appendChild(add);
+    //    form.appendChild(cancel);  
+
+    //    return    
+     //}
 
 
      const submitCheck = function(event){
