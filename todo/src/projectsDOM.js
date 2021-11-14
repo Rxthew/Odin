@@ -301,12 +301,6 @@ export const templateDOMStructs = function (){
             convert.className = 'addCheckMod';       
         }
 
-        convert = DOM.selectElem(`#cancel${project.dataset.id}${form.dataset.id}`);
-        if (convert){
-            convert.removeAttribute('class');
-            convert.className = 'cancelMod none';       
-        }
-
         return
     }
 
@@ -383,29 +377,42 @@ export const templateDOMStructs = function (){
     }
 
     
-    //const updatedSubmitCheck = function(){}
-    //if (form.classList.contains('checkbox')){        
-    //    const project = form.parentElement.parentElement;
-    //    const temporaryInput = DOM.elementInit('input',{'type':'text',
-    //    'autocomplete':'off',
-    //    'required':'required',
-    //    'id':'temporaryInput',
-    //   'class': 'temporaryInput none'});
+    const generateNewSubmitCheck = function(event){
         
-    //   project.appendChild(temporaryInput);
-        
-    //   const originalSubmit = DOM.elementInit('button',{'type':'submit',
-    //    'id': 'submitNote', 
-    //   'class':'submitNote none',
-    //    },'Submit Note')
-        
-    //    form.appendChild(originalSubmit);
-    //    form.appendChild(add);
-    //    form.appendChild(cancel);  
+        event.preventDefault();
+        const form = event.target.parentElement;
+        const project = form.parentElement.parentElement;
 
-    //    return    
-     //}
+        if (!DOM.selectElem('#temporaryInput')){
+        const temporaryInput = DOM.elementInit('input',{'type':'text',
+        'autocomplete':'off',
+        'required':'required',
+        'id':'temporaryInput',
+        'class': 'temporaryInput none'});
 
+        project.appendChild(temporaryInput);
+        disableBtns();
+        temporaryInput.oninput = delegator;
+    
+        }
+
+        if (!DOM.selectElem('#submitNote')){       
+         const originalSubmit = DOM.elementInit('button',{'type':'submit',
+        'id': 'submitNote', 
+        'class':'submitNote none',
+        },'Submit Note')
+
+        form.appendChild(originalSubmit);
+        
+    
+        }
+            
+        projectEvents.publish('newCheckItem', event);
+
+        return
+
+    }
+           
 
      const submitCheck = function(event){
         event.preventDefault();
@@ -490,6 +497,7 @@ export const templateDOMStructs = function (){
          cancelNote,
          revertModifiedNote,
          submitCheck,
+         generateNewSubmitCheck,
          submitTextItem,
          submitModifiedNote
      }
