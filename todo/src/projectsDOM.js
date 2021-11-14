@@ -398,9 +398,8 @@ export const templateDOMStructs = function (){
         const add = event.target;
         const input = DOM.selectElem('#temporaryInput');                     
         const submit = DOM.selectElem('#submitNote');      
-        //const form = add.parentElement; 
-        //Put something else below. Remove should be reserved for whole form. 
-        //const remove = DOM.selectElem(`#remove${input.parentElement.dataset.id}${form.dataset.id}`)
+        const form = add.parentElement;  
+        const remove = DOM.selectElem(`#remove${input.parentElement.dataset.id}${form.dataset.id}`)
 
         if (input.value === '' && add.textContent === 'Submit Item'){
             add.textContent = 'Add Item';
@@ -411,7 +410,7 @@ export const templateDOMStructs = function (){
         else if (add.textContent === 'Submit Item'){
             _generateCheckItem();
             submit.classList.toggle('none',false);
-            //remove.classList.toggle('none',false);
+            remove.classList.toggle('none',false);
             input.classList.toggle('none', true);
             add.textContent = 'Add Item';
         }
@@ -426,6 +425,7 @@ export const templateDOMStructs = function (){
         const form = DOM.selectElem('#submitNote').parentElement;
         const modify = DOM.elementInit('button', {'class':'edit none'},
         'Edit');
+        const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' )
        
         const checkbox = DOM.elementInit('input', {'type':'checkbox'});
         const label = DOM.elementInit('label', {'for': `${input.value}`},`${input.value}`);
@@ -433,6 +433,7 @@ export const templateDOMStructs = function (){
 
         input.value = '';
         label.appendChild(modify);
+        label.appendChild(del);
         form.appendChild(checkbox);
         form.appendChild(label);
         form.appendChild(br);
