@@ -218,6 +218,7 @@ export const templateDOMStructs = function (){
          const inputOpt = DOM.elementInit('option',{'name': 'input',
                                                      'class': 'input'},'Freeform');
          const choice = DOM.elementInit('button', {'type':'submit'}, 'Submit');
+         const cancel = DOM.elementInit('button', {'class':'cancelChoice'}, 'Cancel');
          
          select.appendChild(optGroup);
          optGroup.appendChild(checklistOpt);
@@ -226,6 +227,7 @@ export const templateDOMStructs = function (){
          form.appendChild(select);
          form.appendChild(DOM.elementInit('br'));
          form.appendChild(choice);
+         form.appendChild(cancel)
 
          disableBtns();
          form.onsubmit = delegator;
@@ -403,6 +405,7 @@ export const templateDOMStructs = function (){
         const submit = DOM.selectElem('#submitNote');      
         const form = add.parentElement;  
         const remove = DOM.selectElem(`#remove${input.parentElement.dataset.id}${form.dataset.id}`)
+       // const cancel = DOM.selectElem(`#cancel${input.parentElement.dataset.id}${form.dataset.id}`);
 
         if (input.value === '' && add.textContent === 'Submit Item'){
             add.textContent = 'Add Item';
@@ -416,6 +419,8 @@ export const templateDOMStructs = function (){
             remove.classList.toggle('none',false);
             input.classList.toggle('none', true);
             add.textContent = 'Add Item';
+           // add.disabled = true;
+           // cancel.classList.toggle('none',false);
         }
         else {
             input.classList.toggle('none',false);

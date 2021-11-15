@@ -49,6 +49,8 @@ const revealToDo = (function(){
     //projectEvents.subscribe('noteToDoType', function Store selected type to be retrieved by backend later.)
     projectEvents.subscribe('deleteNoteTypeForm', disableBtns);
     projectEvents.subscribe('deleteNoteTypeForm', deleteAddNoteForm);
+    projectEvents.subscribe('abortNoteTypeForm', deleteAddNoteForm);
+    projectEvents.subscribe('abortNoteTypeForm', enableBtns);
     projectEvents.subscribe('populateTempInput', checkContent);
     projectEvents.subscribe('cancelNote', cancelNote);
     projectEvents.subscribe('newCheckItem', submitCheck);
