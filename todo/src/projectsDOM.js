@@ -319,13 +319,10 @@ export const templateDOMStructs = function (){
 
         if (form.classList.contains('checkbox')){     
              if (input.value === ''){
-                 add.disabled = true;
                  cancel.classList.toggle('none',false); 
             }
             else {
-                 add.disabled = false
                  cancel.classList.toggle('none', true);
-                 submit.classList.toggle('none',true);
             }
 
             return
@@ -401,7 +398,8 @@ export const templateDOMStructs = function (){
         event.preventDefault();
         const input = DOM.selectElem('#temporaryInput');
         const submit = DOM.selectElem('#submitNote');
-        //const cancel =
+     // const form = event.target.parentElement; 
+     // const cancel = DOM.selectElem(`#cancel${input.parentElement.dataset.id}${form.dataset.id}`);
         input.classList.toggle('none',false);
         input.focus();
         disableBtns();
@@ -411,35 +409,6 @@ export const templateDOMStructs = function (){
     }
            
 
-     const submitCheck = function(event){
-        event.preventDefault();
-        const add = event.target;
-        const input = DOM.selectElem('#temporaryInput');                     
-        const submit = DOM.selectElem('#submitNote');      
-        const form = add.parentElement;  
-        const remove = DOM.selectElem(`#remove${input.parentElement.dataset.id}${form.dataset.id}`)
-       // const cancel = DOM.selectElem(`#cancel${input.parentElement.dataset.id}${form.dataset.id}`);
-
-        if (input.value === '' && add.textContent === 'Submit Item'){
-            add.textContent = 'Add Item';
-            input.classList.toggle('none',true)
-            return
-        }
-
-        else if (add.textContent === 'Submit Item'){
-            _generateCheckItem();
-            submit.classList.toggle('none',false);
-            remove.classList.toggle('none',false);
-            input.classList.toggle('none', true);
-            add.textContent = 'Add Item';
-           // add.disabled = true;
-           // cancel.classList.toggle('none',false);
-        }
-        else {
-            input.classList.toggle('none',false);
-            add.textContent = 'Submit Item'
-            }                         
-        }
     
       const _generateCheckItem = function(){
         const input = DOM.selectElem('#temporaryInput');
@@ -461,7 +430,7 @@ export const templateDOMStructs = function (){
         return
     }
 
-    const submitTextItem = function(){
+    const submitItem = function(){
     
     const input = DOM.selectElem('#temporaryInput');
     const form = DOM.selectElem('#submitNote').parentElement;
@@ -472,6 +441,9 @@ export const templateDOMStructs = function (){
     if (input.value === ''){return};
 
     if (form.classList.contains('checkbox')){
+        _generateCheckItem();
+        remove.classList.toggle('none',false);
+        input.classList.toggle('none', true);        
         return
     }
     
@@ -498,9 +470,9 @@ export const templateDOMStructs = function (){
          modifyToDoNote,
          cancelNote,
          revertModifiedNote,
-         submitCheck,
+         addNewCheck,
          generateNewAddCheck,
-         submitTextItem,
+         submitItem,
          submitModifiedNote
      }
 }

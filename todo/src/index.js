@@ -27,11 +27,11 @@ const revealToDo = (function(){
     const enableBtns = structs.enableBtns;
     const cleanToDoForm = structs.cleanToDoForm;
     const checkContent = structs.checkContent;
+    const addNewCheck = structs.addNewCheck;
     const cancelNote = structs.cancelNote;
     const revertModifiedNote = structs.revertModifiedNote;
     const modifyToDoNote = structs.modifyToDoNote;
-    const submitCheck = structs.submitCheck;
-    const submitTextItem = structs.submitTextItem;
+    const submitItem = structs.submitItem;
     const generateNewAddCheck = structs.generateNewAddCheck;
     const submitModifiedNote = structs.submitModifiedNote;
     const delegator = projectEvents.delegator;
@@ -53,10 +53,10 @@ const revealToDo = (function(){
     projectEvents.subscribe('abortNoteTypeForm', enableBtns);
     projectEvents.subscribe('populateTempInput', checkContent);
     projectEvents.subscribe('cancelNote', cancelNote);
-    projectEvents.subscribe('newCheckItem', submitCheck);
+    projectEvents.subscribe('newCheckItem', addNewCheck);
     //projectEvents.subscribe('createNote', functionRe:BackendUpdate  with user submission & including type chosen && whether items are checked or not (if checkbox), remember localStorage update as well.)
     projectEvents.subscribe('createNote', createToDoNote);
-    projectEvents.subscribe('submitNote', submitTextItem);
+    projectEvents.subscribe('submitNote', submitItem);
     projectEvents.subscribe('submitNote', enableBtns);
     projectEvents.subscribe('submitNote', cleanToDoForm);
     projectEvents.subscribe('updateCheckItem', generateNewAddCheck);
