@@ -453,10 +453,21 @@ export const templateDOMStructs = function (){
    
    const deleteCheck = function(event){
        event.preventDefault();
-    return
 
-    
+       const label = event.target.parentElement
+       const br = label.nextElementSibling;
+       const check = label.previousElementSibling;
+       const form = check.parentElement;
+
+       br.remove() 
+       check.remove() 
+       label.remove()
+       
+       form.children.length <= 2 ? form.remove() : false
+
+       return
     }
+
      return {
          createProject,
          createToDoNote,
