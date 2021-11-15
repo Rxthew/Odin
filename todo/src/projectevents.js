@@ -35,7 +35,12 @@ projectEvents.delegator = function(event){
          case 'revertMod' : projectEvents.publish('revert',event);
          break;
          case 'submitMod': projectEvents.publish('submitModNote',event);
-         break;  
+         break;
+         case 'remove': projectEvents.publish('deleteToDoNote', event);
+         break;
+         case 'deleteCheck': projectEvents.publish('deleteCheck', event);
+         break;
+
       //add more. 
 
 }}
