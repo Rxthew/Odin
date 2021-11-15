@@ -447,6 +447,7 @@ export const templateDOMStructs = function (){
 
    const deleteToDoNote = function(event){
        event.preventDefault();
+       event.target.parentElement.remove();
     return
    }
    
