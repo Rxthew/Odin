@@ -29,3 +29,12 @@ body {
 .toDoNoteInput {
     border: 1px solid black;
 }
+
+.text {
+    white-space: pre-wrap;
+}
+
+.modInput {
+    white-space: pre-wrap;
+}
+

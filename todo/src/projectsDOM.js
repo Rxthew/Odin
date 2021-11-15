@@ -112,12 +112,31 @@ export const templateDOMStructs = function (){
          
          event.preventDefault();
          const form = event.target.parentElement.parentElement;
-         
-         const modInput = DOM.elementInit('input',{'type':'text',
-         'autocomplete':'off',
-         'required':'required',
-         'class': 'modInput',
-          'id':'modInput'});
+         const modInput = (function(){
+         if (form.classList.contains('freeForm')){    
+            let modTextArea = DOM.elementInit('textarea',{'label':'freeForm',
+            'name':'freeForm',
+            'autocomplete':'off',
+            'required':'required',
+            'id':'modInput',
+           'class': 'modInput',
+           'rows' : '3',
+           'cols' : '30'});
+
+           return modTextArea;  
+        }
+        
+        else {
+            let modCheckInput = DOM.elementInit('input',{'type':'text',
+            'autocomplete':'off',
+            'required':'required',
+            'class': 'modInput',
+             'id':'modInput',});
+            
+             return modCheckInput   
+        } 
+    })()
+
          const submit = DOM.elementInit('button',{'type':'submit',
         'class':'submitMod',
          'id': 'submitMod'
@@ -253,12 +272,28 @@ export const templateDOMStructs = function (){
         
         const generateTemporaryInput = (function(){
             const project = DOM.selectElem('#noteTypeForm').parentElement;
-            const temporaryInput = DOM.elementInit('input',{'type':'text',
+           
+        if (getSelected === 'Checklist'){    
+            let temporaryInput = DOM.elementInit('input',{'type':'text',
             'autocomplete':'off',
             'required':'required',
             'id':'temporaryInput',
            'class': 'temporaryInput none'});  
-            project.appendChild(temporaryInput);      
+            project.appendChild(temporaryInput);
+        }
+        
+        else {
+            let textArea = DOM.elementInit('textarea', {'id':'temporaryInput',
+                'name':'freeForm',
+                'label':'freeForm',
+                'class':'temporaryInput none',
+                'autocomplete':'off',
+                'required':'required',
+                'rows' : '4',
+                'cols' : '50' });
+            project.appendChild(textArea);   
+        }
+        
         })()
         
         projectEvents.publish('deleteNoteTypeForm');
@@ -310,7 +345,7 @@ export const templateDOMStructs = function (){
 
       const _removeWhereEmpty = (function(){
         if(form.classList.contains('checkbox')){
-           form.children.length <= 2 ? form.remove() : false;  
+           form.children.length <= 2 ? form.remove() : false;  //what if new button added? change the condition
         }
         else {
         form.children.length <= 1 ? form.remove() : false;
@@ -335,11 +370,15 @@ export const templateDOMStructs = function (){
     }
 
     
-    const generateNewAddCheck = function(event){ 
+    const generateNewAddCheck = function(event){
         
         event.preventDefault();
         const form = event.target.parentElement;
         const project = form.parentElement.parentElement;
+
+        if(DOM.selectElem('#temporaryInput') && DOM.selectElem('#temporaryInput').label === 'freeForm'){
+            DOM.selectElem('#temporaryInput').remove();
+        }
 
         if (!DOM.selectElem('#temporaryInput')){
         const temporaryInput = DOM.elementInit('input',{'type':'text',
@@ -460,7 +499,7 @@ export const templateDOMStructs = function (){
        check.remove() 
        label.remove()
        
-       form.children.length <= 2 ? form.remove() : false
+       form.children.length <= 2 ? form.remove() : false //what if new button added? change the condition
 
        return
     }
