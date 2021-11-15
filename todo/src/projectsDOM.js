@@ -205,10 +205,6 @@ export const templateDOMStructs = function (){
      const chooseNoteType = function(event){
         const domProject = event.target.parentElement;
 
-        if (domProject.lastElementChild.className === 'chooseNoteType') {
-            return
-        }
-
          const form =  DOM.elementInit('form', {'class': 'chooseNoteType',
                                                     'id': 'noteTypeForm'                      })
          const label = DOM.elementInit('label',{'for':'chooseNoteType'},'Choose Your Note Type');
