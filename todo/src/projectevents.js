@@ -18,9 +18,7 @@ projectEvents.delegator = function(event){
                                 event.preventDefault();
          break;
          case 'cancelChoice' : projectEvents.publish('abortNoteTypeForm',event);
-                                     event.preventDefault();
-         break;
-         case 'temporaryInput': projectEvents.publish('populateTempInput', event);
+                               event.preventDefault();
          break;
          case 'addCheck': projectEvents.publish('newCheckItem', event);
          break;
