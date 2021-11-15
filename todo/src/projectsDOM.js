@@ -344,12 +344,11 @@ export const templateDOMStructs = function (){
     })()
 
       const _removeWhereEmpty = (function(){
-        if(form.classList.contains('checkbox')){
-           form.children.length <= 2 ? form.remove() : false;  //what if new button added? change the condition
-        }
-        else {
-        form.children.length <= 1 ? form.remove() : false;
-        }
+        
+        const formChildren = Array.from(form.children);
+        const child = document.querySelector(`[data-class=child${form.dataset.id}]`)
+        !(formChildren.includes(child)) ? form.remove() : false;
+
     })()
 
         return
@@ -441,7 +440,8 @@ export const templateDOMStructs = function (){
         'Edit');
         const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' )
        
-        const checkbox = DOM.elementInit('input', {'type':'checkbox'});
+        const checkbox = DOM.elementInit('input', {'type':'checkbox',
+                                                   'data-class':`child${form.dataset.id}`});
         const label = DOM.elementInit('label', {'for': `${input.value}`},`${input.value}`);
         const br = DOM.elementInit('br');
 
@@ -451,6 +451,7 @@ export const templateDOMStructs = function (){
         form.appendChild(checkbox);
         form.appendChild(label);
         form.appendChild(br);
+
         return
     }
 
@@ -471,7 +472,8 @@ export const templateDOMStructs = function (){
         return
     }
     
-    const text = DOM.elementInit('p', {'class':'text'}, `${input.value}`);
+    const text = DOM.elementInit('p', {'class':'text',
+                                      'data-class':`child${form.dataset.id}`}, `${input.value}`);
     text.appendChild(modify);
     form.appendChild(text);
     remove.classList.toggle('none',false);
@@ -499,8 +501,10 @@ export const templateDOMStructs = function (){
        check.remove() 
        label.remove()
        
-       form.children.length <= 2 ? form.remove() : false //what if new button added? change the condition
-
+       const formChildren = Array.from(form.children);
+       const child = document.querySelector(`[data-class=child${form.dataset.id}]`)
+       !(formChildren.includes(child)) ? form.remove() : false;
+       
        return
     }
 
