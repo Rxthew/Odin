@@ -50,11 +50,16 @@ export const templateDOMStructs = function (){
         
         const remove = DOM.elementInit('button', {'class':'remove none',
                                                    'id':`remove${project.dataset.id}${formReference.length}`}, 'X');
+        const title = DOM.elementInit('label', {'class':'itemTitle none',
+                                                   'for':'itemTitle',                       
+                                                   'name':'itemTitle',
+                                                     'id':`itemTitle${project.dataset.id}${formReference.length}`},'')
 
         
         form.appendChild(submit);
         form.appendChild(cancel);
         form.appendChild(remove);
+        //form.appendChild(title); include placeholder in temporaryInput & mind input type. 
         
 
         form.onsubmit = delegator;   
@@ -430,15 +435,14 @@ export const templateDOMStructs = function (){
         cancel.classList.toggle('none',false);
         return
     }
-           
 
     
       const _generateCheckItem = function(){
         const input = DOM.selectElem('#temporaryInput');
         const form = DOM.selectElem('#submitNote').parentElement;
-        const modify = DOM.elementInit('button', {'class':'edit none'},
+        const modify = DOM.elementInit('button', {'class':'edit none'},   //to edit when creating dropdown
         'Edit');
-        const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' )
+        const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' ) //to edit when creating dropdown
        
         const checkbox = DOM.elementInit('input', {'type':'checkbox',
                                                    'data-class':`child${form.dataset.id}`});
@@ -462,6 +466,7 @@ export const templateDOMStructs = function (){
     const remove = DOM.selectElem(`#remove${input.parentElement.dataset.id}${form.dataset.id}`);
     const modify = DOM.elementInit('button', {'class':'edit'},
     'Edit');
+    //const title = DOM.selectELem('#itemTitle)
     
     if (input.value === ''){return};
 
@@ -495,7 +500,7 @@ export const templateDOMStructs = function (){
        const label = event.target.parentElement
        const br = label.nextElementSibling;
        const check = label.previousElementSibling;
-       const form = check.parentElement;
+       const form = check.parentElement;    
 
        br.remove() 
        check.remove() 
