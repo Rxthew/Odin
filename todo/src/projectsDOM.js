@@ -234,7 +234,7 @@ export const templateDOMStructs = function (){
          domProject.appendChild(form);
 
          return form
- }
+    }
      
      const revealCreateForm = function(){
         let hidden = DOM.selectElem('#createForm');
@@ -361,7 +361,7 @@ export const templateDOMStructs = function (){
     }
 
     
-    const generateNewSubmitCheck = function(event){
+    const generateNewAddCheck = function(event){
         
         event.preventDefault();
         const form = event.target.parentElement;
@@ -395,6 +395,19 @@ export const templateDOMStructs = function (){
 
         return
 
+    }
+
+    const addNewCheck = function(event){
+        event.preventDefault();
+        const input = DOM.selectElem('#temporaryInput');
+        const submit = DOM.selectElem('#submitNote');
+        //const cancel =
+        input.classList.toggle('none',false);
+        input.focus();
+        disableBtns();
+        submit.classList.toggle('none',false);
+        //cancel.classList.toggle('none',false):
+        return
     }
            
 
@@ -486,7 +499,7 @@ export const templateDOMStructs = function (){
          cancelNote,
          revertModifiedNote,
          submitCheck,
-         generateNewSubmitCheck,
+         generateNewAddCheck,
          submitTextItem,
          submitModifiedNote
      }
