@@ -45,11 +45,15 @@ export const templateDOMStructs = function (){
                                                    'id': 'submitNote', 
                                                   'class':'submitNote none',
                                                    },'Submit Note')
+        const cancel = DOM.elementInit('button', {'class':'cancel none',
+                                                 'id':'cancelNote'}, 'Cancel');
+        
         const remove = DOM.elementInit('button', {'class':'remove none',
                                                    'id':`remove${project.dataset.id}${formReference.length}`}, 'X');
 
         
         form.appendChild(submit);
+        form.appendChild(cancel);
         form.appendChild(remove);
         
 
@@ -64,12 +68,8 @@ export const templateDOMStructs = function (){
         const _generateChecklist = function(){ 
            const add = DOM.elementInit('button', {'class':'addCheck',
                                                      'id':`addCheck${project.dataset.id}${formReference.length}`,
-                                                     }, 'Add Item');
-            const cancel = DOM.elementInit('button', {'class':'cancel none',
-                                                     'id':`cancel${project.dataset.id}${formReference.length}`}, 'Cancel Note');
-                                                     
+                                                     }, 'Add Item');                                                     
             form.appendChild(add);
-            form.appendChild(cancel);
 
             form.classList.add('checkbox')
        }
@@ -284,7 +284,8 @@ export const templateDOMStructs = function (){
     }
 
     const cleanToDoForm = function(){
-        
+
+      const _deleteTransitoryStuff = (function(){  
         let deleted = DOM.selectElem('#temporaryInput');
         const project = deleted.parentElement;
         deleted.remove();
@@ -293,6 +294,12 @@ export const templateDOMStructs = function (){
         const form = deleted.parentElement;
         deleted.remove()
 
+        deleted = DOM.selectElem('#cancelNote');
+        deleted ? deleted.remove() : false;
+    })()
+      
+      const _convertAddCheck = (function(){ 
+
         let convert = DOM.selectElem(`#addCheck${project.dataset.id}${form.dataset.id}`);
 
         if (convert){
@@ -300,8 +307,12 @@ export const templateDOMStructs = function (){
             convert.className = 'addCheckMod';
       
         }
+    })()
+
+      const _removeWhereEmpty = (function(){
 
         form.children.length <= 1 ? form.remove() : false;
+    })()
 
         return
     }
@@ -314,7 +325,7 @@ export const templateDOMStructs = function (){
         const form = submit.parentElement;
         const project = input.parentElement;
         const add = DOM.selectElem(`#addCheck${project.dataset.id}${form.dataset.id}`);
-        const cancel = DOM.selectElem(`#cancel${project.dataset.id}${form.dataset.id}`);
+        const cancel = DOM.selectElem('#cancelNote');
           
 
         if (form.classList.contains('checkbox')){     
@@ -350,8 +361,7 @@ export const templateDOMStructs = function (){
         input.value = '';
         input.classList.toggle('none',true);
         
-        add.textContent = 'Add Item';
-        add.disabled = false;
+
 
         
         return        
