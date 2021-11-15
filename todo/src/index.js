@@ -33,6 +33,8 @@ const revealToDo = (function(){
     const submitItem = structs.submitItem;
     const generateNewAddCheck = structs.generateNewAddCheck;
     const submitModifiedNote = structs.submitModifiedNote;
+    const deleteToDoNote = structs.deleteToDoNote;
+    const deleteCheck = structs.deleteCheck;
     const delegator = projectEvents.delegator;
 
     
@@ -63,6 +65,8 @@ const revealToDo = (function(){
     projectEvents.subscribe('modifyNote', modifyToDoNote);
     projectEvents.subscribe('revert', revertModifiedNote);
     projectEvents.subscribe('submitModNote', submitModifiedNote)
+    projectEvents.subscribe('deleteToDoNote', deleteToDoNote);
+    projectEvents.subscribe('deleteCheck', deleteCheck);
     
 
 

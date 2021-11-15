@@ -442,6 +442,19 @@ export const templateDOMStructs = function (){
     remove.classList.toggle('none',false);
 
     return
+
+   }
+
+   const deleteToDoNote = function(event){
+       event.preventDefault();
+    return
+   }
+   
+   
+   const deleteCheck = function(event){
+       event.preventDefault();
+    return
+
     
     }
      return {
@@ -461,6 +474,9 @@ export const templateDOMStructs = function (){
          addNewCheck,
          generateNewAddCheck,
          submitItem,
-         submitModifiedNote
+         submitModifiedNote,
+         deleteToDoNote,
+         deleteCheck,
+         
      }
 }
