@@ -10,7 +10,7 @@ projectEvents.delegator = function(event){
                              projectEvents.publish('saved');
                              event.preventDefault();
            break;
-         case 'viewProject': projectEvents.publish('viewProject', event);
+         case 'project': projectEvents.publish('viewProject', event);
            break;
          case 'addtoDoList': projectEvents.publish('inputOrList', event)
            break;

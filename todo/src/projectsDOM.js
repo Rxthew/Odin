@@ -13,10 +13,8 @@ export const templateDOMStructs = function (){
                                              'data-id':`${reference.length}`, 
                                              'class': 'project'},name
                                              )
-        const viewProjectBtn = DOM.elementInit('button', {'class': 'viewProject'}, 'View Inside');
         const addToDoListBtn = DOM.elementInit('button', {'class': 'addtoDoList',
                                                            'id': `add${DOM.selectElem('.project').length}`}, 'Add To-Do List');
-        proj.appendChild(viewProjectBtn);
         proj.appendChild(DOM.elementInit('div',{ 'class':'none',
                                                    'id':`container${reference.length}`}));
         proj.appendChild(addToDoListBtn);
@@ -99,7 +97,7 @@ export const templateDOMStructs = function (){
 
      const disableBtns = function(trgt='n/a'){
         const all = document.querySelectorAll('button');
-        all.forEach(btn => btn.className === 'viewProject' || btn === trgt || btn.classList.contains('none') ? btn.disabled = false : btn.disabled = true);
+        all.forEach(btn =>  btn === trgt || btn.classList.contains('none') ? btn.disabled = false : btn.disabled = true);
     }
     
     
@@ -149,7 +147,7 @@ export const templateDOMStructs = function (){
          const revert = DOM.elementInit('button',{
          'class':'revertMod',
          'data-transfer':`${event.target.parentElement.firstChild.nodeValue}` //temporary, update to use local storage & backend
-          },'Revert Back')
+          },'Revert Back')                  
 
         disableBtns();
 
@@ -265,7 +263,8 @@ export const templateDOMStructs = function (){
      }
 
      const toggleProjectSize = function(event){
-            event.target.nextElementSibling.classList.toggle('none');
+        const container = DOM.selectElem(`#container${event.target.dataset.id}` )  //modify, include for todonote on title as data-class. Include add item in this.                        
+        container.classList.toggle('none');
      }
 
      const noteTypeGenerator = function(){
@@ -440,7 +439,7 @@ export const templateDOMStructs = function (){
       const _generateCheckItem = function(){
         const input = DOM.selectElem('#temporaryInput');
         const form = DOM.selectElem('#submitNote').parentElement;
-        const modify = DOM.elementInit('button', {'class':'edit none'},   //to edit when creating dropdown
+        const modify = DOM.elementInit('button', {'class':'edit none'},   //to edit when creating dropdown// maybe no dropdown. Make edit clickable.
         'Edit');
         const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' ) //to edit when creating dropdown
        
@@ -464,7 +463,7 @@ export const templateDOMStructs = function (){
     const input = DOM.selectElem('#temporaryInput');
     const form = DOM.selectElem('#submitNote').parentElement;
     const remove = DOM.selectElem(`#remove${input.parentElement.dataset.id}${form.dataset.id}`);
-    const modify = DOM.elementInit('button', {'class':'edit'},
+    const modify = DOM.elementInit('button', {'class':'edit'}, //remove edit, make clickable edit. 
     'Edit');
     //const title = DOM.selectELem('#itemTitle)
     

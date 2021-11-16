@@ -20,6 +20,7 @@ body {
 
 .project {
     border: 1px solid black;
+    cursor: pointer;
 }
 
 .none {
