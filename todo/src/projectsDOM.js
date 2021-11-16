@@ -263,9 +263,21 @@ export const templateDOMStructs = function (){
         
      }
 
-     const toggleProjectSize = function(event){
-        const container = DOM.selectElem(`#container${event.target.dataset.id}` )  //modify, include for todonote on title as data-class. Include add item in this.                        
+     const toggleSize = function(event){
+        if (event.target.classList.contains('project')){
+
+        const container = DOM.selectElem(`#container${event.target.dataset.id}` )                          
         container.classList.toggle('none');
+
+        }
+
+        else {
+        
+        const form = event.target.parentElement;    
+        const formChildren = Array.from(form.children);
+        formChildren.forEach(itm => itm.dataset.class === `child${form.dataset.id}` ? itm.classList.toggle('none') : false)       
+            
+        }
      }
 
      const noteTypeGenerator = function(){
@@ -518,7 +530,7 @@ export const templateDOMStructs = function (){
          createProject,
          createToDoNote,
          revealCreateForm,
-         toggleProjectSize,
+         toggleSize,
          chooseNoteType,
          noteTypeGenerator,
          deleteAddNoteForm,

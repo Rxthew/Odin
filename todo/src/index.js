@@ -18,7 +18,7 @@ const revealToDo = (function(){
     const localStore = main.transferToLocalStorage;
     const createProject = structs.createProject;
     const revealCreateForm = structs.revealCreateForm;
-    const toggleProjectSize = structs.toggleProjectSize;
+    const toggleSize = structs.toggleSize;
     const chooseNoteType = structs.chooseNoteType;
     const noteTypeGenerator = structs.noteTypeGenerator;
     const deleteAddNoteForm = structs.deleteAddNoteForm;
@@ -40,7 +40,7 @@ const revealToDo = (function(){
     
     
     //Event Subscriptions
-    projectEvents.subscribe('viewProject', toggleProjectSize);
+    projectEvents.subscribe('view', toggleSize);
     projectEvents.subscribe('create', createProject);
     projectEvents.subscribe('create', newProj);
     projectEvents.subscribe('saved', localStore);
