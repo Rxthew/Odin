@@ -230,7 +230,7 @@ export const templateDOMStructs = function (){
     const chooseToDoTitleForm = function(event){
         const domProject = event.target.parentElement;
 
-        const _generteTitleForm = (function(){
+        const _generateTitleForm = (function(){
              const form =  DOM.elementInit('form', {'class': 'chooseTitleForm',
                                                      'id': 'chooseTitleForm'})
              const label = DOM.elementInit('label',{'for':'chooseYourTitle'},'Choose Your Note\'s Title');
