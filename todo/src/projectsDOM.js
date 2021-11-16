@@ -70,6 +70,7 @@ export const templateDOMStructs = function (){
         const _generateChecklist = function(){ 
            const add = DOM.elementInit('button', {'class':'addCheck',
                                                      'id':`addCheck${project.dataset.id}${formReference.length}`,
+                                                     'data-class':`child${formReference.length}`
                                                      }, 'Add Item');                                                     
             form.appendChild(add);
 
@@ -445,8 +446,9 @@ export const templateDOMStructs = function (){
        
         const checkbox = DOM.elementInit('input', {'type':'checkbox',
                                                    'data-class':`child${form.dataset.id}`});
-        const label = DOM.elementInit('label', {'for': `${input.value}`},`${input.value}`);
-        const br = DOM.elementInit('br');
+        const label = DOM.elementInit('label', {'for': `${input.value}`,
+                                                'data-class':`child${form.dataset.id}`},`${input.value}`);
+        const br = DOM.elementInit('br',{'data-class':`child${form.dataset.id}`});
 
         input.value = '';
         label.appendChild(modify);
