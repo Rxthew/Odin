@@ -48,16 +48,18 @@ export const templateDOMStructs = function (){
         
         const remove = DOM.elementInit('button', {'class':'remove none',
                                                    'id':`remove${project.dataset.id}${formReference.length}`}, 'X');
+        const provTitle = DOM.selectElem('#provTitle');
         const title = DOM.elementInit('label', {'class':'itemTitle none',
                                                    'for':'itemTitle',                       
                                                    'name':'itemTitle',
-                                                     'id':`itemTitle${project.dataset.id}${formReference.length}`},'')
+                                                     'id':`itemTitle${project.dataset.id}${formReference.length}`},`${provTitle.value}`)
 
         
         form.appendChild(submit);
         form.appendChild(cancel);
         form.appendChild(remove);
-        //form.appendChild(title); include placeholder in temporaryInput & mind input type. 
+        form.appendChild(title);
+        provTitle.remove();  
         
 
         form.onsubmit = delegator;   
@@ -222,9 +224,49 @@ export const templateDOMStructs = function (){
 
 
         return         
-     }     
+     }
+     
+     
+    const chooseToDoTitleForm = function(event){
+        const domProject = event.target.parentElement;
 
+        const _generteTitleForm = (function(){
+             const form =  DOM.elementInit('form', {'class': 'chooseTitleForm',
+                                                     'id': 'chooseTitleForm'})
+             const label = DOM.elementInit('label',{'for':'chooseYourTitle'},'Choose Your Note\'s Title');
+  
+             const titleInput = DOM.elementInit('input',{'type':'text',
+                                                'autocomplete':'off',
+                                                 'required':'required',
+                                                 'id':'provTitle',
+                                                 'class': 'provTitle'},);
+            const submitTitle = DOM.elementInit('button', {'type':'submit'}, 'Submit');
+            const cancelTitle = DOM.elementInit('button', {'class':'cancelTitle'}, 'Cancel');
+            form.appendChild(label);
+            form.appendChild(titleInput);
+            form.appendChild(submitTitle);
+            form.appendChild(cancelTitle);
+            form.onsubmit = delegator;
+            return form
+        })() 
+        
+        domProject.appendChild(_generateTitleForm)
+        return
 
+    }
+    const submitToDoTitle = function(event){
+        event.preventDefault(); 
+        const provTitle = DOM.selectElem('#provTitle');
+        const domProject = event.target.parentElement.parentElement;
+        domProject.appendChild(provTitle);
+        provTitle.classList.toggle('none',true);
+        
+        event.target.parentElement.remove();
+
+        return
+        
+    }
+     
      const chooseNoteType = function(event){
         const domProject = event.target.parentElement;
 
@@ -280,14 +322,14 @@ export const templateDOMStructs = function (){
         }
      }
 
-     const noteTypeGenerator = function(){
+     const noteTypeGenerator = function(){ 
 
         const getSelected = (function(){
              const select =  DOM.selectElem('#select');
              return select.options[select.selectedIndex].value;
         })()
         
-        const generateTemporaryInput = (function(){
+        const _generateTemporaryInput = (function(){
             const project = DOM.selectElem('#noteTypeForm').parentElement;
            
         if (getSelected === 'Checklist'){    
@@ -531,6 +573,8 @@ export const templateDOMStructs = function (){
          createToDoNote,
          revealCreateForm,
          toggleSize,
+         chooseToDoTitleForm,
+         submitToDoTitle,
          chooseNoteType,
          noteTypeGenerator,
          deleteAddNoteForm,
