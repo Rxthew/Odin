@@ -369,9 +369,31 @@ export const templateDOMStructs = function (){
 
 
 
-    const deleteAddNoteForm = function(){
-         const deleted = DOM.selectElem('#noteTypeForm');
-         deleted.remove();
+    const deleteForms = function(){
+
+         
+        const _cancelNoteTypeForm = function(){
+
+            const _deleteProvTitle = (function(){
+                 const provTitle =  DOM.selectElem('#provTitle')
+                 provTitle ? provTitle.remove() : false
+                 return   
+            })();
+
+            const _deleteAddNoteForm = (function(){
+                 const noteTypeForm = DOM.selectElem('#noteTypeForm');
+                 noteTypeForm ? noteTypeForm.remove() : false;
+                 return
+
+             })()
+        }
+
+
+         let deleted = DOM.selectElem('#chooseTitleForm');
+         deleted ? deleted.remove() : _cancelNoteTypeForm()
+         
+         return
+
 
     }
 
@@ -577,7 +599,7 @@ export const templateDOMStructs = function (){
          submitToDoTitle,
          chooseNoteType,
          noteTypeGenerator,
-         deleteAddNoteForm,
+         deleteForms,
          disableBtns,
          enableBtns,
          cleanToDoForm,

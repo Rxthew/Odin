@@ -21,7 +21,7 @@ const revealToDo = (function(){
     const toggleSize = structs.toggleSize;
     const chooseNoteType = structs.chooseNoteType;
     const noteTypeGenerator = structs.noteTypeGenerator;
-    const deleteAddNoteForm = structs.deleteAddNoteForm;
+    const deleteForms = structs.deleteForms;
     const disableBtns = structs.disableBtns;
     const createToDoNote = structs.createToDoNote;
     const enableBtns = structs.enableBtns;
@@ -49,8 +49,8 @@ const revealToDo = (function(){
     projectEvents.subscribe('noteToDoType', noteTypeGenerator);
     //projectEvents.subscribe('noteToDoType', function Store selected type to be retrieved by backend later.)
     projectEvents.subscribe('deleteNoteTypeForm', disableBtns);
-    projectEvents.subscribe('deleteNoteTypeForm', deleteAddNoteForm);
-    projectEvents.subscribe('abortNoteTypeForm', deleteAddNoteForm);
+    projectEvents.subscribe('deleteNoteTypeForm', deleteForms);
+    projectEvents.subscribe('abortNoteTypeForm', deleteForms);
     projectEvents.subscribe('abortNoteTypeForm', enableBtns);
     projectEvents.subscribe('cancelNote', cancelNote);
     projectEvents.subscribe('cancelNote', enableBtns);
