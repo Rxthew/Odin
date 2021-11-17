@@ -47,15 +47,18 @@ const revealToDo = (function(){
     projectEvents.subscribe('create', newProj);
     projectEvents.subscribe('saved', localStore);
     projectEvents.subscribe('reveal', revealCreateForm);
+    projectEvents.subscribe('chooseTitle', disableBtns);
     projectEvents.subscribe('chooseTitle', chooseToDoTitleForm);
     projectEvents.subscribe('inputOrList', submitToDoTitle);
     projectEvents.subscribe('inputOrList', chooseNoteType);
+    projectEvents.subscribe('noteToDoType', deleteForms)
     projectEvents.subscribe('noteToDoType', noteTypeGenerator);
     //projectEvents.subscribe('noteToDoType', function Store selected type to be retrieved by backend later.)
     projectEvents.subscribe('deleteNoteTypeForm', disableBtns);
     projectEvents.subscribe('deleteNoteTypeForm', deleteForms);
     projectEvents.subscribe('abortNoteTypeForm', deleteForms);
     projectEvents.subscribe('abortNoteTypeForm', enableBtns);
+    projectEvents.subscribe('abortNoteTypeForm', deleteForms);
     projectEvents.subscribe('cancelNote', cancelNote);
     projectEvents.subscribe('cancelNote', enableBtns);
     projectEvents.subscribe('cancelNote', cleanToDoForm);        

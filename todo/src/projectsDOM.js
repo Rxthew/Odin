@@ -325,7 +325,7 @@ export const templateDOMStructs = function (){
         }
      }
 
-     const noteTypeGenerator = function(){ 
+     const noteTypeGenerator = function(event){ 
 
         const getSelected = (function(){
              const select =  DOM.selectElem('#select');
@@ -358,7 +358,7 @@ export const templateDOMStructs = function (){
         
         })()
         
-        projectEvents.publish('deleteNoteTypeForm');
+        projectEvents.publish('deleteNoteTypeForm', event);
         projectEvents.publish('createNote', getSelected);
 
 
@@ -380,13 +380,13 @@ export const templateDOMStructs = function (){
             const _deleteProvTitle = function(){
                  const provTitle =  DOM.selectElem('#provTitle')
                  provTitle ? provTitle.remove() : false
-                    
+                 return   
             };
 
             const _deleteAddNoteForm = (function(){
                  const noteTypeForm = DOM.selectElem('#noteTypeForm');
                  noteTypeForm ? noteTypeForm.remove() : false;
-                 
+                 return
 
              })();
             
