@@ -12,11 +12,16 @@ projectEvents.delegator = function(event){
            break;
          case 'project': projectEvents.publish('view', event);
            break;
-         case 'addtoDoList': projectEvents.publish('inputOrList', event)
+         case 'addtoDoList': projectEvents.publish('chooseTitle', event)
+           break;
+         case 'chooseTitleForm': projectEvents.publish('inputOrList', event)
            break;
          case 'chooseNoteType': projectEvents.publish('noteToDoType', event);
                                 event.preventDefault();
          break;
+         case 'cancelTitle' : projectEvents.publish('abortNoteTypeForm', event);
+                              event.preventDefault();
+         break; 
          case 'cancelChoice' : projectEvents.publish('abortNoteTypeForm',event);
                                event.preventDefault();
          break;

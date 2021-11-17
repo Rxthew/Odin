@@ -19,6 +19,8 @@ const revealToDo = (function(){
     const createProject = structs.createProject;
     const revealCreateForm = structs.revealCreateForm;
     const toggleSize = structs.toggleSize;
+    const chooseToDoTitleForm = structs.chooseToDoTitleForm;
+    const submitToDoTitle = structs.submitToDoTitle;
     const chooseNoteType = structs.chooseNoteType;
     const noteTypeGenerator = structs.noteTypeGenerator;
     const deleteForms = structs.deleteForms;
@@ -45,6 +47,8 @@ const revealToDo = (function(){
     projectEvents.subscribe('create', newProj);
     projectEvents.subscribe('saved', localStore);
     projectEvents.subscribe('reveal', revealCreateForm);
+    projectEvents.subscribe('chooseTitle', chooseToDoTitleForm);
+    projectEvents.subscribe('inputOrList', submitToDoTitle);
     projectEvents.subscribe('inputOrList', chooseNoteType);
     projectEvents.subscribe('noteToDoType', noteTypeGenerator);
     //projectEvents.subscribe('noteToDoType', function Store selected type to be retrieved by backend later.)

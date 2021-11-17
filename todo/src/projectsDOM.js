@@ -261,7 +261,7 @@ export const templateDOMStructs = function (){
         domProject.appendChild(provTitle);
         provTitle.classList.toggle('none',true);
         
-        event.target.parentElement.remove();
+        event.target.classList.toggle('none',true);
 
         return
         
@@ -269,6 +269,9 @@ export const templateDOMStructs = function (){
      
      const chooseNoteType = function(event){
         const domProject = event.target.parentElement;
+     //   const _deleteToDoTitleForm = (function(){
+     //       event.target.remove();
+     //   })()
 
          const form =  DOM.elementInit('form', {'class': 'chooseNoteType',
                                                     'id': 'noteTypeForm'                      })
@@ -369,23 +372,26 @@ export const templateDOMStructs = function (){
 
 
 
-    const deleteForms = function(){
+    const deleteForms = function(event){
 
          
         const _cancelNoteTypeForm = function(){
 
-            const _deleteProvTitle = (function(){
+            const _deleteProvTitle = function(){
                  const provTitle =  DOM.selectElem('#provTitle')
                  provTitle ? provTitle.remove() : false
-                 return   
-            })();
+                    
+            };
 
             const _deleteAddNoteForm = (function(){
                  const noteTypeForm = DOM.selectElem('#noteTypeForm');
                  noteTypeForm ? noteTypeForm.remove() : false;
-                 return
+                 
 
-             })()
+             })();
+            
+            event.target.className === 'cancelChoice' ? _deleteProvTitle() : false; 
+            return
         }
 
 
