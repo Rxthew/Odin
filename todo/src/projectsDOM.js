@@ -49,10 +49,11 @@ export const templateDOMStructs = function (){
         const remove = DOM.elementInit('button', {'class':'remove none',
                                                    'id':`remove${project.dataset.id}${formReference.length}`}, 'X');
         const provTitle = DOM.selectElem('#provTitle');
-        const title = DOM.elementInit('label', {'class':'itemTitle none',
+        const title = DOM.elementInit('label', {'class':'itemTitle',//add edit
                                                    'for':'itemTitle',                       
                                                    'name':'itemTitle',
-                                                     'id':`itemTitle${project.dataset.id}${formReference.length}`},`${provTitle.value}`)
+                                                     'id':`itemTitle${project.dataset.id}${formReference.length}`,
+                                                     },`${provTitle.value}`,)
 
         
         form.appendChild(submit);
@@ -65,6 +66,7 @@ export const templateDOMStructs = function (){
         form.onsubmit = delegator;   
          
         container.classList.toggle('none', false);
+        
         
          
         container.appendChild(form);
@@ -99,8 +101,13 @@ export const templateDOMStructs = function (){
 
 
      const disableBtns = function(trgt='n/a'){
-        const all = document.querySelectorAll('button');
-        all.forEach(btn =>  btn === trgt || btn.classList.contains('none') ? btn.disabled = false : btn.disabled = true);
+        const allBtns = document.querySelectorAll('button');
+        allBtns.forEach(btn =>  btn === trgt || btn.classList.contains('none') ? btn.disabled = false : btn.disabled = true);
+
+        const allEditables = DOM.selectElem('.edit');
+        allEditables.forEach(itm =>  itm === trgt || itm.classList.contains('none') ? false : itm.classList.toggle('disabledEdit', true));
+        const allDisabled = DOM.selectElem('.disabledEdit');
+        allDisabled.forEach(itm => itm.classList.toggle('edit',false));
     }
     
     
@@ -108,16 +115,16 @@ export const templateDOMStructs = function (){
         const all = document.querySelectorAll('button');
         all.forEach(btn => btn.disabled = false);
 
-        const modifyBtns = DOM.selectElem('.edit');
-        modifyBtns.forEach(btn => btn.classList.toggle('none',false));
+        const edits = DOM.selectElem('.disabledEdit');
+        edits.forEach(itm => itm.classList.toggle('edit',true));
+        edits.forEach(itm => itm.classList.toggle('disabledEdit',false));
         const deleteBtns = DOM.selectElem('.deleteCheck');
         deleteBtns.forEach(btn => btn.classList.toggle('none',false));        
     }
 
      const modifyToDoNote = function(event){
-         
-         event.preventDefault();
-         const form = event.target.parentElement.parentElement;
+          
+         const form = event.target.parentElement;
          const modInput = (function(){
          if (form.classList.contains('freeForm')){    
             let modTextArea = DOM.elementInit('textarea',{'label':'freeForm',
@@ -149,14 +156,14 @@ export const templateDOMStructs = function (){
          },'Submit Note')
          const revert = DOM.elementInit('button',{
          'class':'revertMod',
-         'data-transfer':`${event.target.parentElement.firstChild.nodeValue}` //temporary, update to use local storage & backend
+         'data-transfer':`${event.target.firstChild.nodeValue}` //temporary, update to use local storage & backend
           },'Revert Back')                  
 
         disableBtns();
 
          const _replaceWithInput = (function(){
-            modInput.value = event.target.parentElement.firstChild.nodeValue; 
-            event.target.parentElement.replaceWith(modInput);
+            modInput.value = event.target.firstChild.nodeValue; 
+            event.target.replaceWith(modInput);
             modInput.insertAdjacentElement('afterend',submit);
             submit.insertAdjacentElement('afterend',revert);
        })() 
@@ -170,20 +177,19 @@ export const templateDOMStructs = function (){
         const form = event.target.parentElement;
         const input = event.target.previousElementSibling;
         const revert = event.target.nextElementSibling;
-        const label = DOM.elementInit('label', {'for': `${input.value}`},`${input.value}`);
-        const text = DOM.elementInit('p', {'class':'text'}, `${input.value}`);
-        const modify = DOM.elementInit('button', {'class':'edit'},
-        'Edit');
+        const label = DOM.elementInit('label', {'for': `${input.value}`, 'class':'edit'},`${input.value}`);
+        const text = DOM.elementInit('p', {'class':'text edit'}, `${input.value}`);
+        const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' ) 
+
         
         if(input.value === ''){return};
 
         if(form.classList.contains('checkbox')){
-            label.appendChild(modify);
             input.replaceWith(label);
+            label.appendChild(del);
 
         }
         else{
-            text.appendChild(modify);
             input.replaceWith(text); 
         }
         
@@ -202,25 +208,23 @@ export const templateDOMStructs = function (){
         const form = event.target.parentElement;
         const submit = event.target.previousElementSibling;
         const input = submit.previousElementSibling;
-        const label = DOM.elementInit('label', {'for': `${event.target.dataset.transfer}`},`${event.target.dataset.transfer}`); //temporary, update to use local storage & backend
-        const text = DOM.elementInit('p', {'class':'text'}, `${event.target.dataset.transfer}`); //temporary, update to use local storage & backend
-        const modify = DOM.elementInit('button', {'class':'edit'},
-        'Edit');        
+        const label = DOM.elementInit('label', {'for': `${event.target.dataset.transfer}`, 'class':'edit'},`${event.target.dataset.transfer}`); //temporary, update to use local storage & backend
+        const text = DOM.elementInit('p', {'class':'text edit'}, `${event.target.dataset.transfer}`); //temporary, update to use local storage & backend
+        const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' ) 
 
         if(form.classList.contains('checkbox')){
-            label.appendChild(modify);
             input.replaceWith(label);
+            label.appendChild(del);
 
         }
         else{
-            text.appendChild(modify);
             input.replaceWith(text); 
         }
          
         enableBtns();
     
         submit.remove();
-        event.target.remove()
+        event.target.remove();
 
 
         return         
@@ -269,9 +273,6 @@ export const templateDOMStructs = function (){
      
      const chooseNoteType = function(event){
         const domProject = event.target.parentElement;
-     //   const _deleteToDoTitleForm = (function(){
-     //       event.target.remove();
-     //   })()
 
          const form =  DOM.elementInit('form', {'class': 'chooseNoteType',
                                                     'id': 'noteTypeForm'                      })
@@ -445,7 +446,6 @@ export const templateDOMStructs = function (){
     const cancelNote = function(event){
         
         const cancel = event.target;
-        const form = cancel.parentElement;
         const input = DOM.selectElem('#temporaryInput');
 
         cancel.classList.toggle('none',true);
@@ -522,18 +522,17 @@ export const templateDOMStructs = function (){
       const _generateCheckItem = function(){
         const input = DOM.selectElem('#temporaryInput');
         const form = DOM.selectElem('#submitNote').parentElement;
-        const modify = DOM.elementInit('button', {'class':'edit none'},   //to edit when creating dropdown// maybe no dropdown. Make edit clickable.
-        'Edit');
+
         const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' ) //to edit when creating dropdown
        
         const checkbox = DOM.elementInit('input', {'type':'checkbox',
                                                    'data-class':`child${form.dataset.id}`});
         const label = DOM.elementInit('label', {'for': `${input.value}`,
+                                                 'class': 'edit',
                                                 'data-class':`child${form.dataset.id}`},`${input.value}`);
         const br = DOM.elementInit('br',{'data-class':`child${form.dataset.id}`});
 
         input.value = '';
-        label.appendChild(modify);
         label.appendChild(del);
         form.appendChild(checkbox);
         form.appendChild(label);
@@ -547,9 +546,8 @@ export const templateDOMStructs = function (){
     const input = DOM.selectElem('#temporaryInput');
     const form = DOM.selectElem('#submitNote').parentElement;
     const remove = DOM.selectElem(`#remove${input.parentElement.dataset.id}${form.dataset.id}`);
-    const modify = DOM.elementInit('button', {'class':'edit'}, //remove edit, make clickable edit. 
-    'Edit');
-    //const title = DOM.selectELem('#itemTitle)
+
+    
     
     if (input.value === ''){return};
 
@@ -560,9 +558,9 @@ export const templateDOMStructs = function (){
         return
     }
     
-    const text = DOM.elementInit('p', {'class':'text',
+    const text = DOM.elementInit('p', {'class':'text edit',
                                       'data-class':`child${form.dataset.id}`}, `${input.value}`);
-    text.appendChild(modify);
+
     form.appendChild(text);
     remove.classList.toggle('none',false);
 
