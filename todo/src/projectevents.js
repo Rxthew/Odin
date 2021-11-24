@@ -12,6 +12,8 @@ projectEvents.delegator = function(event){
            break;
          case 'project': projectEvents.publish('view', event);
            break;
+         case 'itemTitle': projectEvents.publish('view', event);
+           break;           
          case 'addtoDoList': projectEvents.publish('chooseTitle', event)
            break;
          case 'chooseTitleForm': projectEvents.publish('inputOrList', event)
