@@ -14,10 +14,13 @@ export const templateDOMStructs = function (){
                                              'data-id':`${reference.length}`, 
                                              'class': 'project'},name
                                              )
+        const remove = DOM.elementInit('button', {'class':'remove',
+                                        'id':`remove${proj.dataset.id}`}, 'X');
                                              
         const addToDoListBtn = DOM.elementInit('button', {'class': 'addtoDoList',
                                                            'id': `add${DOM.selectElem('.project').length}`}, 'Add To-Do List');
         const modify = DOM.elementInit('button', {'class':'edit'},'Edit');
+        proj.appendChild(remove);
         proj.appendChild(modify);
         proj.appendChild(DOM.elementInit('div',{ 'class':'none',
                                                    'id':`container${reference.length}`}));
