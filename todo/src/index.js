@@ -30,11 +30,11 @@ const revealToDo = (function(){
     const cleanToDoForm = structs.cleanToDoForm;
     const addNewCheck = structs.addNewCheck;
     const cancelNote = structs.cancelNote;
-    const revertModifiedNote = structs.revertModifiedNote;
-    const modifyToDoNote = structs.modifyToDoNote;
+    const revertModifiedElement = structs.revertModifiedElement;
+    const modifyElement = structs.modifyElement;
     const submitItem = structs.submitItem;
     const generateNewAddCheck = structs.generateNewAddCheck;
-    const submitModifiedNote = structs.submitModifiedNote;
+    const submitModifiedElement = structs.submitModifiedElement;
     const deleteToDoNote = structs.deleteToDoNote;
     const deleteCheck = structs.deleteCheck;
     const delegator = projectEvents.delegator;
@@ -69,9 +69,9 @@ const revealToDo = (function(){
     projectEvents.subscribe('submitNote', enableBtns);
     projectEvents.subscribe('submitNote', cleanToDoForm);
     projectEvents.subscribe('updateCheckItem', generateNewAddCheck);
-    projectEvents.subscribe('modifyNote', modifyToDoNote);
-    projectEvents.subscribe('revert', revertModifiedNote);
-    projectEvents.subscribe('submitModNote', submitModifiedNote)
+    projectEvents.subscribe('modifyElem', modifyElement);
+    projectEvents.subscribe('revert', revertModifiedElement);
+    projectEvents.subscribe('submitMod', submitModifiedElement)
     projectEvents.subscribe('deleteToDoNote', deleteToDoNote);
     projectEvents.subscribe('deleteCheck', deleteCheck);
     

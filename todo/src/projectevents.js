@@ -32,14 +32,14 @@ projectEvents.delegator = function(event){
          case 'cancel':projectEvents.publish('cancelNote',event);
                        event.preventDefault()
          break;
-         case 'edit': projectEvents.publish('modifyNote',event);
+         case 'edit': projectEvents.publish('modifyElem',event);
          break;
          case 'submitNote' : projectEvents.publish('submitNote', event);
                              event.preventDefault();
          break;
          case 'revertMod' : projectEvents.publish('revert',event);
          break;
-         case 'submitMod': projectEvents.publish('submitModNote',event);
+         case 'submitMod': projectEvents.publish('submitMod',event);
          break;
          case 'remove': projectEvents.publish('deleteToDoNote', event);
          break;

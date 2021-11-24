@@ -8,13 +8,17 @@ export const templateDOMStructs = function (){
     const delegator = projectEvents.delegator
 
     const createProject = function(name){
+         if (name === ''){return} 
          const reference = DOM.selectElem('.project'); 
          const proj = DOM.elementInit('div',{'id': `${name}${reference.length}`,
                                              'data-id':`${reference.length}`, 
                                              'class': 'project'},name
                                              )
+                                             
         const addToDoListBtn = DOM.elementInit('button', {'class': 'addtoDoList',
                                                            'id': `add${DOM.selectElem('.project').length}`}, 'Add To-Do List');
+        const modify = DOM.elementInit('button', {'class':'edit'},'Edit');
+        proj.appendChild(modify);
         proj.appendChild(DOM.elementInit('div',{ 'class':'none',
                                                    'id':`container${reference.length}`}));
         proj.appendChild(addToDoListBtn);
@@ -25,8 +29,6 @@ export const templateDOMStructs = function (){
         const container = DOM.selectElem('#container');
         container.appendChild(proj);
         
-        return proj
-
      }
      
 
@@ -49,17 +51,19 @@ export const templateDOMStructs = function (){
         const remove = DOM.elementInit('button', {'class':'remove none',
                                                    'id':`remove${project.dataset.id}${formReference.length}`}, 'X');
         const provTitle = DOM.selectElem('#provTitle');
-        const title = DOM.elementInit('label', {'class':'itemTitle',//add edit
+        const title = DOM.elementInit('label', {'class':'itemTitle',
                                                    'for':'itemTitle',                       
                                                    'name':'itemTitle',
                                                      'id':`itemTitle${project.dataset.id}${formReference.length}`,
                                                      },`${provTitle.value}`,)
+        const modify = DOM.elementInit('button', {'class':'edit'},'Edit');
 
         
         form.appendChild(submit);
         form.appendChild(cancel);
         form.appendChild(remove);
         form.appendChild(title);
+        title.appendChild(modify)
         provTitle.remove();  
         
 
@@ -122,7 +126,9 @@ export const templateDOMStructs = function (){
         deleteBtns.forEach(btn => btn.classList.toggle('none',false));        
     }
 
-     const modifyToDoNote = function(event){
+     const modifyElement = function(event){
+
+        event.preventDefault();
           
          const form = event.target.parentElement;
          const modInput = (function(){
@@ -157,21 +163,33 @@ export const templateDOMStructs = function (){
          const revert = DOM.elementInit('button',{
          'class':'revertMod',
          'data-transfer':`${event.target.firstChild.nodeValue}` //temporary, update to use local storage & backend
-          },'Revert Back')                  
+          },'Revert Back') 
+                 
+         if (event.target.parentElement.classList.contains('itemTitle') || event.target.parentElement.classList.contains('project')){
+             revert.dataset.transfer = event.target.parentElement.firstChild.nodeValue
+        }
+                    
 
         disableBtns();
 
          const _replaceWithInput = (function(){
-            modInput.value = event.target.firstChild.nodeValue; 
-            event.target.replaceWith(modInput);
+            if(event.target.parentElement.classList.contains('itemTitle') || event.target.parentElement.classList.contains('project')){
+                modInput.value = event.target.parentElement.firstChild.nodeValue;
+                event.target.parentElement.firstChild.nodeValue = '';
+                event.target.parentElement.appendChild(modInput);
+            }
+            else{
+                modInput.value = event.target.firstChild.nodeValue
+                event.target.replaceWith(modInput); 
+
+            } 
             modInput.insertAdjacentElement('afterend',submit);
             submit.insertAdjacentElement('afterend',revert);
-       })() 
-        return   
-
+       })()
+        
      }
 
-     const submitModifiedNote = function(event){
+     const submitModifiedElement = function(event){
         
         event.preventDefault();
         const form = event.target.parentElement;
@@ -189,8 +207,14 @@ export const templateDOMStructs = function (){
             label.appendChild(del);
 
         }
-        else{
+        else if (form.classList.contains('freeForm')){
             input.replaceWith(text); 
+        }
+
+        else {
+            const value = input.value
+            event.target.parentElement.firstChild.nodeValue = value;
+            input.remove();
         }
         
         enableBtns();
@@ -202,7 +226,7 @@ export const templateDOMStructs = function (){
         return         
      }
 
-     const revertModifiedNote = function(event){
+     const revertModifiedElement = function(event){
         
         event.preventDefault();
         const form = event.target.parentElement;
@@ -212,21 +236,26 @@ export const templateDOMStructs = function (){
         const text = DOM.elementInit('p', {'class':'text edit'}, `${event.target.dataset.transfer}`); //temporary, update to use local storage & backend
         const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' ) 
 
+
         if(form.classList.contains('checkbox')){
             input.replaceWith(label);
             label.appendChild(del);
 
         }
-        else{
+        else if (form.classList.contains('freeForm')){
             input.replaceWith(text); 
+        }
+
+        else {
+            const value = event.target.dataset.transfer; //temporary, update to use local storage & backend
+            event.target.parentElement.firstChild.nodeValue = value;
+            input.remove();
         }
          
         enableBtns();
     
         submit.remove();
         event.target.remove();
-
-
         return         
      }
      
@@ -607,13 +636,13 @@ export const templateDOMStructs = function (){
          disableBtns,
          enableBtns,
          cleanToDoForm,
-         modifyToDoNote,
+         modifyElement,
          cancelNote,
-         revertModifiedNote,
+         revertModifiedElement,
          addNewCheck,
          generateNewAddCheck,
          submitItem,
-         submitModifiedNote,
+         submitModifiedElement,
          deleteToDoNote,
          deleteCheck,
          
