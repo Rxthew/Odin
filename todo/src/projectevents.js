@@ -38,6 +38,7 @@ projectEvents.delegator = function(event){
            break;
          case event.target.classList.contains('submitNote') : projectEvents.publish('submitNote', event);
                                                               event.preventDefault();
+                                                              projectEvents.publish('saved');
            break;
          case event.target.classList.contains('revertMod') : projectEvents.publish('revert',event);
            break;

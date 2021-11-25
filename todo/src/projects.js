@@ -6,16 +6,17 @@ import { baseCreate } from "./helpers/base";
 export const singletoDoNote = function(name){
 
 
-   const _notestorage = new Array();
-   const toDoNote = baseCreate(_notestorage);
+   const noteStorage = new Array();
+   const toDoNote = baseCreate(noteStorage);
+   toDoNote.noteStorage = noteStorage;
+
+   const type = function(type='checkbox'){
+      return type
+   }
    
    toDoNote.name = name;
    toDoNote.type = type();
    
-   
-   const type = function(type='checkbox'){
-      return type
-   }
    const addNote = function(note){
       toDoNote.add(note);
    }
@@ -39,13 +40,15 @@ export const singletoDoNote = function(name){
 
 export const singleProj = function(name){
 
-   const _projstorage = new Array();
-   const project = baseCreate(_projstorage);
+   const projStorage = new Array();
+   const project = baseCreate(projStorage);
    project.name = name;
+   project.projStorage = projStorage
 
    const addToProject = function(name){
       const todo = singletoDoNote(name)
       project.add(todo);
+                                       
    }
 
    const removeFromProject = function(index){
@@ -98,13 +101,17 @@ export const mainInterface = function(){
       return proj.dataset.id
    }
 
-   const appendProj = function(event){
+   const appendToProj = function(event){
       const index = _findProj(event);
       const currentProj = _overallStorage[index];
-      const container = document.querySelector(`#container${index}`);
-      const form = container.lastElementChild; 
-      const name = 'something'
+
+      const form = event.target.parentElement;
+      const formChildren = Array.from(form.children);
+      const title = formChildren.filter(child =>  child.classList.contains('itemTitle'))
+      const name = title[0].firstChild.nodeValue;
       currentProj.addToProject(name)
+      
+  
       return
 
    }
@@ -114,7 +121,7 @@ export const mainInterface = function(){
    return {
       newProj,
       transferToLocalStorage,
-      appendProj,
+      appendToProj,
       //just this for now.
    }
   
