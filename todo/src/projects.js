@@ -13,7 +13,7 @@ export const singletoDoNote = function(name){
    toDoNote.type = type();
    
    
-   const type = function(type='input'){
+   const type = function(type='checkbox'){
       return type
    }
    const addNote = function(note){
@@ -58,7 +58,9 @@ export const singleProj = function(name){
          
    }
 
-   return project
+   return {project,
+          addToProject, 
+   }
 
 } 
 
@@ -77,7 +79,6 @@ export const mainInterface = function(){
 
    }
 
-
    const removeProj = function(index){
       const proj = _overallStorage[index];
       allToDo.remove(proj);
@@ -92,11 +93,28 @@ export const mainInterface = function(){
          return localStorage.setItem('access', JSON.stringify(_overallStorage))
    }
 
+   const _findProj = function(event){
+      const proj = event.target.closest('.project')
+      return proj.dataset.id
+   }
+
+   const appendProj = function(event){
+      const index = _findProj(event);
+      const currentProj = _overallStorage[index];
+      const container = document.querySelector(`#container${index}`);
+      const form = container.lastElementChild; 
+      const name = 'something'
+      currentProj.addToProject(name)
+      return
+
+   }
+
   
    
    return {
       newProj,
-      transferToLocalStorage
+      transferToLocalStorage,
+      appendProj,
       //just this for now.
    }
   
