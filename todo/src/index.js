@@ -17,6 +17,7 @@ const revealToDo = (function(){
     const newProj = main.newProj;
     const localStore = main.transferToLocalStorage;
     const appendToProj = main.appendToProj;
+    const removeProj = main.removeProj;
     const createProject = structs.createProject;
     const revealCreateForm = structs.revealCreateForm;
     const toggleSize = structs.toggleSize;
@@ -36,7 +37,7 @@ const revealToDo = (function(){
     const submitItem = structs.submitItem;
     const generateNewAddCheck = structs.generateNewAddCheck;
     const submitModifiedElement = structs.submitModifiedElement;
-    const deleteToDoNote = structs.deleteToDoNote;
+    const deleteItem = structs.deleteItem;
     const deleteCheck = structs.deleteCheck;
     const delegator = projectEvents.delegator;
 
@@ -74,7 +75,8 @@ const revealToDo = (function(){
     projectEvents.subscribe('modifyElem', modifyElement);
     projectEvents.subscribe('revert', revertModifiedElement);
     projectEvents.subscribe('submitMod', submitModifiedElement)
-    projectEvents.subscribe('deleteToDoNote', deleteToDoNote);
+    projectEvents.subscribe('delete', deleteItem);
+    projectEvents.subscribe('delete', removeProj);
     projectEvents.subscribe('deleteCheck', deleteCheck);
     
 

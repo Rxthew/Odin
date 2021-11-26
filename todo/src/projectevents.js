@@ -44,7 +44,8 @@ projectEvents.delegator = function(event){
            break;
          case event.target.classList.contains('submitMod') : projectEvents.publish('submitMod',event);
            break;
-         case event.target.classList.contains('remove') : projectEvents.publish('deleteToDoNote', event);
+         case event.target.classList.contains('remove') : projectEvents.publish('delete', event);
+                                                          projectEvents.publish('saved');
            break;
          case event.target.classList.contains('deleteCheck') : projectEvents.publish('deleteCheck', event);
            break;

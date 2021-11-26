@@ -81,11 +81,6 @@ export const mainInterface = function(){
       allToDo.add(proj);
 
    }
-
-   const removeProj = function(index){
-      const proj = _overallStorage[index];
-      allToDo.remove(proj);
-   }
     
    const moveProj = function(index, target){
       allToDo.move(index, target);
@@ -111,17 +106,25 @@ export const mainInterface = function(){
       const name = title[0].firstChild.nodeValue;
       currentProj.addToProject(name)
       
-  
       return
 
    }
 
+   const removeProj = function(event){
+      const index = _findProj(event);
+      const proj = _overallStorage[index];
+      event.target.parentElement.classList.contains('project') ? allToDo.remove(proj): false;
+
+      return
+
+   }
   
    
    return {
       newProj,
       transferToLocalStorage,
       appendToProj,
+      removeProj,
       //just this for now.
    }
   

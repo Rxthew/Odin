@@ -600,7 +600,7 @@ export const templateDOMStructs = function (){
 
    }
 
-   const deleteToDoNote = function(event){
+   const deleteItem = function(event){
        event.preventDefault();
        event.target.parentElement.remove();
     return
@@ -646,7 +646,7 @@ export const templateDOMStructs = function (){
          generateNewAddCheck,
          submitItem,
          submitModifiedElement,
-         deleteToDoNote,
+         deleteItem,
          deleteCheck,
          
      }
