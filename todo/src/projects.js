@@ -8,10 +8,6 @@ export const singletoDoNote = function(name){
 
    const noteStorage = new Array();
    const toDoNote = baseCreate(noteStorage);
-
-   toDoNote.noteStorage = noteStorage;
-   
-   toDoNote.name = name;
    
    const addNote = function(note){
       toDoNote.add(note);
@@ -27,9 +23,13 @@ export const singletoDoNote = function(name){
         
    }
    
-   return toDoNote
+   return {toDoNote,
+           name,
+           noteStorage,
+           addNote
+           
 }
-
+}
 //
 
 //Template for a single project
@@ -38,9 +38,8 @@ export const singleProj = function(name){
 
    const projStorage = new Array();
    const project = baseCreate(projStorage);
-   project.name = name;
-   project.projStorage = projStorage
-
+   
+   
    const addToProject = function(name){
       const todo = singletoDoNote(name)
       project.add(todo);
@@ -48,7 +47,7 @@ export const singleProj = function(name){
    }
 
    const removeFromProject = function(index){
-      const todo = projstorage[index];
+      const todo = projStorage[index];
       project.remove(todo, index);  
    } 
 
@@ -58,7 +57,9 @@ export const singleProj = function(name){
    }
 
    return {project,
-          addToProject, 
+           name,
+          addToProject,
+          projStorage 
    }
 
 } 
@@ -92,19 +93,62 @@ export const mainInterface = function(){
       return proj.dataset.id
    }
 
+   const _findToDo = function(event){
+      const toDo = event.target.closest('.toDoNoteInput')
+      return toDo.dataset.id
+   }
+
+
    const appendToProj = function(event){
       const index = _findProj(event);
       const currentProj = _overallStorage[index];
+      const form = event.target.parentElement;      
+      const domProject = form.parentElement.parentElement;
 
-      const form = event.target.parentElement;
       const formChildren = Array.from(form.children);
-      const title = formChildren.filter(child =>  child.classList.contains('itemTitle'))
+      const title = formChildren.filter(child =>  child.id === `itemTitle${domProject.dataset.id}${form.dataset.id}`)
       const name = title[0].firstChild.nodeValue;
+      
+
+
+      if (currentProj.projStorage.length - 1 == form.dataset.id){
+         return
+      }
       currentProj.addToProject(name)
       
       return
 
    }
+
+   const appendNoteToItem = function(event){
+      const projIndex = _findProj(event);
+      const toDoIndex = _findToDo(event);
+      const currentToDo = _overallStorage[projIndex].projStorage[toDoIndex];
+      const form = event.target.parentElement;
+      const formChildren = Array.from(form.children);
+      
+
+
+
+      const note = function(){ 
+        if( form.classList.contains('checkbox')){
+
+        const labels = formChildren.filter(child => child.classList.contains('edit'));
+        const currentLabel = labels[labels.length - 1];
+
+         return  {'check': false,
+                   'label': currentLabel.firstChild.nodeValue}
+        }
+        else {
+
+        const texts = formChildren.filter(child => child === child.classList.contains('text')) 
+        const currentText = texts[texts.length - 1];
+        
+        return currentText.firstChild.nodeValue
+       }}
+      currentToDo.addNote(note());
+      return   
+      }
 
    const removeProj = function(event){
       const index = _findProj(event);
@@ -121,6 +165,7 @@ export const mainInterface = function(){
       transferToLocalStorage,
       appendToProj,
       removeProj,
+      appendNoteToItem,
       //just this for now.
    }
   

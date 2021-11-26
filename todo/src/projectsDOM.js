@@ -298,7 +298,6 @@ export const templateDOMStructs = function (){
         provTitle.classList.toggle('none',true);
         
         event.target.classList.toggle('none',true);
-
         return
         
     }
@@ -507,7 +506,6 @@ export const templateDOMStructs = function (){
 
         project.appendChild(temporaryInput);
         disableBtns(event.target);
-        temporaryInput.oninput = delegator;
     
         }
 
@@ -551,14 +549,17 @@ export const templateDOMStructs = function (){
     }
 
     
-      const _generateCheckItem = function(){
+      const _generateCheckItem = function(){  
         const input = DOM.selectElem('#temporaryInput');
+        const project = input.parentElement;
         const form = DOM.selectElem('#submitNote').parentElement;
 
         const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' ) //to edit when creating dropdown
        
         const checkbox = DOM.elementInit('input', {'type':'checkbox',
-                                                   'data-class':`child${form.dataset.id}`});
+                                                    'id': `check${project.dataset.id}${form.dataset.id}${input.value}`,
+                                                    'class':'check',
+                                                    'data-class':`child${form.dataset.id}`});
         const label = DOM.elementInit('label', {'for': `${input.value}`,
                                                  'class': 'edit',
                                                 'data-class':`child${form.dataset.id}`},`${input.value}`);

@@ -18,6 +18,7 @@ const revealToDo = (function(){
     const localStore = main.transferToLocalStorage;
     const appendToProj = main.appendToProj;
     const removeProj = main.removeProj;
+    const appendNoteToItem = main.appendNoteToItem
     const createProject = structs.createProject;
     const revealCreateForm = structs.revealCreateForm;
     const toggleSize = structs.toggleSize;
@@ -69,7 +70,8 @@ const revealToDo = (function(){
     projectEvents.subscribe('createNote', createToDoNote);
     projectEvents.subscribe('submitNote', submitItem);
     projectEvents.subscribe('submitNote', enableBtns);
-    projectEvents.subscribe('submitNote', appendToProj)
+    projectEvents.subscribe('submitNote', appendToProj);
+    projectEvents.subscribe('submitNote', appendNoteToItem);
     projectEvents.subscribe('submitNote', cleanToDoForm);
     projectEvents.subscribe('updateCheckItem', generateNewAddCheck);
     projectEvents.subscribe('modifyElem', modifyElement);
