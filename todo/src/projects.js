@@ -8,14 +8,10 @@ export const singletoDoNote = function(name){
 
    const noteStorage = new Array();
    const toDoNote = baseCreate(noteStorage);
-   toDoNote.noteStorage = noteStorage;
 
-   const type = function(type='checkbox'){
-      return type
-   }
+   toDoNote.noteStorage = noteStorage;
    
    toDoNote.name = name;
-   toDoNote.type = type();
    
    const addNote = function(note){
       toDoNote.add(note);
