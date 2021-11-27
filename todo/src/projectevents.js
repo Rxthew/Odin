@@ -43,6 +43,7 @@ projectEvents.delegator = function(event){
          case event.target.classList.contains('revertMod') : projectEvents.publish('revert',event);
            break;
          case event.target.classList.contains('submitMod') : projectEvents.publish('submitMod',event);
+                                                             projectEvents.publish('saved');
            break;
          case event.target.classList.contains('remove') : projectEvents.publish('delete', event);
                                                           projectEvents.publish('saved');

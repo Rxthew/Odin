@@ -21,6 +21,7 @@ const revealToDo = (function(){
     const appendNoteToItem = main.appendNoteToItem
     const recordCheck = main.recordCheck;
     const deleteCheckFromStorage = main.deleteCheckFromStorage;
+    const modifyInStorage = main.modifyInStorage;
     const createProject = structs.createProject;
     const revealCreateForm = structs.revealCreateForm;
     const toggleSize = structs.toggleSize;
@@ -58,7 +59,6 @@ const revealToDo = (function(){
     projectEvents.subscribe('inputOrList', chooseNoteType);
     projectEvents.subscribe('noteToDoType', deleteForms)
     projectEvents.subscribe('noteToDoType', noteTypeGenerator);
-    //projectEvents.subscribe('noteToDoType', function Store selected type to be retrieved by backend later.)
     projectEvents.subscribe('deleteNoteTypeForm', disableBtns);
     projectEvents.subscribe('deleteNoteTypeForm', deleteForms);
     projectEvents.subscribe('abortNoteTypeForm', deleteForms);
@@ -68,7 +68,6 @@ const revealToDo = (function(){
     projectEvents.subscribe('cancelNote', enableBtns);
     projectEvents.subscribe('cancelNote', cleanToDoForm);        
     projectEvents.subscribe('newCheckItem', addNewCheck);
-    //projectEvents.subscribe('createNote', functionRe:BackendUpdate  with user submission & including type chosen && whether items are checked or not (if checkbox), remember localStorage update as well.)
     projectEvents.subscribe('createNote', createToDoNote);
     projectEvents.subscribe('submitNote', submitItem);
     projectEvents.subscribe('submitNote', enableBtns);
@@ -78,12 +77,14 @@ const revealToDo = (function(){
     projectEvents.subscribe('updateCheckItem', generateNewAddCheck);
     projectEvents.subscribe('modifyElem', modifyElement);
     projectEvents.subscribe('revert', revertModifiedElement);
+    projectEvents.subscribe('submitMod', modifyInStorage);
     projectEvents.subscribe('submitMod', submitModifiedElement)
     projectEvents.subscribe('delete', removeItem);    
     projectEvents.subscribe('delete', deleteItem);
     projectEvents.subscribe('deleteCheck', deleteCheckFromStorage);
     projectEvents.subscribe('deleteCheck', deleteCheck);
     projectEvents.subscribe('recordCheck', recordCheck);
+    
     
 
 

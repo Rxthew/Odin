@@ -67,6 +67,7 @@ export const templateDOMStructs = function (){
         form.appendChild(remove);
         form.appendChild(title);
         title.appendChild(modify)
+        modify.disabled = true;
         provTitle.remove();  
         
 
@@ -392,12 +393,6 @@ export const templateDOMStructs = function (){
         
         projectEvents.publish('deleteNoteTypeForm', event);
         projectEvents.publish('createNote', getSelected);
-
-
-        //remember createnote thing will apply to the backend as well,
-        // so when you pass in that argument, that's when the 'type'
-        // of the note will be stored in there. 
-        
         
         return getSelected
      }
