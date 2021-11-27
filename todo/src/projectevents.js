@@ -49,6 +49,9 @@ projectEvents.delegator = function(event){
            break;
          case event.target.classList.contains('deleteCheck') : projectEvents.publish('deleteCheck', event);
            break;
+         case event.target.classList.contains('check') : projectEvents.publish('recordCheck', event);
+                                                         projectEvents.publish('saved');
+           break;
 
       //add more. 
 

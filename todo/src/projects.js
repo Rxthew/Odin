@@ -141,7 +141,7 @@ export const mainInterface = function(){
         }
         else {
 
-        const texts = formChildren.filter(child => child === child.classList.contains('text')) 
+        const texts = formChildren.filter(child => child.classList.contains('text')) 
         const currentText = texts[texts.length - 1];
         
         return currentText.firstChild.nodeValue
@@ -158,6 +158,22 @@ export const mainInterface = function(){
       return
 
    }
+
+   const recordCheck = function(event){
+      const check = event.target;
+      const form = event.target.parentElement;
+      const formChildren = Array.from(form.children);
+      const formChecks = formChildren.filter(child => child.classList.contains('check'));
+      
+      const projIndex = _findProj(event);
+      const toDoIndex = _findToDo(event);
+      const checkboxIndex = formChecks.indexOf(check);
+      
+
+      const target = _overallStorage[projIndex].projStorage[toDoIndex].noteStorage[checkboxIndex]
+      target.check === false ? target.check = true : target.check = false;
+      return
+   }
   
    
    return {
@@ -166,6 +182,7 @@ export const mainInterface = function(){
       appendToProj,
       removeProj,
       appendNoteToItem,
+      recordCheck
       //just this for now.
    }
   
