@@ -22,7 +22,7 @@ export const templateDOMStructs = function (){
         const modify = DOM.elementInit('button', {'class':'edit'},'Edit');
         proj.appendChild(remove);
         proj.appendChild(modify);
-        proj.appendChild(DOM.elementInit('div',{ 'class':'none',
+        proj.appendChild(DOM.elementInit('div',{ 'class':'none toDoContainer',
                                                    'id':`container${reference.length}`}));
         proj.appendChild(addToDoListBtn);
 
