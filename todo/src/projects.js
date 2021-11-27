@@ -58,8 +58,8 @@ export const singleProj = function(name){
 
    return {project,
            name,
-          addToProject,
-          projStorage 
+           addToProject,
+           projStorage 
    }
 
 } 
@@ -111,7 +111,7 @@ export const mainInterface = function(){
       
 
 
-      if (currentProj.projStorage.length - 1 == form.dataset.id){
+      if (currentProj.projStorage.length - 1 == form.dataset.id){ //This may not be working correctly.
          return
       }
       currentProj.addToProject(name)
@@ -128,8 +128,6 @@ export const mainInterface = function(){
       const formChildren = Array.from(form.children);
       
 
-
-
       const note = function(){ 
         if( form.classList.contains('checkbox')){
 
@@ -142,7 +140,7 @@ export const mainInterface = function(){
         else {
 
         const texts = formChildren.filter(child => child.classList.contains('text')) 
-        const currentText = texts[texts.length - 1];
+        const currentText = texts[0];
         
         return currentText.firstChild.nodeValue
        }}
@@ -199,6 +197,45 @@ export const mainInterface = function(){
       proj.projStorage[formIndex].noteStorage.splice(itemIndex, 1);
       return
    }
+
+   const modifyInStorage = function(event){
+      const input = document.querySelector('#modInput');
+      const projIndex = _findProj(event);
+      const proj = _overallStorage[projIndex];
+      const toDoIndex = event.target.closest('.toDoNoteInput') ? _findToDo(event) : false;
+      const toDoNote = toDoIndex ? proj.projStorage[toDoIndex]: false;
+      const form = event.target.parentElement;
+      const formChildren = Array.from(form.children);
+      const buttonChecker = formChildren.filter(child => child.nodeName == 'BUTTON' && child.classList.contains('disabledEdit'))
+
+
+      if (buttonChecker.length > 0){
+         if (event.target.parentElement.classList.contains('project')){
+            proj.name = input.value;
+            return 
+             
+         }
+         else if (event.target.parentElement.classList.contains('itemTitle')){
+            toDoNote.name = input.value;
+            return
+
+         }}
+         else {
+
+//Explainer: targetIndex uses the submitMod button as the index of the element,
+//because the modifyElem event, which fired prior to this one, replaced the original
+//element (the one we're targeting) in the DOM with the 'mod' stuff including event.target (i.e submitMod).
+
+            const targets =  form.classList.contains('freeForm') ? false : formChildren.filter(child => child.classList.contains('disabledEdit') || child === event.target)
+            const targetIndex = form.classList.contains('freeForm') ? false : targets.indexOf(event.target)  
+            
+            form.classList.contains('freeForm') ? toDoNote.noteStorage[0] = input.value : toDoNote.noteStorage[targetIndex].label = input.value;
+            return 
+         }  
+      
+
+      
+   }
   
    
    return {
@@ -208,7 +245,8 @@ export const mainInterface = function(){
       removeItem,
       appendNoteToItem,
       recordCheck,
-      deleteCheckFromStorage
+      deleteCheckFromStorage,
+      modifyInStorage
       //just this for now.
    }
   
