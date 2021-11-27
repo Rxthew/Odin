@@ -108,12 +108,18 @@ export const mainInterface = function(){
       const formChildren = Array.from(form.children);
       const title = formChildren.filter(child =>  child.id === `itemTitle${domProject.dataset.id}${form.dataset.id}`)
       const name = title[0].firstChild.nodeValue;
+   
+      const _lastForm = (function(){
+      const containerChildren = Array.from(form.parentElement.children);
+      const projectForms = containerChildren.filter(child => child.classList.contains('toDoNoteInput')); 
+      const lastForm = projectForms[projectForms.length - 1]
+      return lastForm
+      })()
       
-
-
-      if (currentProj.projStorage.length - 1 == form.dataset.id){ //This may not be working correctly.
+      if (currentProj.projStorage.length - 1 == _lastForm.dataset.id){ 
          return
       }
+      
       currentProj.addToProject(name)
       
       return
