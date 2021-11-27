@@ -17,7 +17,7 @@ const revealToDo = (function(){
     const newProj = main.newProj;
     const localStore = main.transferToLocalStorage;
     const appendToProj = main.appendToProj;
-    const removeProj = main.removeProj;
+    const removeItem = main.removeItem;
     const appendNoteToItem = main.appendNoteToItem
     const recordCheck = main.recordCheck;
     const createProject = structs.createProject;
@@ -78,7 +78,7 @@ const revealToDo = (function(){
     projectEvents.subscribe('modifyElem', modifyElement);
     projectEvents.subscribe('revert', revertModifiedElement);
     projectEvents.subscribe('submitMod', submitModifiedElement)
-    projectEvents.subscribe('delete', removeProj);    
+    projectEvents.subscribe('delete', removeItem);    
     projectEvents.subscribe('delete', deleteItem);
     projectEvents.subscribe('deleteCheck', deleteCheck);
     projectEvents.subscribe('recordCheck', recordCheck);

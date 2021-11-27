@@ -150,14 +150,25 @@ export const mainInterface = function(){
       return   
       }
 
-   const removeProj = function(event){
+   const removeItem = function(event){
       const index = _findProj(event);
       const proj = _overallStorage[index];
-      event.target.parentElement.classList.contains('project') ? allToDo.remove(proj): false;
+      if (event.target.parentElement.classList.contains('project')){
+         allToDo.remove(proj)
+         return
+         
+      }
+      else if (event.target.parentElement.classList.contains('toDoNoteInput')){
+         const formIndex = _findToDo(event)
+         proj.projStorage.splice(formIndex, 1);
+         return //to test
+
+      }
 
       return
 
    }
+
 
    const recordCheck = function(event){
       const check = event.target;
@@ -180,7 +191,7 @@ export const mainInterface = function(){
       newProj,
       transferToLocalStorage,
       appendToProj,
-      removeProj,
+      removeItem,
       appendNoteToItem,
       recordCheck
       //just this for now.
