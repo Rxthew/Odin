@@ -78,8 +78,8 @@ const revealToDo = (function(){
     projectEvents.subscribe('modifyElem', modifyElement);
     projectEvents.subscribe('revert', revertModifiedElement);
     projectEvents.subscribe('submitMod', submitModifiedElement)
+    projectEvents.subscribe('delete', removeProj);    
     projectEvents.subscribe('delete', deleteItem);
-    projectEvents.subscribe('delete', removeProj);
     projectEvents.subscribe('deleteCheck', deleteCheck);
     projectEvents.subscribe('recordCheck', recordCheck);
     
