@@ -20,6 +20,7 @@ const revealToDo = (function(){
     const removeItem = main.removeItem;
     const appendNoteToItem = main.appendNoteToItem
     const recordCheck = main.recordCheck;
+    const deleteCheckFromStorage = main.deleteCheckFromStorage;
     const createProject = structs.createProject;
     const revealCreateForm = structs.revealCreateForm;
     const toggleSize = structs.toggleSize;
@@ -80,6 +81,7 @@ const revealToDo = (function(){
     projectEvents.subscribe('submitMod', submitModifiedElement)
     projectEvents.subscribe('delete', removeItem);    
     projectEvents.subscribe('delete', deleteItem);
+    projectEvents.subscribe('deleteCheck', deleteCheckFromStorage);
     projectEvents.subscribe('deleteCheck', deleteCheck);
     projectEvents.subscribe('recordCheck', recordCheck);
     

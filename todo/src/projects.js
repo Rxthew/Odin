@@ -161,7 +161,7 @@ export const mainInterface = function(){
       else if (event.target.parentElement.classList.contains('toDoNoteInput')){
          const formIndex = _findToDo(event)
          proj.projStorage.splice(formIndex, 1);
-         return //to test
+         return 
 
       }
 
@@ -185,6 +185,20 @@ export const mainInterface = function(){
       target.check === false ? target.check = true : target.check = false;
       return
    }
+
+   const deleteCheckFromStorage = function(event){
+      const projIndex = _findProj(event);
+      const proj = _overallStorage[projIndex];
+      const formIndex = _findToDo(event)
+
+      const form = event.target.closest('.toDoNoteInput');
+      const formChildren = Array.from(form.children);
+      const formLabels = formChildren.filter(child => child.classList.contains('edit'));
+      const itemIndex = formLabels.indexOf(event.target.parentElement);
+
+      proj.projStorage[formIndex].noteStorage.splice(itemIndex, 1);
+      return
+   }
   
    
    return {
@@ -193,7 +207,8 @@ export const mainInterface = function(){
       appendToProj,
       removeItem,
       appendNoteToItem,
-      recordCheck
+      recordCheck,
+      deleteCheckFromStorage
       //just this for now.
    }
   
