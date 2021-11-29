@@ -109,14 +109,14 @@ export const mainInterface = function(){
       const title = formChildren.filter(child =>  child.id === `itemTitle${domProject.dataset.id}${form.dataset.id}`)
       const name = title[0].firstChild.nodeValue;
    
-      const _lastForm = (function(){
+      const _formCount = (function(){
       const containerChildren = Array.from(form.parentElement.children);
-      const projectForms = containerChildren.filter(child => child.classList.contains('toDoNoteInput')); 
-      const lastForm = projectForms[projectForms.length - 1]
-      return lastForm
+      const projectForms = containerChildren.filter(child => child.classList.contains('toDoNoteInput'));
+      const _formsCounted = projectForms.length - 1;
+      return _formsCounted - 1
       })()
       
-      if (currentProj.projStorage.length - 1 == _lastForm.dataset.id){ 
+      if (currentProj.projStorage.length - 1 == _formCount){ 
          return
       }
       
