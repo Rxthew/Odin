@@ -113,7 +113,7 @@ export const mainInterface = function(){
       const containerChildren = Array.from(form.parentElement.children);
       const projectForms = containerChildren.filter(child => child.classList.contains('toDoNoteInput'));
       const _formsCounted = projectForms.length - 1;
-      return _formsCounted - 1
+      return _formsCounted 
       })()
       
       if (currentProj.projStorage.length - 1 == _formCount){ 
