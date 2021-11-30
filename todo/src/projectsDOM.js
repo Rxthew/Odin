@@ -622,6 +622,13 @@ export const templateDOMStructs = function (){
        return
     }
 
+    const moveItem = function(event){
+        const target = event.target.closest('.toDoNoteInput') || event.target.closest('.project')
+        //let shiftX =
+        //let shiftY = 
+
+    }
+
      return {
          createProject,
          createToDoNote,
