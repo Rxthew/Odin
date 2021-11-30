@@ -3,7 +3,6 @@ html {
 
 }
 
-
 *, *:before, *:after{
     box-sizing: inherit;
     margin: 0;
@@ -12,10 +11,10 @@ html {
 
 body {
     display: flex;
-}
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100vw;
 
-.hidden {
-    visibility: hidden
 }
 
 .project {
