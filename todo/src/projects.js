@@ -100,6 +100,7 @@ export const mainInterface = function(){
 
 
    const appendToProj = function(event){
+
       const index = _findProj(event);
       const currentProj = _overallStorage[index];
       const form = event.target.parentElement;      
@@ -127,6 +128,10 @@ export const mainInterface = function(){
    }
 
    const appendNoteToItem = function(event){
+
+      const input = document.querySelector('#temporaryInput');
+      if (input.value === ''){return};
+
       const projIndex = _findProj(event);
       const toDoIndex = _findToDo(event);
       const currentToDo = _overallStorage[projIndex].projStorage[toDoIndex];
@@ -137,7 +142,7 @@ export const mainInterface = function(){
       const note = function(){ 
         if( form.classList.contains('checkbox')){
 
-        const labels = formChildren.filter(child => child.classList.contains('edit'));
+        const labels = formChildren.filter(child => child.classList.contains('edit'))
         const currentLabel = labels[labels.length - 1];
 
          return  {'check': false,

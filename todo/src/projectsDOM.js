@@ -82,11 +82,13 @@ export const templateDOMStructs = function (){
         const _generateChecklist = function(){ 
            const add = DOM.elementInit('button', {'class':'addCheck',
                                                      'id':`addCheck${project.dataset.id}${formReference.length}`,
-                                                     'data-class':`child${formReference.length}`
+                                                     'data-class':`child${formReference.length}` 
                                                      }, 'Add Item');                                                     
             form.appendChild(add);
 
             form.classList.add('checkbox')
+            remove.classList.toggle('none',false);
+            enableBtns();
        }
 
        const _generateFreeForm = function(){
@@ -589,7 +591,6 @@ export const templateDOMStructs = function (){
 
     if (form.classList.contains('checkbox')){
         _generateCheckItem();
-        remove.classList.toggle('none',false);
         input.classList.toggle('none', true);        
         return
     }
