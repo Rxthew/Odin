@@ -24,6 +24,7 @@ const revealToDo = (function(){
     const modifyInStorage = main.modifyInStorage;
     const createProject = structs.createProject;
     const revealCreateForm = structs.revealCreateForm;
+    const resetCreateForm = structs.resetCreateForm;
     const toggleSize = structs.toggleSize;
     const chooseToDoTitleForm = structs.chooseToDoTitleForm;
     const submitToDoTitle = structs.submitToDoTitle;
@@ -50,6 +51,7 @@ const revealToDo = (function(){
     //Event Subscriptions
     projectEvents.subscribe('view', toggleSize);
     projectEvents.subscribe('create', createProject);
+    projectEvents.subscribe('create', resetCreateForm);
     projectEvents.subscribe('create', newProj);
     projectEvents.subscribe('saved', localStore);
     projectEvents.subscribe('reveal', revealCreateForm);
@@ -131,7 +133,7 @@ const revealToDo = (function(){
      
     const createForm = (function(){
          const form = DOM.elementInit('form',{'id':'createForm',
-                                              'class':'hidden projectForm'
+                                              'class':'none projectForm'
                                             });
          form.appendChild(DOM.elementInit('br'));                                   
          form.appendChild(DOM.elementInit('label',{'for':'titleInp'},'Project Title'))

@@ -336,9 +336,17 @@ export const templateDOMStructs = function (){
     }
      
      const revealCreateForm = function(){
-        let hidden = DOM.selectElem('#createForm');
-        hidden.classList.toggle('hidden', false);
+        let createForm = DOM.selectElem('#createForm');
+        createForm.classList.toggle('none', false);
         
+     }
+
+     const resetCreateForm = function(){
+         let createForm = DOM.selectElem('#createForm');
+         createForm.classList.toggle('none', true);
+
+         let titleInp = DOM.selectElem('#titleInp');
+         titleInp.value = '';
      }
 
      const toggleSize = function(event){
@@ -633,6 +641,7 @@ export const templateDOMStructs = function (){
          createProject,
          createToDoNote,
          revealCreateForm,
+         resetCreateForm,
          toggleSize,
          chooseToDoTitleForm,
          submitToDoTitle,
