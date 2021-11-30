@@ -75,7 +75,6 @@ export const templateDOMStructs = function (){
          
         container.classList.toggle('none', false);
         
-        
          
         container.appendChild(form);
 
@@ -570,7 +569,7 @@ export const templateDOMStructs = function (){
                                                 'data-class':`child${form.dataset.id}`},`${input.value}`);
         const br = DOM.elementInit('br',{'data-class':`child${form.dataset.id}`});
 
-        input.value = '';
+       
         label.appendChild(del);
         form.appendChild(checkbox);
         form.appendChild(label);
@@ -584,8 +583,6 @@ export const templateDOMStructs = function (){
     const input = DOM.selectElem('#temporaryInput');
     const form = DOM.selectElem('#submitNote').parentElement;
     const remove = DOM.selectElem(`#remove${input.parentElement.dataset.id}${form.dataset.id}`);
-
-    
     
     if (input.value === ''){return};
 
