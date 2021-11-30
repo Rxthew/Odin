@@ -133,7 +133,7 @@ const revealToDo = (function(){
      
     const createForm = (function(){
          const form = DOM.elementInit('form',{'id':'createForm',
-                                              'class':'none projectForm'
+                                              'class':'none projectForm transitForm'
                                             });
          form.appendChild(DOM.elementInit('br'));                                   
          form.appendChild(DOM.elementInit('label',{'for':'titleInp'},'Project Title'))

@@ -38,3 +38,11 @@ body {
     white-space: pre-wrap;
 }
 
+.transitForm {
+    position: absolute;
+    z-index:0;
+    left: 50vw;
+    top: 35vh;
+    border: 1px solid;
+    padding: 2rem;
+}
