@@ -270,7 +270,7 @@ export const templateDOMStructs = function (){
         const domProject = event.target.parentElement;
 
         const _generateTitleForm = (function(){
-             const form =  DOM.elementInit('form', {'class': 'chooseTitleForm',
+             const form =  DOM.elementInit('form', {'class': 'chooseTitleForm transitForm',
                                                      'id': 'chooseTitleForm'})
              const label = DOM.elementInit('label',{'for':'chooseYourTitle'},'Choose Your Note\'s Title');
   
@@ -308,7 +308,7 @@ export const templateDOMStructs = function (){
      const chooseNoteType = function(event){
         const domProject = event.target.parentElement;
 
-         const form =  DOM.elementInit('form', {'class': 'chooseNoteType',
+         const form =  DOM.elementInit('form', {'class': 'chooseNoteType transitForm',
                                                     'id': 'noteTypeForm'                      })
          const label = DOM.elementInit('label',{'for':'chooseNoteType'},'Choose Your Note Type');
          const select = DOM.elementInit('select',{'class':'select',
