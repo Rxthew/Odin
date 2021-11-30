@@ -293,6 +293,8 @@ export const templateDOMStructs = function (){
 
     }
     const submitToDoTitle = function(event){
+       
+        if(event.type === 'click'){return}
         event.preventDefault(); 
         const provTitle = DOM.selectElem('#provTitle');
         const domProject = event.target.parentElement.parentElement;
@@ -305,6 +307,7 @@ export const templateDOMStructs = function (){
     }
      
      const chooseNoteType = function(event){
+        if(event.type === 'click'){return}
         const domProject = event.target.parentElement;
 
          const form =  DOM.elementInit('form', {'class': 'chooseNoteType transitForm',
@@ -369,6 +372,8 @@ export const templateDOMStructs = function (){
 
      const noteTypeGenerator = function(event){ 
 
+        if(event.type === 'click'){return}
+
         const getSelected = (function(){
              const select =  DOM.selectElem('#select');
              return select.options[select.selectedIndex].value;
@@ -410,7 +415,7 @@ export const templateDOMStructs = function (){
 
     const deleteForms = function(event){
 
-         
+        if(event.target.nodeName != 'BUTTON' && event.type === 'click'){return}        
         const _cancelNoteTypeForm = function(){
 
             const _deleteProvTitle = function(){
