@@ -6,6 +6,8 @@ projectEvents.delegator = function(event){
       switch(true){
          case event.target.classList.contains('revealForm') : projectEvents.publish('reveal');
            break;
+         case event.target.classList.contains('cancelNewProject') : projectEvents.publish('cancelCreateNote', event);
+           break;
          case event.target.classList.contains('projectForm'): projectEvents.publish('create', document.querySelector('#titleInp').value);
                                                               projectEvents.publish('saved');
                                                               event.preventDefault();

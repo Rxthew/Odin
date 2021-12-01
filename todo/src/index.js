@@ -52,6 +52,7 @@ const revealToDo = (function(){
     projectEvents.subscribe('view', toggleSize);
     projectEvents.subscribe('create', createProject);
     projectEvents.subscribe('create', resetCreateForm);
+    projectEvents.subscribe('cancelCreateNote', resetCreateForm);
     projectEvents.subscribe('create', newProj);
     projectEvents.subscribe('saved', localStore);
     projectEvents.subscribe('reveal', revealCreateForm);
@@ -145,13 +146,21 @@ const revealToDo = (function(){
          form.appendChild(DOM.elementInit('button',{'type':'submit',
                                                      'class': 'submit',
                                                       'id':'submit'},'submit'));
+         form.appendChild(DOM.elementInit('button', {  'type' : 'button',
+                                                       'class':'cancelNewProject',
+                                                       'id':'cancelNewProject'}, 'cancel' ))
          
  
          form.onsubmit = delegator;
+
          mainContainer.appendChild(form);
+         
+         const cancel = DOM.selectElem('#cancelNewProject');
+         cancel.onclick = delegator;
+
          return form; 
 })()
-     
+
 
 })()
 
