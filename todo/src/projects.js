@@ -100,29 +100,29 @@ export const mainInterface = function(){
 
 
    const appendToProj = function(event){
-
       const index = _findProj(event);
+      const domProject = event.target.closest('.project');
       const currentProj = _overallStorage[index];
-      const form = event.target.parentElement;      
-      const domProject = form.parentElement.parentElement;
 
+      const formRetriever = function(){
+         const formsContainer = Array.from(domProject.children).filter(child => child.classList.contains('toDoContainer'))[0];
+         const allForms = Array.from(formsContainer.children)
+      return allForms
+    }
+
+      const projectForms =  formRetriever() 
+      const form = event.target === document.querySelector('#submitNote') ? event.target.parentElement : projectForms[projectForms.length - 1];
+      
       const formChildren = Array.from(form.children);
       const title = formChildren.filter(child =>  child.id === `itemTitle${domProject.dataset.id}${form.dataset.id}`)
       const name = title[0].firstChild.nodeValue;
-   
-      const _formCount = (function(){
-      const containerChildren = Array.from(form.parentElement.children);
-      const projectForms = containerChildren.filter(child => child.classList.contains('toDoNoteInput'));
-      const _formsCounted = projectForms.length - 1;
-      return _formsCounted 
-      })()
+      const formCount = projectForms.length - 1;
       
-      if (currentProj.projStorage.length - 1 == _formCount){ 
+      if (currentProj.projStorage.length - 1 == formCount && event.target === document.querySelector('#submitNote')){ 
          return
       }
       
-      currentProj.addToProject(name)
-      
+     currentProj.addToProject(name)
       return
 
    }

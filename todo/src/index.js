@@ -61,7 +61,7 @@ const revealToDo = (function(){
     projectEvents.subscribe('inputOrList', chooseNoteType);
     projectEvents.subscribe('noteToDoType', deleteForms)
     projectEvents.subscribe('noteToDoType', noteTypeGenerator);
-    projectEvents.subscribe('deleteNoteTypeForm', disableBtns);
+    projectEvents.subscribe('deleteNoteTypeForm', appendToProj);
     projectEvents.subscribe('deleteNoteTypeForm', deleteForms);
     projectEvents.subscribe('abortNoteTypeForm', deleteForms);
     projectEvents.subscribe('abortNoteTypeForm', enableBtns);

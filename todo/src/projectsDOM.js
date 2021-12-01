@@ -38,8 +38,8 @@ export const templateDOMStructs = function (){
      const createToDoNote = function(chosenType){
         const input = DOM.selectElem('#temporaryInput') 
         const project = input.parentElement;
-        const formReference = DOM.selectElem('.toDoNoteInput')
         const container = DOM.selectElem(`#container${project.dataset.id}`);
+        const formReference = Array.from(container.children);
         
         const form = DOM.elementInit('form',{'class': 'toDoNoteInput',
                                                  'id': `toDoNoteForm${project.dataset.id}${formReference.length}`,
@@ -81,7 +81,7 @@ export const templateDOMStructs = function (){
         const _generateChecklist = function(){ 
            const add = DOM.elementInit('button', {'class':'addCheck',
                                                      'id':`addCheck${project.dataset.id}${formReference.length}`,
-                                                     'data-class':`child${formReference.length}` 
+                                                     'data-class':`child${project.dataset.id}${formReference.length}` 
                                                      }, 'Add Item');                                                     
             form.appendChild(add);
 
@@ -363,9 +363,10 @@ export const templateDOMStructs = function (){
 
         else {
         
-        const form = event.target.parentElement;    
+        const form = event.target.parentElement;
+        const project = event.target.parentElement.parentElement;    
         const formChildren = Array.from(form.children);
-        formChildren.forEach(itm => itm.dataset.class === `child${form.dataset.id}` ? itm.classList.toggle('none') : false)       
+        formChildren.forEach(itm => itm.dataset.class === `child${project.dataset.id}${form.dataset.id}` ? itm.classList.toggle('none') : false)       
             
         }
      }
@@ -405,8 +406,10 @@ export const templateDOMStructs = function (){
         
         })()
         
-        projectEvents.publish('deleteNoteTypeForm', event);
         projectEvents.publish('createNote', getSelected);
+        projectEvents.publish('deleteNoteTypeForm', event);
+        projectEvents.publish('saved');
+        
         
         return getSelected
      }
@@ -474,7 +477,7 @@ export const templateDOMStructs = function (){
       const _removeWhereEmpty = (function(){
         
         const formChildren = Array.from(form.children);
-        const child = document.querySelector(`[data-class=child${form.dataset.id}]`)
+        const child = document.querySelector(`[data-class=child${project.dataset.id}${form.dataset.id}]`)
         !(formChildren.includes(child)) ? form.remove() : false;
 
     })()
@@ -568,11 +571,11 @@ export const templateDOMStructs = function (){
         const checkbox = DOM.elementInit('input', {'type':'checkbox',
                                                     'id': `check${project.dataset.id}${form.dataset.id}${input.value}`,
                                                     'class':'check',
-                                                    'data-class':`child${form.dataset.id}`});
+                                                    'data-class':`child${project.dataset.id}${form.dataset.id}`});
         const label = DOM.elementInit('label', {'for': `${input.value}`,
                                                  'class': 'edit',
-                                                'data-class':`child${form.dataset.id}`},`${input.value}`);
-        const br = DOM.elementInit('br',{'data-class':`child${form.dataset.id}`});
+                                                'data-class':`child${project.dataset.id}${form.dataset.id}`},`${input.value}`);
+        const br = DOM.elementInit('br',{'data-class':`child${project.dataset.id}${form.dataset.id}`});
 
        
         label.appendChild(del);
@@ -586,6 +589,7 @@ export const templateDOMStructs = function (){
     const submitItem = function(){
     
     const input = DOM.selectElem('#temporaryInput');
+    const project = input.parentElement;
     const form = DOM.selectElem('#submitNote').parentElement;
     const remove = DOM.selectElem(`#remove${input.parentElement.dataset.id}${form.dataset.id}`);
     
@@ -598,7 +602,7 @@ export const templateDOMStructs = function (){
     }
     
     const text = DOM.elementInit('p', {'class':'text edit',
-                                      'data-class':`child${form.dataset.id}`}, `${input.value}`);
+                                      'data-class':`child${project.dataset.id}${form.dataset.id}`}, `${input.value}`);
 
     form.appendChild(text);
     remove.classList.toggle('none',false);
@@ -620,14 +624,16 @@ export const templateDOMStructs = function (){
        const label = event.target.parentElement
        const br = label.nextElementSibling;
        const check = label.previousElementSibling;
-       const form = check.parentElement;    
+       const form = check.parentElement;
+       const project = form.parentElement.parentElement;
+
 
        br.remove() 
        check.remove() 
        label.remove()
        
        const formChildren = Array.from(form.children);
-       const child = document.querySelector(`[data-class=child${form.dataset.id}]`)
+       const child = document.querySelector(`[data-class=child${project.dataset.id}${form.dataset.id}]`)
        !(formChildren.includes(child)) ? form.remove() : false;
        
        return
