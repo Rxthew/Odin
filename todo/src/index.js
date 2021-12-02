@@ -43,7 +43,8 @@ const revealToDo = (function(){
     const generateNewAddCheck = structs.generateNewAddCheck;
     const submitModifiedElement = structs.submitModifiedElement;
     const deleteItem = structs.deleteItem;
-    const deleteCheck = structs.deleteCheck;
+    const deleteCheck = structs.deleteCheck
+    const triggerEvents = structs.triggerEvents;
     const delegator = projectEvents.delegator;
 
     
@@ -67,6 +68,7 @@ const revealToDo = (function(){
     projectEvents.subscribe('abortNoteTypeForm', deleteForms);
     projectEvents.subscribe('abortNoteTypeForm', enableBtns);
     projectEvents.subscribe('abortNoteTypeForm', deleteForms);
+    projectEvents.subscribe('trigger',triggerEvents);
     projectEvents.subscribe('cancelNote', cancelNote);
     projectEvents.subscribe('cancelNote', enableBtns);
     projectEvents.subscribe('cancelNote', cleanToDoForm);        

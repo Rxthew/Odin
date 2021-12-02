@@ -36,6 +36,10 @@ projectEvents.delegator = function(event){
          case event.target.classList.contains('cancel') : projectEvents.publish('cancelNote',event);
                                                           event.preventDefault()
            break;
+         case event.target.classList.contains('cancelTrigger') : projectEvents.publish('trigger',event);
+           break;
+         case event.target.classList.contains('submitTrigger') : projectEvents.publish('trigger',event);
+           break;
          case event.target.classList.contains('edit') : projectEvents.publish('modifyElem',event);
            break;
          case event.target.classList.contains('submitNote') : projectEvents.publish('submitNote', event);

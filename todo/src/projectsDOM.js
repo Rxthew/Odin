@@ -36,7 +36,10 @@ export const templateDOMStructs = function (){
      
 
      const createToDoNote = function(chosenType){
-        const input = DOM.selectElem('#temporaryInput') 
+        const input = DOM.selectElem('#temporaryInput')
+        const submitTrigger = DOM.selectElem('#submitTrigger');
+        const cancelTrigger = DOM.selectElem('#cancelTrigger');
+         
         const project = input.parentElement;
         const container = DOM.selectElem(`#container${project.dataset.id}`);
         const formReference = Array.from(container.children);
@@ -46,10 +49,10 @@ export const templateDOMStructs = function (){
                                                   'data-id':`${formReference.length}` })
         const submit = DOM.elementInit('button',{'type':'submit',
                                                    'id': 'submitNote', 
-                                                  'class':'submitNote none',
-                                                   },'Submit Note')
-        const cancel = DOM.elementInit('button', {'class':'cancel none',
-                                                 'id':'cancelNote'}, 'Cancel');
+                                                  'class':'submitNote hidden',
+                                                   },'')
+        const cancel = DOM.elementInit('button', {'class':'cancel hidden',
+                                                 'id':'cancelNote'}, '');
         
         const remove = DOM.elementInit('button', {'class':'remove none',
                                                    'id':`remove${project.dataset.id}${formReference.length}`}, 'X');
@@ -96,8 +99,8 @@ export const templateDOMStructs = function (){
         input.classList.toggle('none',false);
         form.classList.add('freeForm');
 
-        submit.classList.toggle('none',false);
-        cancel.classList.toggle('none',false);
+        submitTrigger.classList.toggle('none',false);
+        cancelTrigger.classList.toggle('none',false);
         input.focus();
         
        }
@@ -111,7 +114,7 @@ export const templateDOMStructs = function (){
 
      const disableBtns = function(trgt='n/a'){
         const allBtns = document.querySelectorAll('button');
-        allBtns.forEach(btn =>  btn === trgt || btn.classList.contains('none') ? btn.disabled = false : btn.disabled = true);
+        allBtns.forEach(btn =>  btn === trgt || btn.classList.contains('none') || btn.classList.contains('hidden') ? btn.disabled = false : btn.disabled = true);
 
         const allEditables = DOM.selectElem('.edit');
         allEditables.forEach(itm =>  itm === trgt || itm.classList.contains('none') ? false : itm.classList.toggle('disabledEdit', true));
@@ -401,10 +404,27 @@ export const templateDOMStructs = function (){
                 'required':'required',
                 'rows' : '4',
                 'cols' : '50' });
-            project.appendChild(textArea);   
+            project.appendChild(textArea);
+             
         }
+        const _generateTriggerButtons = (function(){
+
+            const submit = DOM.elementInit('button',{'type':'button',
+            'id': 'submitTrigger', 
+           'class':'submitTrigger none',
+            },'Submit Note')
+            const cancel = DOM.elementInit('button', {'class':'cancelTrigger none',
+          'id':'cancelTrigger'}, 'Cancel');
+
+          project.appendChild(submit);
+          project.appendChild(cancel);
+
+        })()
+        
         
         })()
+
+
         
         projectEvents.publish('createNote', getSelected);
         projectEvents.publish('deleteNoteTypeForm', event);
@@ -418,7 +438,8 @@ export const templateDOMStructs = function (){
 
     const deleteForms = function(event){
 
-        if(event.target.nodeName != 'BUTTON' && event.type === 'click'){return}        
+        if(event.target.nodeName != 'BUTTON' && event.type === 'click'){return}  
+              
         const _cancelNoteTypeForm = function(){
 
             const _deleteProvTitle = function(){
@@ -447,6 +468,7 @@ export const templateDOMStructs = function (){
 
     }
 
+
     const cleanToDoForm = function(){
       
       const form = DOM.selectElem('#submitNote').parentElement;
@@ -454,6 +476,12 @@ export const templateDOMStructs = function (){
 
       const _deleteTransitoryStuff = (function(){  
         let deleted = DOM.selectElem('#temporaryInput');
+        deleted.remove();
+
+        deleted = DOM.selectElem('#submitTrigger');
+        deleted.remove();
+
+        deleted = DOM.selectElem('#cancelTrigger');
         deleted.remove();
 
         deleted = DOM.selectElem('#submitNote');
@@ -486,7 +514,7 @@ export const templateDOMStructs = function (){
     }
         
 
-    const cancelNote = function(event){
+    const cancelNote = function(event){ //This might be redundant. Investigate. 
         
         const cancel = event.target;
         const input = DOM.selectElem('#temporaryInput');
@@ -507,6 +535,8 @@ export const templateDOMStructs = function (){
 
         if(DOM.selectElem('#temporaryInput') && DOM.selectElem('#temporaryInput').label === 'freeForm'){
             DOM.selectElem('#temporaryInput').remove();
+            DOM.selectElem('#submitTrigger').remove();
+            DOM.selectElem('#cancelTrigger').remove();
         }
 
         if (!DOM.selectElem('#temporaryInput')){
@@ -516,7 +546,23 @@ export const templateDOMStructs = function (){
         'id':'temporaryInput',
         'class': 'temporaryInput none'});
 
+
         project.appendChild(temporaryInput);
+
+        const _generateTriggerButtons = (function(){
+
+            const submit = DOM.elementInit('button',{'type':'button',
+            'id': 'submitTrigger', 
+           'class':'submitTrigger none',
+            },'Submit Note')
+            const cancel = DOM.elementInit('button', {'class':'cancelTrigger none',
+          'id':'cancelTrigger'}, 'Cancel');
+
+          project.appendChild(submit);
+          project.appendChild(cancel);
+
+        })()
+
         disableBtns(event.target);
     
         }
@@ -524,8 +570,8 @@ export const templateDOMStructs = function (){
         if (!DOM.selectElem('#submitNote')){       
          const originalSubmit = DOM.elementInit('button',{'type':'submit',
         'id': 'submitNote', 
-        'class':'submitNote none',
-        },'Submit Note')
+        'class':'submitNote hidden',
+        },'')
 
         form.appendChild(originalSubmit);
 
@@ -534,8 +580,8 @@ export const templateDOMStructs = function (){
         if (!DOM.selectElem('#cancelNote')){       
             const cancel = DOM.elementInit('button',{
            'id': 'cancelNote', 
-           'class':'cancel none',
-           },'Cancel')
+           'class':'cancel hidden',
+           },'')
    
            form.appendChild(cancel);
     
@@ -550,8 +596,8 @@ export const templateDOMStructs = function (){
     const addNewCheck = function(event){
         event.preventDefault();
         const input = DOM.selectElem('#temporaryInput');
-        const submit = DOM.selectElem('#submitNote');
-        const cancel = DOM.selectElem('#cancelNote');
+        const submit = DOM.selectElem('#submitTrigger');
+        const cancel = DOM.selectElem('#cancelTrigger');
         input.classList.toggle('none',false);
         input.focus();
         disableBtns();
@@ -600,6 +646,7 @@ export const templateDOMStructs = function (){
         input.classList.toggle('none', true);        
         return
     }
+
     
     const text = DOM.elementInit('p', {'class':'text edit',
                                       'data-class':`child${project.dataset.id}${form.dataset.id}`}, `${input.value}`);
@@ -608,6 +655,14 @@ export const templateDOMStructs = function (){
     remove.classList.toggle('none',false);
 
     return
+
+   }
+
+   const triggerEvents = function(event){
+       const cancel = DOM.selectElem('#cancelNote')
+       const submit = DOM.selectElem('#submitNote')
+
+       event.target === DOM.selectElem('#submitTrigger') ? submit.click() : cancel.click()
 
    }
 
@@ -662,6 +717,7 @@ export const templateDOMStructs = function (){
          cleanToDoForm,
          modifyElement,
          cancelNote,
+         triggerEvents,
          revertModifiedElement,
          addNewCheck,
          generateNewAddCheck,
