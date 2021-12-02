@@ -12,14 +12,24 @@ html {
 body {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     min-height: 100vh;
     width: 100vw;
 
 }
 
 .project {
+    display: flex;
+    width: 20vw;
+    min-height: 10vh;
+    height: max-content;
     border: 1px solid black;
+    padding: 1rem;
+    flex-wrap: wrap;
+    word-break: break-all;
+    box-shadow: 5px 10px;
     cursor: pointer;
+
 }
 
 .none {
