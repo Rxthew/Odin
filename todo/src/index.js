@@ -36,7 +36,6 @@ const revealToDo = (function(){
     const enableBtns = structs.enableBtns;
     const cleanToDoForm = structs.cleanToDoForm;
     const addNewCheck = structs.addNewCheck;
-    const cancelNote = structs.cancelNote;
     const revertModifiedElement = structs.revertModifiedElement;
     const modifyElement = structs.modifyElement;
     const submitItem = structs.submitItem;
@@ -69,7 +68,6 @@ const revealToDo = (function(){
     projectEvents.subscribe('abortNoteTypeForm', enableBtns);
     projectEvents.subscribe('abortNoteTypeForm', deleteForms);
     projectEvents.subscribe('trigger',triggerEvents);
-    projectEvents.subscribe('cancelNote', cancelNote);
     projectEvents.subscribe('cancelNote', enableBtns);
     projectEvents.subscribe('cancelNote', cleanToDoForm);        
     projectEvents.subscribe('newCheckItem', addNewCheck);

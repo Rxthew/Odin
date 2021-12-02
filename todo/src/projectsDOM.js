@@ -513,19 +513,6 @@ export const templateDOMStructs = function (){
         return
     }
         
-
-    const cancelNote = function(event){ //This might be redundant. Investigate. 
-        
-        const cancel = event.target;
-        const input = DOM.selectElem('#temporaryInput');
-
-        cancel.classList.toggle('none',true);
-        input.value = '';
-        input.classList.toggle('none',true);
-
-        return        
-    }
-
     
     const generateNewAddCheck = function(event){
         
@@ -716,7 +703,6 @@ export const templateDOMStructs = function (){
          enableBtns,
          cleanToDoForm,
          modifyElement,
-         cancelNote,
          triggerEvents,
          revertModifiedElement,
          addNewCheck,
