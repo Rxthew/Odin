@@ -104,8 +104,9 @@ const revealToDo = (function(){
         
         //Initialise elements
         const head = DOM.elementInit('header', {'id':'header'});
-        const title = DOM.elementInit('h1',{'id': 'title'}, 'This is your To-Do list');
-        const revealForm = DOM.elementInit('button',{'class':'revealForm'},'New Project');
+        const title = DOM.elementInit('h1',{'id': 'title',
+                                            'class': 'headerChild'}, 'Project Manager');
+        const revealForm = DOM.elementInit('button',{'class':'revealForm headerChild'},'New Project');
         
         //Add header event listener
         head.onclick = delegator;

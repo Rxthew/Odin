@@ -50,3 +50,13 @@ body {
 .hidden {
     visibility: hidden;
 }
+
+.headerChild{
+    margin-left: auto;
+}
+
+#header {
+    display:flex;
+    justify-content: center;
+}
+
