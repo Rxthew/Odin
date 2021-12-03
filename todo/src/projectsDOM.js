@@ -512,6 +512,22 @@ export const templateDOMStructs = function (){
 
         return
     }
+
+    const toggleOpaque = function(event){
+        const containerChildren = Array.from(DOM.selectElem('#container').children);
+        const header = DOM.selectElem('#header');
+        const projectChildren = Array.from(event.target.closest('.project').children)
+
+        if(header.classList.contains('opaque')){
+            containerChildren.forEach(child => child === event.target.closest('.project') ? child.classList.toggle('opaqueColor',false) : child.classList.toggle('opaque', false));
+            projectChildren.forEach(child => child.classList.toggle('opaque', false))
+        }
+        else{
+            containerChildren.forEach(child => child === event.target.closest('.project') ? child.classList.toggle('opaqueColor',true) : child.classList.toggle('opaque', true));
+            projectChildren.forEach(child => child.classList.contains('transitForm') ? false : child.classList.toggle('opaque',true));
+        }
+        
+    }
         
     
     const generateNewAddCheck = function(event){
@@ -698,6 +714,7 @@ export const templateDOMStructs = function (){
          submitToDoTitle,
          chooseNoteType,
          noteTypeGenerator,
+         toggleOpaque,
          deleteForms,
          disableBtns,
          enableBtns,

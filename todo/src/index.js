@@ -44,6 +44,7 @@ const revealToDo = (function(){
     const deleteItem = structs.deleteItem;
     const deleteCheck = structs.deleteCheck
     const triggerEvents = structs.triggerEvents;
+    const toggleOpaque = structs.toggleOpaque;
     const delegator = projectEvents.delegator;
 
     
@@ -58,12 +59,15 @@ const revealToDo = (function(){
     projectEvents.subscribe('reveal', revealCreateForm);
     projectEvents.subscribe('chooseTitle', disableBtns);
     projectEvents.subscribe('chooseTitle', chooseToDoTitleForm);
+    projectEvents.subscribe('chooseTitle', toggleOpaque);
     projectEvents.subscribe('inputOrList', submitToDoTitle);
     projectEvents.subscribe('inputOrList', chooseNoteType);
     projectEvents.subscribe('noteToDoType', deleteForms)
     projectEvents.subscribe('noteToDoType', noteTypeGenerator);
     projectEvents.subscribe('deleteNoteTypeForm', appendToProj);
+    projectEvents.subscribe('deleteNoteTypeForm', toggleOpaque);
     projectEvents.subscribe('deleteNoteTypeForm', deleteForms);
+    projectEvents.subscribe('abortNoteTypeForm', toggleOpaque);
     projectEvents.subscribe('abortNoteTypeForm', deleteForms);
     projectEvents.subscribe('abortNoteTypeForm', enableBtns);
     projectEvents.subscribe('abortNoteTypeForm', deleteForms);

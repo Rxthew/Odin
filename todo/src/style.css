@@ -48,14 +48,27 @@ body {
     white-space: pre-wrap;
 }
 
+.opaque {
+    opacity: 0.1;
+    
+}
+
+.opaqueColor {
+    color: rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.1)
+}
+
 .transitForm {
     position: absolute;
     z-index:0;
     left: 50vw;
     top: 35vh;
-    border: 1px solid;
+    border: 1px solid black;
+    color: black;
     padding: 2rem;
 }
+
+
 
 .hidden {
     visibility: hidden;
