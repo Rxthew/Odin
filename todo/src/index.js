@@ -53,10 +53,13 @@ const revealToDo = (function(){
     projectEvents.subscribe('view', toggleSize);
     projectEvents.subscribe('create', createProject);
     projectEvents.subscribe('create', resetCreateForm);
+    projectEvents.subscribe('create', toggleOpaque);
+    projectEvents.subscribe('create', newProj);   
     projectEvents.subscribe('cancelCreateNote', resetCreateForm);
-    projectEvents.subscribe('create', newProj);
+    projectEvents.subscribe('cancelCreateNote', toggleOpaque); 
     projectEvents.subscribe('saved', localStore);
     projectEvents.subscribe('reveal', revealCreateForm);
+    projectEvents.subscribe('reveal', toggleOpaque);
     projectEvents.subscribe('chooseTitle', disableBtns);
     projectEvents.subscribe('chooseTitle', chooseToDoTitleForm);
     projectEvents.subscribe('chooseTitle', toggleOpaque);

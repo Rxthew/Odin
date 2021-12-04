@@ -516,16 +516,34 @@ export const templateDOMStructs = function (){
     const toggleOpaque = function(event){
         const containerChildren = Array.from(DOM.selectElem('#container').children);
         const header = DOM.selectElem('#header');
-        const projectChildren = Array.from(event.target.closest('.project').children)
+        const headerChildren = Array.from(header.children)
+
+        if(DOM.selectElem('#createForm').classList.contains('none') && headerChildren[0].classList.contains('opaque')){
+            headerChildren.forEach(child => child.classList.toggle('opaque'), false )
+            return
+
+        }
+
+       else if (event.target.classList.contains('revealForm')){
+            headerChildren.forEach(child => child.classList.toggle('opaque', true))
+            return
+        }
+
+        else {
+        
+        const projectChildren = Array.from(event.target.closest('.project').children);
 
         if(header.classList.contains('opaque')){
             containerChildren.forEach(child => child === event.target.closest('.project') ? child.classList.toggle('opaqueColor',false) : child.classList.toggle('opaque', false));
             projectChildren.forEach(child => child.classList.toggle('opaque', false))
+            return
         }
         else{
             containerChildren.forEach(child => child === event.target.closest('.project') ? child.classList.toggle('opaqueColor',true) : child.classList.toggle('opaque', true));
             projectChildren.forEach(child => child.classList.contains('transitForm') ? false : child.classList.toggle('opaque',true));
         }
+
+    }
         
     }
         
