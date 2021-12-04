@@ -4,7 +4,7 @@ let projectEvents = events();
 
 projectEvents.delegator = function(event){
       switch(true){
-         case event.target.classList.contains('revealForm') : projectEvents.publish('reveal');
+         case event.target.classList.contains('revealForm') : projectEvents.publish('reveal', event);
            break;
          case event.target.classList.contains('cancelNewProject') : projectEvents.publish('cancelCreateNote', event);
            break;
