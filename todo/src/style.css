@@ -20,6 +20,7 @@ body {
 
 .project {
     display: flex;
+    flex-direction: column;
     width: 20vw;
     min-height: 10vh;
     height: max-content;
@@ -30,6 +31,14 @@ body {
     box-shadow: 5px 10px;
     cursor: pointer;
 
+}
+
+.remove {
+    margin-left: auto;
+    margin-bottom: auto;
+    position: relative;
+    bottom: 2.2rem;
+    left: 1rem;
 }
 
 .none {
@@ -69,7 +78,6 @@ body {
 }
 
 
-
 .hidden {
     visibility: hidden;
 }
@@ -82,4 +90,6 @@ body {
     display:flex;
     justify-content: center;
 }
+
+
 
