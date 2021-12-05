@@ -14,7 +14,7 @@ export const templateDOMStructs = function (){
                                              'data-id':`${reference.length}`, 
                                              'class': 'project'},name
                                              )
-        const remove = DOM.elementInit('button', {'class':'remove',
+        const remove = DOM.elementInit('button', {'class':'remove delProjBtn',
                                         'id':`remove${proj.dataset.id}`}, 'X');
                                              
         const addToDoListBtn = DOM.elementInit('button', {'class': 'addtoDoList',
