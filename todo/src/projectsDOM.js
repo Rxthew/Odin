@@ -19,7 +19,7 @@ export const templateDOMStructs = function (){
                                              
         const addToDoListBtn = DOM.elementInit('button', {'class': 'addtoDoList',
                                                            'id': `add${DOM.selectElem('.project').length}`}, 'Add To-Do List');
-        const modify = DOM.elementInit('button', {'class':'edit'},'Edit');
+        const modify = DOM.elementInit('button', {'class':'edit editProjTitleBtn'},'Edit');
         proj.appendChild(remove);
         proj.appendChild(modify);
         proj.appendChild(DOM.elementInit('div',{ 'class':'none toDoContainer',
