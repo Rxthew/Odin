@@ -517,15 +517,25 @@ export const templateDOMStructs = function (){
         const containerChildren = Array.from(DOM.selectElem('#container').children);
         const header = DOM.selectElem('#header');
         const headerChildren = Array.from(header.children)
+        const projs = function(){
+                const projs = Array.from(DOM.selectElem('.project'));
+                return projs
+        }
 
         if(DOM.selectElem('#createForm').classList.contains('none') && headerChildren[0].classList.contains('opaque')){
             headerChildren.forEach(child => child.classList.toggle('opaque'), false )
+            if(document.querySelector('.project')){
+                projs().forEach(proj => proj.classList.toggle('opaque', false))
+            }
             return
 
         }
 
        else if (event.target.classList.contains('revealForm')){
             headerChildren.forEach(child => child.classList.toggle('opaque', true))
+            if(document.querySelector('.project')){
+                projs().forEach(proj => proj.classList.toggle('opaque', true))
+            }
             return
         }
 
