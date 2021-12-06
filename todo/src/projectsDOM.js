@@ -725,10 +725,61 @@ export const templateDOMStructs = function (){
        return
     }
 
-    const moveItem = function(event){
-        const target = event.target.closest('.toDoNoteInput') || event.target.closest('.project')
-        //let shiftX =
-        //let shiftY = 
+    const moveConstruct = function(event){
+        let currentDroppable = null;
+
+        const originalTarget = event.target.closest('.toDoNoteInput') || event.target.closest('.project')
+        const target = originalTarget.cloneNode(true);
+        originalTarget.parentElement.insertBefore(target,originalTarget);
+        originalTarget.classList.toggle('none',true);
+
+        let shiftX = event.clientX - target.getBoundingClientRect().left;
+        let shiftY = event.clientY - target.getBoundingClientRect().top;
+
+        const _moveAt = function(pageX, pageY){
+            target.style.left = pageX - shiftX + 'px';
+            target.style.top = pageY - shiftY + 'px'
+        }
+
+        const _onMouseMove = function(event){
+            _moveAt(event.pageX,event.pageY);
+            target.hidden = true;
+            let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+            if(!elemBelow){return}
+
+            //let droppableBelow = DOM.selectElem('')
+
+        }
+
+        const commenceMove = function(){
+            target.style.position = 'absolute';
+            target.style.zIndex = 1000;
+            target.classList.toggle('moving',true)
+            document.body.appendChild(target);
+            document.addEventListener('mousemove', _onMouseMove)
+        }
+
+        const stopMove = function(){
+            document.removeEventListener('mouseup', _onMouseMove)
+            target.classList.toggle('moving',false)
+            target.onmouseup = null;
+            //need to restore original position remember.
+
+        }
+
+        return {
+            commenceMove,
+            stopMove
+        }
+
+ 
+
+
+
+
+
+
+
 
     }
 
