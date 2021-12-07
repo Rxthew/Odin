@@ -743,11 +743,7 @@ export const templateDOMStructs = function (){
 
         const _onMouseMove = function(event){
             _moveAt(event.pageX,event.pageY);
-            target.hidden = true;
-            let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
-            if(!elemBelow){return}
-
-            //let droppableBelow = DOM.selectElem('')
+            //if moveNote then openview on a project
 
         }
 
@@ -759,7 +755,27 @@ export const templateDOMStructs = function (){
             document.addEventListener('mousemove', _onMouseMove)
         }
 
-        const stopMove = function(){
+        const placeItem = function(){
+
+            target.hidden = true;
+            let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+            if(!elemBelow){return}
+            
+            //IS THERE ANY BACKEND STUFF NEEDING TO BE TAKEN CARE OF? 
+            //if (elemBelow.closest('project')){
+                 // if(target.classList.contains('moveProject')){
+                 // parent insertBefore & delete the original
+            //     }
+            //  else if (target.classList.contains('moveNote')) {
+                 //add to project & remember to delete the original target 
+            //}
+            //}
+            //else if (elemBelow.closest('toDoNoteInput) && target.classList.contains('moveNote')){
+
+            //} 
+                  
+            
+
             document.removeEventListener('mouseup', _onMouseMove)
             target.classList.toggle('moving',false)
             target.onmouseup = null;
@@ -769,7 +785,7 @@ export const templateDOMStructs = function (){
 
         return {
             commenceMove,
-            stopMove
+            placeItem
         }
 
  
