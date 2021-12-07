@@ -747,7 +747,26 @@ export const templateDOMStructs = function (){
 
         const _onMouseMove = function(event){
             _moveAt(event.pageX,event.pageY);
-            //if moveNote then openview on a project
+
+            target.hidden = true;
+            let elem = document.elementFromPoint(event.clientX, event.clientY);
+            target.hidden = false;
+            if(!elem){return}
+
+            //Opens projects when todonote moves over them, and closes them when should it leave.
+            else if(elem.closest('.project') && target.classList.contains('moveProject')){ //Still to test.
+                const proj = elem.closest('.project');
+                const container = DOM.selectElem(`container${proj.dataset.id}`);
+                if (currentDroppable && currentDroppable !== proj){
+                    DOM.selectElem(`container${currentDroppable.dataset.id}`).classList.toggle('none',true);
+                    currentDroppable = null;
+                }
+                container.classList.toggle('none',false);
+                currentDroppable = proj;
+            }
+
+
+            
 
         }
 
@@ -763,10 +782,11 @@ export const templateDOMStructs = function (){
 
             target.hidden = true;
             let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+            target.hidden = false;
             if(!elemBelow){return}
             
     
-            if (elemBelow.closest('project')){
+            if (elemBelow.closest('.project')){
                   if(target.classList.contains('moveProject')){
                  // parent insertBefore & delete the original
                 }
@@ -774,12 +794,12 @@ export const templateDOMStructs = function (){
                  //appendChild parent & remember to delete the original target 
                 }
             }
-            else if (elemBelow.closest('toDoNoteInput') && target.classList.contains('moveNote')){
+            else if (elemBelow.closest('.toDoNoteInput') && target.classList.contains('moveNote')){
                 //parent insertBefore & delete the original
 
             } 
             else {
-                //toggle none off the original target and return to original state. 
+                //toggle none off the original target and return to original state by deleting target from document.body 
             }
                   
 
