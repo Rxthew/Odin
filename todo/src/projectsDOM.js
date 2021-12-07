@@ -761,20 +761,23 @@ export const templateDOMStructs = function (){
             let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
             if(!elemBelow){return}
             
-            //IS THERE ANY BACKEND STUFF NEEDING TO BE TAKEN CARE OF? 
-            //if (elemBelow.closest('project')){
-                 // if(target.classList.contains('moveProject')){
+    
+            if (elemBelow.closest('project')){
+                  if(target.classList.contains('moveProject')){
                  // parent insertBefore & delete the original
-            //     }
-            //  else if (target.classList.contains('moveNote')) {
-                 //add to project & remember to delete the original target 
-            //}
-            //}
-            //else if (elemBelow.closest('toDoNoteInput) && target.classList.contains('moveNote')){
+                }
+                  else if (target.classList.contains('moveNote')) {
+                 //appendChild parent & remember to delete the original target 
+                }
+            }
+            else if (elemBelow.closest('toDoNoteInput') && target.classList.contains('moveNote')){
+                //parent insertBefore & delete the original
 
-            //} 
+            } 
+            else {
+                //toggle none off the original target and return to original state. 
+            }
                   
-            
 
             document.removeEventListener('mouseup', _onMouseMove)
             target.classList.toggle('moving',false)
