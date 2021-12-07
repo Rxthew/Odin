@@ -20,11 +20,14 @@ export const templateDOMStructs = function (){
         const addToDoListBtn = DOM.elementInit('button', {'class': 'addtoDoList',
                                                            'id': `add${DOM.selectElem('.project').length}`}, 'Add To-Do List');
         const modify = DOM.elementInit('button', {'class':'edit editProjTitleBtn'},'\u{270D}');
+        const moveProject = DOM.elementInit('button', {'class':'move moveProject',
+                                                        'type': 'button'},'\u{21F2}')
         proj.appendChild(remove);
         proj.appendChild(modify);
         proj.appendChild(DOM.elementInit('div',{ 'class':'none toDoContainer',
                                                    'id':`container${reference.length}`}));
         proj.appendChild(addToDoListBtn);
+        proj.appendChild(moveProject);
 
         
         proj.onclick = delegator;
@@ -63,11 +66,14 @@ export const templateDOMStructs = function (){
                                                      'id':`itemTitle${project.dataset.id}${formReference.length}`,
                                                      },`${provTitle.value}`,)
         const modify = DOM.elementInit('button', {'class':'edit'},'Edit');
+        const moveNote = DOM.elementInit('button', {'class':'move moveNote',
+                                                    'type': 'button'},'\u{21F2}')
 
         
         form.appendChild(submit);
         form.appendChild(cancel);
         form.appendChild(remove);
+        form.appendChild(moveNote);
         form.appendChild(title);
         title.appendChild(modify)
         modify.disabled = true;
@@ -423,9 +429,7 @@ export const templateDOMStructs = function (){
         
         
         })()
-
-
-        
+   
         projectEvents.publish('createNote', getSelected);
         projectEvents.publish('deleteNoteTypeForm', event);
         projectEvents.publish('saved');
