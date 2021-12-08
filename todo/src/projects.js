@@ -242,7 +242,18 @@ export const mainInterface = function(){
             
             form.classList.contains('freeForm') ? toDoNote.noteStorage[0] = input.value : toDoNote.noteStorage[targetIndex].label = input.value;
             return 
-         }  
+         } 
+   
+   const regenProj = function(){
+           const accessAll = JSON.parse(localStorage.access);
+           accessAll.forEach(elem => newProj(elem.name))
+
+   }
+
+   const regenToDoNote = function(){
+
+   }
+         
       
 
       
