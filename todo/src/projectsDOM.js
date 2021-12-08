@@ -39,10 +39,10 @@ export const templateDOMStructs = function (){
      
 
      const createToDoNote = function(chosenType){
+
         const input = DOM.selectElem('#temporaryInput')
         const submitTrigger = DOM.selectElem('#submitTrigger');
-        const cancelTrigger = DOM.selectElem('#cancelTrigger');
-         
+        const cancelTrigger = DOM.selectElem('#cancelTrigger'); 
         const project = input.parentElement;
         const container = DOM.selectElem(`#container${project.dataset.id}`);
         const formReference = Array.from(container.children);
