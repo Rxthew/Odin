@@ -35,7 +35,6 @@ const revealToDo = (function(){
     const createToDoNote = structs.createToDoNote;
     const enableBtns = structs.enableBtns;
     const cleanToDoForm = structs.cleanToDoForm;
-    const addNewCheck = structs.addNewCheck;
     const revertModifiedElement = structs.revertModifiedElement;
     const modifyElement = structs.modifyElement;
     const submitItem = structs.submitItem;
@@ -70,6 +69,7 @@ const revealToDo = (function(){
     projectEvents.subscribe('deleteNoteTypeForm', appendToProj);
     projectEvents.subscribe('deleteNoteTypeForm', toggleOpaque);
     projectEvents.subscribe('deleteNoteTypeForm', deleteForms);
+    projectEvents.subscribe('deleteNoteTypeForm', cleanToDoForm);
     projectEvents.subscribe('abortNoteTypeForm', toggleOpaque);
     projectEvents.subscribe('abortNoteTypeForm', deleteForms);
     projectEvents.subscribe('abortNoteTypeForm', enableBtns);
@@ -77,14 +77,13 @@ const revealToDo = (function(){
     projectEvents.subscribe('trigger',triggerEvents);
     projectEvents.subscribe('cancelNote', enableBtns);
     projectEvents.subscribe('cancelNote', cleanToDoForm);        
-    projectEvents.subscribe('newCheckItem', addNewCheck);
+    projectEvents.subscribe('newCheckItem', generateNewAddCheck);
     projectEvents.subscribe('createNote', createToDoNote);
     projectEvents.subscribe('submitNote', submitItem);
     projectEvents.subscribe('submitNote', enableBtns);
     projectEvents.subscribe('submitNote', appendToProj);
     projectEvents.subscribe('submitNote', appendNoteToItem);
     projectEvents.subscribe('submitNote', cleanToDoForm);
-    projectEvents.subscribe('updateCheckItem', generateNewAddCheck);
     projectEvents.subscribe('modifyElem', modifyElement);
     projectEvents.subscribe('revert', revertModifiedElement);
     projectEvents.subscribe('submitMod', modifyInStorage);

@@ -31,8 +31,6 @@ projectEvents.delegator = function(event){
            break;
          case event.target.classList.contains('addCheck') : projectEvents.publish('newCheckItem', event);
            break;
-         case event.target.classList.contains('addCheckMod') : projectEvents.publish('updateCheckItem', event);
-           break;
          case event.target.classList.contains('cancel') : projectEvents.publish('cancelNote',event);
                                                           event.preventDefault()
            break;

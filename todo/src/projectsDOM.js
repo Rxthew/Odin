@@ -503,16 +503,6 @@ export const templateDOMStructs = function (){
         deleted.remove(); 
     })()
       
-      const _convertAddCheck = (function(){ 
-
-        let convert = DOM.selectElem(`#addCheck${project.dataset.id}${form.dataset.id}`);
-
-        if (convert){
-            convert.removeAttribute('class');
-            convert.className = 'addCheckMod';
-      
-        }
-    })()
 
       const _removeWhereEmpty = (function(){
         
@@ -629,15 +619,8 @@ export const templateDOMStructs = function (){
            form.appendChild(cancel);
     
         }
-            
-        projectEvents.publish('newCheckItem', event);
 
-        return
-
-    }
-
-    const addNewCheck = function(event){
-        event.preventDefault();
+        const _revealCheckItem = (function(){
         const input = DOM.selectElem('#temporaryInput');
         const submit = DOM.selectElem('#submitTrigger');
         const cancel = DOM.selectElem('#cancelTrigger');
@@ -646,7 +629,11 @@ export const templateDOMStructs = function (){
         disableBtns();
         submit.classList.toggle('none',false);
         cancel.classList.toggle('none',false);
+        })()
+
+
         return
+
     }
 
     
@@ -854,7 +841,6 @@ export const templateDOMStructs = function (){
          modifyElement,
          triggerEvents,
          revertModifiedElement,
-         addNewCheck,
          generateNewAddCheck,
          submitItem,
          submitModifiedElement,
