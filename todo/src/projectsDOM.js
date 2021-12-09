@@ -11,13 +11,16 @@ export const templateDOMStructs = function (){
          if (name === ''){return} 
          const reference = DOM.selectElem('.project'); 
          const proj = DOM.elementInit('div',{'id': `${name}${reference.length}`,
-                                             'data-id':`${reference.length}`, 
+                                             'data-id':`${reference.length}`,
+                                             'data-name': `${name}`,
                                              'class': 'project'},name
                                              )
         const remove = DOM.elementInit('button', {'class':'remove delProjBtn',
-                                        'id':`remove${proj.dataset.id}`}, 'X');
+                                        'id':`remove${proj.dataset.id}`,
+                                         'data-name': 'remove' }, 'X');
                                              
         const addToDoListBtn = DOM.elementInit('button', {'class': 'addtoDoList',
+                                                           'data-name': 'add',
                                                            'id': `add${DOM.selectElem('.project').length}`}, 'Add To-Do List');
         const modify = DOM.elementInit('button', {'class':'edit editProjTitleBtn'},'\u{270D}');
         const moveProject = DOM.elementInit('button', {'class':'move moveProject',
@@ -25,6 +28,7 @@ export const templateDOMStructs = function (){
         proj.appendChild(remove);
         proj.appendChild(modify);
         proj.appendChild(DOM.elementInit('div',{ 'class':'none toDoContainer',
+                                                  'data-name': 'container',
                                                    'id':`container${reference.length}`}));
         proj.appendChild(addToDoListBtn);
         proj.appendChild(moveProject);
@@ -48,6 +52,7 @@ export const templateDOMStructs = function (){
         const formReference = Array.from(container.children);
         
         const form = DOM.elementInit('form',{'class': 'toDoNoteInput',
+                                                 'data-name': 'toDoNoteForm',
                                                  'id': `toDoNoteForm${project.dataset.id}${formReference.length}`,
                                                   'data-id':`${formReference.length}` })
         const submit = DOM.elementInit('button',{'type':'submit',
@@ -58,10 +63,12 @@ export const templateDOMStructs = function (){
                                                  'id':'cancelNote'}, '');
         
         const remove = DOM.elementInit('button', {'class':'remove none',
+                                                   'data-name': 'remove',
                                                    'id':`remove${project.dataset.id}${formReference.length}`}, 'X');
         const provTitle = DOM.selectElem('#provTitle');
         const title = DOM.elementInit('label', {'class':'itemTitle',
-                                                   'for':'itemTitle',                       
+                                                   'for':'itemTitle',
+                                                   'data-name': 'itemTitle',                       
                                                    'name':'itemTitle',
                                                      'id':`itemTitle${project.dataset.id}${formReference.length}`,
                                                      },`${provTitle.value}`,)
@@ -89,6 +96,7 @@ export const templateDOMStructs = function (){
 
         const _generateChecklist = function(){ 
            const add = DOM.elementInit('button', {'class':'addCheck',
+                                                     'data-name': 'addCheck',
                                                      'id':`addCheck${project.dataset.id}${formReference.length}`,
                                                      'data-class':`child${project.dataset.id}${formReference.length}` 
                                                      }, 'Add Item');                                                     
@@ -648,9 +656,10 @@ export const templateDOMStructs = function (){
         const form = DOM.selectElem('#submitNote').parentElement;
 
         const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' ) //to edit when creating dropdown
+        const totalChecks = document.querySelectorAll('.check').length
        
         const checkbox = DOM.elementInit('input', {'type':'checkbox',
-                                                    'id': `check${project.dataset.id}${form.dataset.id}${input.value}`,
+                                                    'id': `check${totalChecks + 1}`, 
                                                     'class':'check',
                                                     'data-class':`child${project.dataset.id}${form.dataset.id}`});
         const label = DOM.elementInit('label', {'for': `${input.value}`,
@@ -729,7 +738,7 @@ export const templateDOMStructs = function (){
        return
     }
 
-    const moveConstruct = function(event){
+    const moveConstruct = function(event){ //remember to check for data-class 
         let currentDroppable = null;
 
         const originalTarget = event.target.closest('.toDoNoteInput') || event.target.closest('.project')
