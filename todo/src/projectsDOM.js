@@ -737,7 +737,19 @@ export const templateDOMStructs = function (){
 
         const target = event.target.closest('.toDoNoteInput') || event.target.closest('.project')
         const clonedTarget = target.cloneNode(true);
-        clonedTarget.classList.toggle('none',true);
+        
+        const eventReplicator = (function(){
+            if (clonedTarget.classList.contains('project')){
+                clonedTarget.onclick = delegator;
+            }
+            else if (clonedTarget.classList.contains('toDoNoteInput')){
+                //
+            }
+            const moveBtn = Array.from(clonedTarget.children).filter(child => child.classList.contains('move'))[0]
+            moveBtn.onmousedown = delegator;
+        })()
+
+        clonedTarget.classList.toggle('none',true);        
         target.parentElement.appendChild(clonedTarget);
         
 
@@ -840,6 +852,7 @@ export const templateDOMStructs = function (){
 
             else {
                 target.remove();
+            
                 clonedTarget.classList.toggle('none',false);
                 //toggle none off the original target and return to original state by deleting target from document.body 
             }
@@ -850,9 +863,10 @@ export const templateDOMStructs = function (){
 
         } 
            
-          event.target.onmouseup = placeItem;
+          //event.target.onmouseup = placeItem;
           _moveAt(event.pageX,event.pageY);
-          document.addEventListener('mousemove', _onMouseMove);   
+          document.addEventListener('mousemove', _onMouseMove);
+          document.addEventListener('mouseup', placeItem, {once: true})   
 
         return 
 
