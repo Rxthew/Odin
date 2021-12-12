@@ -732,7 +732,6 @@ export const templateDOMStructs = function (){
             return
         }
 
-
         let currentDroppable = null;
 
         const target = event.target.closest('.toDoNoteInput') || event.target.closest('.project')
@@ -757,7 +756,6 @@ export const templateDOMStructs = function (){
         clonedTarget.classList.toggle('none',true);        
         target.parentElement.appendChild(clonedTarget);
         
-
         let shiftX = event.clientX - target.getBoundingClientRect().left;
         let shiftY = event.clientY - target.getBoundingClientRect().top;
 
@@ -765,6 +763,7 @@ export const templateDOMStructs = function (){
             
             target.style.position = 'absolute';
             target.style.zIndex = 1000;
+            target.classList.contains('toDoNoteInput') ? target.style.width = '63vw' : false;
             event.target.classList.toggle('moving',true);
             document.body.appendChild(target);           
 
@@ -780,7 +779,6 @@ export const templateDOMStructs = function (){
 
             _moveAt(event.pageX,event.pageY);
             
-
             target.classList.toggle('none',true);
             let elem = document.elementFromPoint(event.clientX, event.clientY);
             target.classList.toggle('none',false);
@@ -806,34 +804,37 @@ export const templateDOMStructs = function (){
 
         const placeItem = function(event){
 
-            document.removeEventListener('mousemove', _onMouseMove)            
- 
-            const container = DOM.selectElem('#container');           
+            document.removeEventListener('mousemove', _onMouseMove);
+
             target.classList.toggle('none',true);
             let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
             target.classList.toggle('none',false);
 
-            if(!elemBelow){return _returnToDefault()}
+            if(!elemBelow){return _returnToDefault()}            
+ 
+            const container = DOM.selectElem('#container');
+
 
             const _regulariseNoteData = function(){
 
-               if(elemBelow.closest('.project') === target.parentElement){
-                   return
+               if(elemBelow.closest('.project') === clonedTarget.parentElement.parentElement){
+                   return _returnToDefault()
                }
+                clonedTarget.remove()
                 const project = elemBelow.closest('.project');
+                const formContainer = DOM.selectElem(`container${project.dataset.id}`)
                 const targetChildren = Array.from(target.children);               
                 const dataClasses = targetChildren.filter(child => child.hasAttribute('data-class'));
                 const dataNames = targetChildren.filter(child => child.hasAttribute('data-name'));
-                dataClasses.forEach(elem => elem.dataset.class = `child${project.dataset.id}${project.children.length}`);
-                dataNames.forEach(elem => elem.id = `${target.dataset.name}${project.dataset.id}${project.children.length}`)
-                target.id = `${target.dataset.name}${project.dataset.id}${project.children.length}` 
-                target.dataset.id = `${project.children.length}`
+                dataClasses.forEach(elem => elem.dataset.class = `child${project.dataset.id}${formContainer.length}`);
+                dataNames.forEach(elem => elem.id = `${target.dataset.name}${project.dataset.id}${formContainer.length}`)
+                target.id = `${target.dataset.name}${project.dataset.id}${formContainer.length}` 
+                target.dataset.id = `${formContainer.length}`
             }
 
             
-            if (elemBelow.closest('.toDoNoteInput') && target.classList.contains('moveNote')){
-                target.parentElement.insertBefore(target,elemBelow.closest('.toDoNoteInput'));
-                clonedTarget.remove()
+            if (elemBelow.closest('.toDoNoteInput') && target.classList.contains('toDoNoteInput')){
+                clonedTarget.parentElement.insertBefore(target,elemBelow.closest('.toDoNoteInput'));
                 _regulariseNoteData()
                 }
 
@@ -845,9 +846,10 @@ export const templateDOMStructs = function (){
                   
                 }
                   else if (target.classList.contains('toDoNoteInput')) {
-                      elemBelow.closest('project').appendChild(target);
-                      target.removeAttribute('style');
-                      clonedTarget.remove();
+                     const toDoNotesContainer =  DOM.selectElem(`#container${elemBelow.closest('.project').dataset.id}`);
+                     toDoNotesContainer.classList.toggle('none',false);
+                     toDoNotesContainer.appendChild(target);
+                     target.removeAttribute('style');
                       _regulariseNoteData()
                       
                       
