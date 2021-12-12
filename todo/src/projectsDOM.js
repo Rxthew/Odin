@@ -737,6 +737,11 @@ export const templateDOMStructs = function (){
 
         const target = event.target.closest('.toDoNoteInput') || event.target.closest('.project')
         const clonedTarget = target.cloneNode(true);
+
+        const _returnToDefault = function(){
+            target.remove();
+            clonedTarget.classList.toggle('none',false);
+        }
         
         const eventReplicator = (function(){
             if (clonedTarget.classList.contains('project')){
@@ -776,10 +781,10 @@ export const templateDOMStructs = function (){
             _moveAt(event.pageX,event.pageY);
             
 
-            target.hidden = true;
+            target.classList.toggle('none',true);
             let elem = document.elementFromPoint(event.clientX, event.clientY);
-            target.hidden = false;
-            if(!elem){return}
+            target.classList.toggle('none',false);
+            if(!elem){return _returnToDefault()}
 
             //Opens projects when todonote moves over them, and closes them when should it leave.
             if(elem.closest('.project') && target.classList.contains('moveProject')){ //Still to test.
@@ -801,16 +806,14 @@ export const templateDOMStructs = function (){
 
         const placeItem = function(event){
 
-            document.removeEventListener('mousemove', _onMouseMove)
-            
-            const container = DOM.selectElem('#container');
-            
-            target.hidden = true;
-
+            document.removeEventListener('mousemove', _onMouseMove)            
+ 
+            const container = DOM.selectElem('#container');           
+            target.classList.toggle('none',true);
             let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+            target.classList.toggle('none',false);
 
-            target.hidden = false;
-            if(!elemBelow){return}
+            if(!elemBelow){return _returnToDefault()}
 
             const _regulariseNoteData = function(){
 
@@ -835,13 +838,15 @@ export const templateDOMStructs = function (){
                 }
 
             else if (elemBelow.closest('.project')){
-                  if(target.classList.contains('moveProject')){
+                  if(target.classList.contains('project')){
                       container.insertBefore(target,elemBelow.closest('.project'))
+                      target.removeAttribute('style');
                       clonedTarget.remove();
                   
                 }
-                  else if (target.classList.contains('moveNote')) {
+                  else if (target.classList.contains('toDoNoteInput')) {
                       elemBelow.closest('project').appendChild(target);
+                      target.removeAttribute('style');
                       clonedTarget.remove();
                       _regulariseNoteData()
                       
@@ -851,13 +856,10 @@ export const templateDOMStructs = function (){
             }
 
             else {
-                target.remove();
-            
-                clonedTarget.classList.toggle('none',false);
+                _returnToDefault()
                 //toggle none off the original target and return to original state by deleting target from document.body 
             }
                 
-            
             event.target.classList.toggle('moving',false)
             //need to restore original position remember.
 
