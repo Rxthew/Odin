@@ -44,6 +44,7 @@ const revealToDo = (function(){
     const deleteCheck = structs.deleteCheck
     const triggerEvents = structs.triggerEvents;
     const toggleOpaque = structs.toggleOpaque;
+    const moveConstruct = structs.moveConstruct;
     const delegator = projectEvents.delegator;
 
     
@@ -93,7 +94,8 @@ const revealToDo = (function(){
     projectEvents.subscribe('deleteCheck', deleteCheckFromStorage);
     projectEvents.subscribe('deleteCheck', deleteCheck);
     projectEvents.subscribe('recordCheck', recordCheck);
-    
+    projectEvents.subscribe('startMove', moveConstruct);
+
     
 
 
