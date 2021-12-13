@@ -441,6 +441,7 @@ export const templateDOMStructs = function (){
    
         projectEvents.publish('createNote', getSelected);
         projectEvents.publish('deleteNoteTypeForm', event);
+        getSelected === 'Checklist' ? projectEvents.publish('cleanForm',event): false;
         projectEvents.publish('saved');
         
         

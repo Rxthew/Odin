@@ -70,7 +70,7 @@ const revealToDo = (function(){
     projectEvents.subscribe('deleteNoteTypeForm', appendToProj);
     projectEvents.subscribe('deleteNoteTypeForm', toggleOpaque);
     projectEvents.subscribe('deleteNoteTypeForm', deleteForms);
-    projectEvents.subscribe('deleteNoteTypeForm', cleanToDoForm);
+    projectEvents.subscribe('cleanForm', cleanToDoForm);
     projectEvents.subscribe('abortNoteTypeForm', toggleOpaque);
     projectEvents.subscribe('abortNoteTypeForm', deleteForms);
     projectEvents.subscribe('abortNoteTypeForm', enableBtns);
