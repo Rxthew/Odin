@@ -802,8 +802,6 @@ export const templateDOMStructs = function (){
         }      
 
 
-
-
         const placeItem = function(event){
 
             document.removeEventListener('mousemove', _onMouseMove);

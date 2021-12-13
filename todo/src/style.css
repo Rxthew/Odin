@@ -105,6 +105,12 @@ body {
     margin-left: auto;
 }
 
+.moving {
+    color: green;
+    background-color: red;
+    
+}
+
 #header {
     display:flex;
     justify-content: center;
