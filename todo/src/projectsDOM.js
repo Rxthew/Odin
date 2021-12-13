@@ -815,7 +815,7 @@ export const templateDOMStructs = function (){
             if(!elemBelow){return _returnToDefault()}            
  
             const container = DOM.selectElem('#container');
-
+            
 
             const _regulariseNoteData = function(){
 
@@ -836,8 +836,13 @@ export const templateDOMStructs = function (){
 
             
             if (elemBelow.closest('.toDoNoteInput') && target.classList.contains('toDoNoteInput')){
-                clonedTarget.parentElement.insertBefore(target,elemBelow.closest('.toDoNoteInput'));
-                _regulariseNoteData()
+                elemBelow.closest('.toDoNoteInput').parentElement.insertBefore(target,elemBelow.closest('.toDoNoteInput'));
+                target.removeAttribute('style');
+                if(elemBelow.closest('.project') === clonedTarget.parentElement.parentElement){
+                    clonedTarget.remove();
+                }
+                else {
+                _regulariseNoteData()}
                 }
 
             else if (elemBelow.closest('.project')){
