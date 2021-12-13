@@ -786,15 +786,16 @@ export const templateDOMStructs = function (){
             if(!elem){return _returnToDefault()}
 
             //Opens projects when todonote moves over them, and closes them when should it leave.
-            if(elem.closest('.project') && target.classList.contains('moveProject')){ //Still to test.
-                const proj = elem.closest('.project');
-                const container = DOM.selectElem(`container${proj.dataset.id}`);
-                if (currentDroppable && currentDroppable !== proj){
-                    DOM.selectElem(`container${currentDroppable.dataset.id}`).classList.toggle('none',true);
+            if(elem.closest('.project') && target.classList.contains('toDoNoteInput')){
+                const currentProj = elem.closest('.project');
+                const container = DOM.selectElem(`#container${currentProj.dataset.id}`);
+                if (currentDroppable && currentDroppable !== currentProj){
+                    DOM.selectElem(`#container${currentDroppable.dataset.id}`).classList.toggle('none',true);
                     currentDroppable = null;
+                    return
                 }
                 container.classList.toggle('none',false);
-                currentDroppable = proj;
+                currentDroppable = currentProj;
             }
 
             
