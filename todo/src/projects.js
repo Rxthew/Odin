@@ -12,16 +12,6 @@ export const singletoDoNote = function(name){
    const addNote = function(note){
       toDoNote.add(note);
    }
-
-   const removeNote = function(index){
-      const note = _notestorage[index];
-      toDoNote.remove(note, index);  
-   }
-
-   const moveNote = function(index, target){
-      toDoNote.move(index, target);
-        
-   }
    
    return {toDoNote,
            name,
@@ -78,12 +68,7 @@ export const mainInterface = function(){
       allToDo.add(proj);
 
    }
-    
-   const moveProj = function(index, target){
-      allToDo.move(index, target);
-
-   }
-   
+       
    const transferToLocalStorage = function(){
          return localStorage.setItem('access', JSON.stringify(_overallStorage))
    }
@@ -242,22 +227,49 @@ export const mainInterface = function(){
             
             form.classList.contains('freeForm') ? toDoNote.noteStorage[0] = input.value : toDoNote.noteStorage[targetIndex].label = input.value;
             return 
-         } 
-   
-   const regenProj = function(){
-           const accessAll = JSON.parse(localStorage.access);
-           accessAll.forEach(elem => newProj(elem.name))
-
+         }
+               
    }
 
-   const regenToDoNote = function(){
+   const createCacheForMoving = function(event){
+      if (event.target.contains('moveNote')){
+         const cache = {};
+         cache['projIndex'] = _findProj(event);
+         cache['noteIndex'] = _findToDo(event);
+         allToDo.add(cache);
+         return
+      }
+      return
+  }
 
-   }
-         
-      
+  const exhaustCacheForMoving = function(event){
+     if (event.target.contains('moveNote')){
+        const cache = _overallStorage[_overallStorage.length - 1];
 
-      
-   }
+        if(cache.projIndex === _findProj(event) && cache.noteIndex === _findToDo(event)){
+           allToDo.remove(cache)
+           return
+        }
+        
+        //append to new project using findproj and findnote, remove from prior locations at cache.projIndex & cache.noteIndex,
+        // & finally remove cache. 
+
+
+
+     }
+     return
+
+  }
+  
+  const regenProj = function(){
+          const accessAll = JSON.parse(localStorage.access);
+          accessAll.forEach(elem => newProj(elem.name))
+
+  }
+
+  const regenToDoNote = function(){
+
+  }
   
    
    return {
@@ -268,7 +280,9 @@ export const mainInterface = function(){
       appendNoteToItem,
       recordCheck,
       deleteCheckFromStorage,
-      modifyInStorage
+      modifyInStorage,
+      createCacheForMoving,
+      exhaustCacheForMoving,
       //just this for now.
    }
   
