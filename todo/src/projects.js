@@ -73,10 +73,16 @@ export const mainInterface = function(){
          return localStorage.setItem('access', JSON.stringify(_overallStorage))
    }
 
+//The reason _findProj does not use data-id is because that property is immutable, even whilst moving projects
+// and only changes when the whole array of projects are regenerated from localStorage. 
+
    const _findProj = function(event){
-      const proj = event.target.closest('.project')
-      return proj.dataset.id
+      const projIndex = Array.from(document.querySelector('#container')).indexOf(event.target.closest('.project'));      
+      return projIndex
    }
+
+//The reason _findToDo relies on dataset.id, is that this property needs to be exact as the todo's descendants in the DOM
+// sometimes refer to the note in this way. (This is less than ideal and should be refactored).
 
    const _findToDo = function(event){
       const toDo = event.target.closest('.toDoNoteInput')
@@ -232,31 +238,42 @@ export const mainInterface = function(){
    }
 
    const createCacheForMoving = function(event){
-      if (event.target.contains('moveNote')){
-         const cache = {};
-         cache['projIndex'] = _findProj(event);
-         cache['noteIndex'] = _findToDo(event);
-         allToDo.add(cache);
-         return
-      }
+      const cache = {};
+      cache['projIndex'] = _findProj(event);
+      event.target.contains('moveNote') ? cache['noteIndex'] = _findToDo(event) : false
+      allToDo.add(cache);
       return
-  }
+    }
 
   const exhaustCacheForMoving = function(event){
-     if (event.target.contains('moveNote')){
-        const cache = _overallStorage[_overallStorage.length - 1];
-
-        if(cache.projIndex === _findProj(event) && cache.noteIndex === _findToDo(event)){
-           allToDo.remove(cache)
-           return
-        }
-        
-        //append to new project using findproj and findnote, remove from prior locations at cache.projIndex & cache.noteIndex,
-        // & finally remove cache. 
-
-
-
+     const cache = _overallStorage[_overallStorage.length - 1];
+     if (event.target.contains('.moveProject')){
+      const projLocation = _findProj(event);
+      cache.projIndex !== projLocation ? allToDo.move(cache.projIndex,projLocation) : false;
      }
+     else if (event.target.contains('.moveNote')){
+        const movedNote = initProj.projStorage[cache.noteIndex];
+        const targetProj = _overallStorage[_findProj(event)];
+
+        if(cache.projIndex !== _findProj(event)){
+         
+         //delete from previous project location
+         const initProj = _overallStorage[cache.projIndex];
+         initProj.projStorage.splice(cache.noteIndex,1);
+         
+         //insert in new project location
+         targetProj.projStorage.splice(_findToDo(event),0,movedNote);
+           
+        }
+
+       else if (cache.noteIndex !== _findToDo(event)){
+         targetProj.projStorage.splice(cache.noteIndex,1);
+         targetProj.projStorage.splice(_findToDo(event),0,movedNote);
+              
+      }}
+
+     allToDo.remove(cache)
+
      return
 
   }
