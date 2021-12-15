@@ -22,6 +22,8 @@ const revealToDo = (function(){
     const recordCheck = main.recordCheck;
     const deleteCheckFromStorage = main.deleteCheckFromStorage;
     const modifyInStorage = main.modifyInStorage;
+    const createCacheForMoving = main.createCacheForMoving;
+    const exhaustCacheForMoving = main.exhaustCacheForMoving;
     const createProject = structs.createProject;
     const revealCreateForm = structs.revealCreateForm;
     const resetCreateForm = structs.resetCreateForm;
@@ -94,7 +96,9 @@ const revealToDo = (function(){
     projectEvents.subscribe('deleteCheck', deleteCheckFromStorage);
     projectEvents.subscribe('deleteCheck', deleteCheck);
     projectEvents.subscribe('recordCheck', recordCheck);
-    projectEvents.subscribe('startMove', moveConstruct);
+    projectEvents.subscribe('moveItem', createCacheForMoving);
+    projectEvents.subscribe('moveItem', moveConstruct);
+    projectEvents.subscribe('moveItem', exhaustCacheForMoving);
 
     
 
