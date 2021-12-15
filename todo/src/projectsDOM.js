@@ -736,6 +736,7 @@ export const templateDOMStructs = function (){
         let currentDroppable = null;
 
         const target = event.target.closest('.toDoNoteInput') || event.target.closest('.project')
+        target.classList.toggle('moved',true);
         const clonedTarget = target.cloneNode(true);
 
         const _returnToDefault = function(){

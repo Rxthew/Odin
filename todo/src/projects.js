@@ -1,4 +1,5 @@
 import { baseCreate } from "./helpers/base";
+import { projectEvents } from "./projectevents";
 
 
 //Template for a todo-note 
@@ -240,39 +241,50 @@ export const mainInterface = function(){
    const createCacheForMoving = function(event){
       const cache = {};
       cache['projIndex'] = _findProj(event);
-      event.target.contains('moveNote') ? cache['noteIndex'] = _findToDo(event) : false
+      event.target.classList.contains('moveNote') ? cache['noteIndex'] = _findToDo(event) : false
       allToDo.add(cache);
       return
     }
 
   const exhaustCacheForMoving = function(event){
+
+      if (event.type === 'mousedown'){
+         document.addEventListener('mouseup', exhaustCacheForMoving, {once:true})
+         return
+      }
+     
+     const target = document.querySelector('.moved'); 
      const cache = _overallStorage[_overallStorage.length - 1];
-     if (event.target.contains('.moveProject')){
-      const projLocation = _findProj(event);
+     const projLocation =  Array.from(document.querySelector('#container').children).filter(child => child.classList.contains('project')).indexOf(target.closest('.project'));
+     
+     if (target.classList.contains('project')){
       cache.projIndex !== projLocation ? allToDo.move(cache.projIndex,projLocation) : false;
      }
-     else if (event.target.contains('.moveNote')){
+     else if (target.classList.contains('toDoNoteInput')){
+        const initProj = _overallStorage[cache.projIndex];
         const movedNote = initProj.projStorage[cache.noteIndex];
-        const targetProj = _overallStorage[_findProj(event)];
+        const targetProj = _overallStorage[projLocation];
+        const toDoLocation = target.dataset.id
 
-        if(cache.projIndex !== _findProj(event)){
+        if(cache.projIndex !== projLocation){
          
          //delete from previous project location
-         const initProj = _overallStorage[cache.projIndex];
          initProj.projStorage.splice(cache.noteIndex,1);
          
          //insert in new project location
-         targetProj.projStorage.splice(_findToDo(event),0,movedNote);
+         targetProj.projStorage.splice(toDoLocation,0,movedNote);
            
         }
 
-       else if (cache.noteIndex !== _findToDo(event)){
+       else if (cache.noteIndex !== toDoLocation){
          targetProj.projStorage.splice(cache.noteIndex,1);
-         targetProj.projStorage.splice(_findToDo(event),0,movedNote);
+         targetProj.projStorage.splice(toDoLocation,0,movedNote);
               
       }}
 
      allToDo.remove(cache)
+     projectEvents.publish('saved');
+     //target.classList.toggle('moved',false);
 
      return
 
