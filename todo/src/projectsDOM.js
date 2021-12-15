@@ -817,31 +817,32 @@ export const templateDOMStructs = function (){
 
             const _regulariseNoteData = function(){
 
-               if(elemBelow.closest('.project') === clonedTarget.parentElement.parentElement){
+               if(elemBelow.closest('.project') === clonedTarget.parentElement.parentElement && clonedTarget.nextElementSibling === target){
+
                    return _returnToDefault()
                }
                 clonedTarget.remove()
                 const project = elemBelow.closest('.project');
-                const formContainer = DOM.selectElem(`container${project.dataset.id}`)
-                const targetChildren = Array.from(target.children);               
-                const dataClasses = targetChildren.filter(child => child.hasAttribute('data-class'));
-                const dataNames = targetChildren.filter(child => child.hasAttribute('data-name'));
-                dataClasses.forEach(elem => elem.dataset.class = `child${project.dataset.id}${formContainer.length}`);
-                dataNames.forEach(elem => elem.id = `${target.dataset.name}${project.dataset.id}${formContainer.length}`)
-                target.id = `${target.dataset.name}${project.dataset.id}${formContainer.length}` 
-                target.dataset.id = `${formContainer.length}`
+                const formContainer = Array.from(DOM.selectElem(`#container${project.dataset.id}`).children)
+                formContainer.forEach(function(element){ 
+                   const elementChildren = Array.from(element.children);               
+                   const dataClasses = elementChildren.filter(child => child.hasAttribute('data-class'));
+                   const dataNames = elementChildren.filter(child => child.hasAttribute('data-name'));
+                   dataClasses.forEach(elem => elem.dataset.class = `child${project.dataset.id}${formContainer.indexOf(element)}`);
+                   dataNames.forEach(elem => elem.id = `${element.dataset.name}${project.dataset.id}${formContainer.indexOf(element)}`)
+                   element.id = `${element.dataset.name}${project.dataset.id}${formContainer.indexOf(element)}` 
+                   element.dataset.id = `${formContainer.indexOf(element)}`
+                })
+                   
             }
 
             
             if (elemBelow.closest('.toDoNoteInput') && target.classList.contains('toDoNoteInput')){
+
                 elemBelow.closest('.toDoNoteInput').parentElement.insertBefore(target,elemBelow.closest('.toDoNoteInput'));
                 target.removeAttribute('style');
-                if(elemBelow.closest('.project') === clonedTarget.parentElement.parentElement){
-                    clonedTarget.remove();
-                }
-                else {
-                _regulariseNoteData()}
-                }
+                _regulariseNoteData();
+            }
 
             else if (elemBelow.closest('.project')){
                   if(target.classList.contains('project')){

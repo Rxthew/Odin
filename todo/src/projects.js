@@ -77,7 +77,7 @@ export const mainInterface = function(){
 // and only changes when the whole array of projects are regenerated from localStorage. 
 
    const _findProj = function(event){
-      const projIndex = Array.from(document.querySelector('#container')).indexOf(event.target.closest('.project'));      
+      const projIndex = Array.from(document.querySelector('#container').children).filter(child => child.classList.contains('project')).indexOf(event.target.closest('.project'));      
       return projIndex
    }
 
