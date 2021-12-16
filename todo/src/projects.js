@@ -92,6 +92,7 @@ export const mainInterface = function(){
 
 
    const appendToProj = function(event){
+      
       const index = _findProj(event);
       const domProject = event.target.closest('.project');
       const currentProj = _overallStorage[index];
@@ -239,6 +240,9 @@ export const mainInterface = function(){
    }
 
    const createCacheForMoving = function(event){
+      if (event.type === 'click'){
+         return
+      }
       const cache = {};
       cache['projIndex'] = _findProj(event);
       event.target.classList.contains('moveNote') ? cache['noteIndex'] = _findToDo(event) : false
@@ -289,7 +293,8 @@ export const mainInterface = function(){
          targetProj.projStorage.splice(toDoLocation,0,movedNote);
               
       }}
-
+     
+    
      allToDo.remove(cache)
      projectEvents.publish('saved');
      target.classList.toggle('moved',false);

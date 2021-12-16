@@ -750,8 +750,7 @@ export const templateDOMStructs = function (){
             else if (clonedTarget.classList.contains('toDoNoteInput')){
                 //still to do
             }
-            const moveBtns = Array.from(DOM.selectElem('.move')).map(btn => btn.closest('.project')).filter(child => child.closest('.project').id === clonedTarget.closest('.project').id);
-            console.log(moveBtns);
+            const moveBtns = Array.from(DOM.selectElem('.move')).filter(child => child.closest('.project').id === clonedTarget.closest('.project').id);
             
             moveBtns.forEach(btn => btn.onmousedown = delegator)
         }
