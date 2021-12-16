@@ -732,6 +732,10 @@ export const templateDOMStructs = function (){
         if(event.type === 'click'){
             return
         }
+        if(event.button !== 0){
+            
+            return
+        }
 
         let currentDroppable = null;
 

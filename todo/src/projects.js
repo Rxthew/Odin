@@ -247,15 +247,18 @@ export const mainInterface = function(){
     }
 
   const exhaustCacheForMoving = function(event){
-     
-
+         
       if (event.type === 'mousedown'){
+         if (event.button !== 0){
+            return
+         }
          document.addEventListener('mouseup', exhaustCacheForMoving, {once:true})
          return
       }
       if (event.type === 'click'){
          return
       }
+      
       
      const target = document.querySelector('.moved'); 
      const cache = _overallStorage[_overallStorage.length - 1];
