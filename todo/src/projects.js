@@ -247,12 +247,16 @@ export const mainInterface = function(){
     }
 
   const exhaustCacheForMoving = function(event){
+     
 
       if (event.type === 'mousedown'){
          document.addEventListener('mouseup', exhaustCacheForMoving, {once:true})
          return
       }
-     
+      if (event.type === 'click'){
+         return
+      }
+      
      const target = document.querySelector('.moved'); 
      const cache = _overallStorage[_overallStorage.length - 1];
      const projLocation =  Array.from(document.querySelector('#container').children).filter(child => child.classList.contains('project')).indexOf(target.closest('.project'));
@@ -284,7 +288,7 @@ export const mainInterface = function(){
 
      allToDo.remove(cache)
      projectEvents.publish('saved');
-     //target.classList.toggle('moved',false);
+     target.classList.toggle('moved',false);
 
      return
 
