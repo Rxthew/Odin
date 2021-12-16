@@ -834,7 +834,7 @@ export const templateDOMStructs = function (){
                    const dataClasses = elementChildren.filter(child => child.hasAttribute('data-class'));
                    const dataNames = elementChildren.filter(child => child.hasAttribute('data-name'));
                    dataClasses.forEach(elem => elem.dataset.class = `child${project.dataset.id}${formContainer.indexOf(element)}`);
-                   dataNames.forEach(elem => elem.id = `${element.dataset.name}${project.dataset.id}${formContainer.indexOf(element)}`)
+                   dataNames.forEach(elem => elem.id = `${elem.dataset.name}${project.dataset.id}${formContainer.indexOf(element)}`)
                    element.id = `${element.dataset.name}${project.dataset.id}${formContainer.indexOf(element)}` 
                    element.dataset.id = `${formContainer.indexOf(element)}`
                 })
