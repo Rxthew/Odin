@@ -739,25 +739,29 @@ export const templateDOMStructs = function (){
 
         let currentDroppable = null;
 
-        const target = event.target.closest('.toDoNoteInput') || event.target.closest('.project')
+        const target = event.target.classList.contains('moveNote') ? event.target.closest('.toDoNoteInput') : event.target.closest('.project')
         target.classList.toggle('moved',true);
         const clonedTarget = target.cloneNode(true);
-
-        const _returnToDefault = function(){
-            target.remove();
-            clonedTarget.classList.toggle('none',false);
-        }
         
-        const eventReplicator = (function(){
+        const eventReplicator = function(){
             if (clonedTarget.classList.contains('project')){
                 clonedTarget.onclick = delegator;
             }
             else if (clonedTarget.classList.contains('toDoNoteInput')){
-                //
+                //still to do
             }
-            const moveBtn = Array.from(clonedTarget.children).filter(child => child.classList.contains('move'))[0]
-            moveBtn.onmousedown = delegator;
-        })()
+            const moveBtns = Array.from(DOM.selectElem('.move')).map(btn => btn.closest('.project')).filter(child => child.closest('.project').id === clonedTarget.closest('.project').id);
+            console.log(moveBtns);
+            
+            moveBtns.forEach(btn => btn.onmousedown = delegator)
+        }
+
+        const _returnToDefault = function(){
+            target.remove();
+            clonedTarget.classList.toggle('none',false);
+            eventReplicator()
+            
+        }
 
         clonedTarget.classList.toggle('none',true);        
         target.parentElement.appendChild(clonedTarget);
