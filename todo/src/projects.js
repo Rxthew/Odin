@@ -37,16 +37,6 @@ export const singleProj = function(name){
                                        
    }
 
-   const removeFromProject = function(index){
-      const todo = projStorage[index];
-      project.remove(todo, index);  
-   } 
-
-   const movetoDo = function(index, target){
-      project.move(index, target);
-         
-   }
-
    return {project,
            name,
            addToProject,
@@ -72,22 +62,20 @@ export const mainInterface = function(){
        
    const transferToLocalStorage = function(){
          return localStorage.setItem('access', JSON.stringify(_overallStorage))
-   }
-
-//The reason _findProj does not use data-id is because that property is immutable, even whilst moving projects
-// and only changes when the whole array of projects are regenerated from localStorage. 
+   } 
 
    const _findProj = function(event){
-      const projIndex = Array.from(document.querySelector('#container').children).filter(child => child.classList.contains('project')).indexOf(event.target.closest('.project'));      
+      const containerChildren = Array.from(document.querySelector('#container').children) 
+      const projIndex = containerChildren.filter(child => child.classList.contains('project')).indexOf(event.target.closest('.project'));      
       return projIndex
    }
 
-//The reason _findToDo relies on dataset.id, is that this property needs to be exact as the todo's descendants in the DOM
-// sometimes refer to the note in this way. (This is less than ideal and should be refactored).
 
    const _findToDo = function(event){
-      const toDo = event.target.closest('.toDoNoteInput')
-      return toDo.dataset.id
+      const project = event.target.closest('.project');
+      const projContainerChildren = Array.from(document.querySelector(`#container${project.dataset.id}`).children); 
+      const toDoIndex = projContainerChildren.filter(child => child.classList.contains('toDoNoteInput')).indexOf(event.target.closest('.toDoNoteInput'));
+      return toDoIndex
    }
 
 
@@ -156,7 +144,7 @@ export const mainInterface = function(){
       const index = _findProj(event);
       const proj = _overallStorage[index];
       if (event.target.parentElement.classList.contains('project')){
-         allToDo.remove(proj)
+         allToDo.remove(proj);
          return
          
       }
@@ -207,7 +195,7 @@ export const mainInterface = function(){
       const projIndex = _findProj(event);
       const proj = _overallStorage[projIndex];
       const toDoIndex = event.target.closest('.toDoNoteInput') ? _findToDo(event) : false;
-      const toDoNote = toDoIndex ? proj.projStorage[toDoIndex]: false;
+      const toDoNote = toDoIndex || (toDoIndex === 0) ? proj.projStorage[toDoIndex]: false;
       const form = event.target.parentElement;
       const formChildren = Array.from(form.children);
       const buttonChecker = formChildren.filter(child => child.nodeName == 'BUTTON' && child.classList.contains('disabledEdit'))
@@ -263,22 +251,30 @@ export const mainInterface = function(){
          return
       }
       
-    
-      
      const target = document.querySelector('.moved'); 
      const cache = _overallStorage[_overallStorage.length - 1];
-     const projLocation =  Array.from(document.querySelector('#container').children).filter(child => child.classList.contains('project')).indexOf(target.closest('.project'));
+
+     const findTarget = (function(){
+          const projectsContainer = Array.from(document.querySelector('#container').children) 
+          const projLocation = projectsContainer.filter(child => child.classList.contains('project')).indexOf(target.closest('.project'));
+          return projLocation
+     })()
      
      if (target.classList.contains('project')){
-      cache.projIndex !== projLocation ? allToDo.move(cache.projIndex,projLocation) : false;
+      cache.projIndex !== findTarget ? allToDo.move(cache.projIndex,findTarget) : false;
      }
      else if (target.classList.contains('toDoNoteInput')){
         const initProj = _overallStorage[cache.projIndex];
         const movedNote = initProj.projStorage[cache.noteIndex];
-        const targetProj = _overallStorage[projLocation];
-        const toDoLocation = target.dataset.id
+        const targetProj = _overallStorage[findTarget];
+        const toDoLocation = (function(){
+           const targetProject = target.closest('.project');
+           const trgtProjContChildren = Array.from(document.querySelector(`#container${targetProject.dataset.id}`).children); 
+           const targetToDoIndex = trgtProjContChildren.filter(child => child.classList.contains('toDoNoteInput')).indexOf(target.closest('.toDoNoteInput'));
+           return targetToDoIndex
+           })();
 
-        if(cache.projIndex !== projLocation){
+        if(cache.projIndex !== findTarget){
          
          //delete from previous project location
          initProj.projStorage.splice(cache.noteIndex,1);

@@ -8,10 +8,19 @@ export const templateDOMStructs = function (){
     const delegator = projectEvents.delegator
 
     const createProject = function(name){
-         if (name === ''){return} 
-         const reference = DOM.selectElem('.project'); 
-         const proj = DOM.elementInit('div',{'id': `${name}${reference.length}`,
-                                             'data-id':`${reference.length}`,
+         if (name === ''){return}
+
+         const reference = (function(){
+            const _allDOMProjs =  Array.from(DOM.selectElem('.project'));
+            if(_allDOMProjs.length === 0){
+                return 0
+            }
+            const lastProj = _allDOMProjs[_allDOMProjs.length - 1]
+            return parseInt(lastProj.dataset.id) + 1
+            })()
+
+         const proj = DOM.elementInit('div',{'id': `${name}${reference}`,
+                                             'data-id':`${reference}`,
                                              'data-name': `${name}`,
                                              'class': 'project'},name
                                              )
@@ -21,7 +30,7 @@ export const templateDOMStructs = function (){
                                              
         const addToDoListBtn = DOM.elementInit('button', {'class': 'addtoDoList',
                                                            'data-name': 'add',
-                                                           'id': `add${DOM.selectElem('.project').length}`}, 'Add To-Do List');
+                                                           'id': `add${reference}`}, 'Add To-Do List');
         const modify = DOM.elementInit('button', {'class':'edit editProjTitleBtn'},'\u{270D}');
         const moveProject = DOM.elementInit('button', {'class':'move moveProject',
                                                         'type': 'button'},'\u{21F2}')
@@ -29,7 +38,7 @@ export const templateDOMStructs = function (){
         proj.appendChild(modify);
         proj.appendChild(DOM.elementInit('div',{ 'class':'none toDoContainer',
                                                   'data-name': 'container',
-                                                   'id':`container${reference.length}`}));
+                                                   'id':`container${reference}`}));
         proj.appendChild(addToDoListBtn);
         proj.appendChild(moveProject);
 
@@ -743,7 +752,7 @@ export const templateDOMStructs = function (){
         target.classList.toggle('moved',true);
         const clonedTarget = target.cloneNode(true);
         
-        const eventReplicator = function(){
+        const _eventReplicator = function(){
             if (clonedTarget.classList.contains('project')){
                 clonedTarget.onclick = delegator;
             }
@@ -758,7 +767,7 @@ export const templateDOMStructs = function (){
         const _returnToDefault = function(){
             target.remove();
             clonedTarget.classList.toggle('none',false);
-            eventReplicator()
+            _eventReplicator()
             
         }
 
