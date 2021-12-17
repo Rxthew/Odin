@@ -767,7 +767,7 @@ export const templateDOMStructs = function (){
             
             return
         }
-
+        
         let currentDroppable = null;
 
         const target = event.target.classList.contains('moveNote') ? event.target.closest('.toDoNoteInput') : event.target.closest('.project')
@@ -777,9 +777,6 @@ export const templateDOMStructs = function (){
         const _eventReplicator = function(){
             if (clonedTarget.classList.contains('project')){
                 clonedTarget.onclick = delegator;
-            }
-            else if (clonedTarget.classList.contains('toDoNoteInput')){
-                //still to do
             }
             const moveBtns = Array.from(DOM.selectElem('.move')).filter(child => child.closest('.project').id === clonedTarget.closest('.project').id);
             
@@ -798,6 +795,7 @@ export const templateDOMStructs = function (){
         
         let shiftX = event.clientX - target.getBoundingClientRect().left;
         let shiftY = event.clientY - target.getBoundingClientRect().top;
+        const moveBtn = event.target;
 
         const _commenceMove = (function(){
             
@@ -824,7 +822,7 @@ export const templateDOMStructs = function (){
             target.classList.toggle('none',false);
             if(!elem){return _returnToDefault()}
 
-            //Opens projects when todonote moves over them, and closes them when should it leave.
+            //Opens projects when todonote moves over them, and closes them should it leave.
             if(elem.closest('.project') && target.classList.contains('toDoNoteInput')){
                 const currentProj = elem.closest('.project');
                 const container = DOM.selectElem(`#container${currentProj.dataset.id}`);
@@ -839,7 +837,6 @@ export const templateDOMStructs = function (){
 
             
         }      
-
 
         const placeItem = function(event){
 
@@ -857,7 +854,6 @@ export const templateDOMStructs = function (){
             const _regulariseNoteData = function(){
 
                if(elemBelow.closest('.project') === clonedTarget.parentElement.parentElement && clonedTarget.nextElementSibling === target){
-
                    return _returnToDefault()
                }
                 clonedTarget.remove()
@@ -882,7 +878,7 @@ export const templateDOMStructs = function (){
                 target.removeAttribute('style');
                 _regulariseNoteData();
             }
-
+            
             else if (elemBelow.closest('.project')){
                   if(target.classList.contains('project')){
                       container.insertBefore(target,elemBelow.closest('.project'))
@@ -898,21 +894,20 @@ export const templateDOMStructs = function (){
                       _regulariseNoteData()
                       
                       
-                 //appendChild parent & remember to delete the original target 
+                
                 }
             }
 
             else {
                 _returnToDefault()
-                //toggle none off the original target and return to original state by deleting target from document.body 
+                 
             }
-                
-            event.target.classList.toggle('moving',false)
-            //need to restore original position remember.
-
+            
+            
+            moveBtn.classList.toggle('moving',false)
+            
         } 
            
-          //event.target.onmouseup = placeItem;
           _moveAt(event.pageX,event.pageY);
           document.addEventListener('mousemove', _onMouseMove);
           document.addEventListener('mouseup', placeItem, {once: true})   

@@ -228,6 +228,10 @@ export const mainInterface = function(){
    }
 
    const createCacheForMoving = function(event){
+      
+      if (event.type === 'mousedown' && event.button !== 0){
+            return}
+
       if (event.type === 'click'){
          return
       }
