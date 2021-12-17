@@ -303,15 +303,35 @@ export const mainInterface = function(){
 
   }
   
-  const regenProj = function(){
+  const regenBackProj = function(){
+
           const accessAll = JSON.parse(localStorage.access);
-          accessAll.forEach(elem => newProj(elem.name))
+          accessAll.forEach(function(elem){ 
+             newProj(elem.name)
+             const backProj = _overallStorage[_overallStorage.length - 1];
+
+             const _regenBackToDoForms = (function(){
+               if(elem.projStorage.length > 0){ 
+               elem.projStorage.forEach(function(toDoForm){
+                  backProj.addToProject(toDoForm.name) 
+                  const backForm = backProj.projStorage[backProj.projStorage.length - 1]
+
+                  const _regenBackNotes = (function(){
+                     if(toDoForm.noteStorage.length > 0){
+                     toDoForm.noteStorage.forEach(function(note){
+                          backForm.addNote(note)
+                     })}
+
+                  })()
+               })}})()
+             
+
+         })
+          console.log(_overallStorage)
 
   }
 
-  const regenToDoNote = function(){
 
-  }
   
    
    return {
@@ -325,6 +345,7 @@ export const mainInterface = function(){
       modifyInStorage,
       createCacheForMoving,
       exhaustCacheForMoving,
+      regenBackProj
       //just this for now.
    }
   

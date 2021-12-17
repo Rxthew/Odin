@@ -24,6 +24,7 @@ const revealToDo = (function(){
     const modifyInStorage = main.modifyInStorage;
     const createCacheForMoving = main.createCacheForMoving;
     const exhaustCacheForMoving = main.exhaustCacheForMoving;
+    const regenBackProj = main.regenBackProj;
     const createProject = structs.createProject;
     const revealCreateForm = structs.revealCreateForm;
     const resetCreateForm = structs.resetCreateForm;
@@ -102,6 +103,7 @@ const revealToDo = (function(){
     projectEvents.subscribe('moveItem', createCacheForMoving);
     projectEvents.subscribe('moveItem', moveConstruct);
     projectEvents.subscribe('moveItem', exhaustCacheForMoving);
+    projectEvents.subscribe('regen', regenBackProj)
 
     
 
@@ -139,12 +141,18 @@ const revealToDo = (function(){
     })()
 
     
-    const renderLocalStorage = function(){
-        //This will use localStorage to check
-        //if the user has any saved instances
-        //of projects and render them if so. 
-        //Remember to take account any differences in data between backend and DOM
-    }
+    //The below will use localStorage to check
+    //if the user has any saved instances
+    //of projects and render them if so. 
+
+    const renderLocalStorage = (function(){
+        if (localStorage.access){
+            if (localStorage.access.length > 0){
+                projectEvents.publish('regen')
+            } 
+        } 
+
+    })()
 
 
      
