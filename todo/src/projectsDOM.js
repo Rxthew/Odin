@@ -144,6 +144,10 @@ export const templateDOMStructs = function (){
         allEditables.forEach(itm =>  itm === trgt || itm.classList.contains('none') ? false : itm.classList.toggle('disabledEdit', true));
         const allDisabled = DOM.selectElem('.disabledEdit');
         allDisabled.forEach(itm => itm.classList.toggle('edit',false));
+
+        const projs = DOM.selectElem('.project')
+        projs.forEach(proj => proj.classList.toggle('disabledToggle',true))
+
     }
     
     
@@ -156,6 +160,9 @@ export const templateDOMStructs = function (){
         edits.forEach(itm => itm.classList.toggle('disabledEdit',false));
         const deleteBtns = DOM.selectElem('.deleteCheck');
         deleteBtns.forEach(btn => btn.classList.toggle('none',false));        
+
+        const projs = DOM.selectElem('.project')
+        projs.forEach(proj => proj.classList.toggle('disabledToggle',false))
     }
 
      const modifyElement = function(event){
@@ -369,6 +376,12 @@ export const templateDOMStructs = function (){
      const revealCreateForm = function(){
         let createForm = DOM.selectElem('#createForm');
         createForm.classList.toggle('none', false);
+
+        let submitCreateForm = DOM.selectElem('#submitCreateForm');
+        submitCreateForm.classList.toggle('none', false);
+
+        let cancelNewProject = DOM.selectElem('#cancelNewProject');
+        cancelNewProject.classList.toggle('none',false);
         
      }
 
@@ -376,11 +389,20 @@ export const templateDOMStructs = function (){
          let createForm = DOM.selectElem('#createForm');
          createForm.classList.toggle('none', true);
 
+        let submitCreateForm = DOM.selectElem('#submitCreateForm');
+        submitCreateForm.classList.toggle('none', true);
+
+        let cancelNewProject = DOM.selectElem('#cancelNewProject');
+        cancelNewProject.classList.toggle('none',true);
+
          let titleInp = DOM.selectElem('#titleInp');
          titleInp.value = '';
      }
 
      const toggleSize = function(event){
+        if (event.target.classList.contains('disabledToggle')){
+            return
+        }
         if (event.target.classList.contains('project')){
 
         const container = DOM.selectElem(`#container${event.target.dataset.id}` )                          

@@ -56,10 +56,13 @@ const revealToDo = (function(){
     projectEvents.subscribe('create', createProject);
     projectEvents.subscribe('create', resetCreateForm);
     projectEvents.subscribe('create', toggleOpaque);
-    projectEvents.subscribe('create', newProj);   
+    projectEvents.subscribe('create', newProj);
+    projectEvents.subscribe('create', enableBtns);   
     projectEvents.subscribe('cancelCreateNote', resetCreateForm);
     projectEvents.subscribe('cancelCreateNote', toggleOpaque); 
+    projectEvents.subscribe('cancelCreateNote', enableBtns); 
     projectEvents.subscribe('saved', localStore);
+    projectEvents.subscribe('reveal', disableBtns);
     projectEvents.subscribe('reveal', revealCreateForm);
     projectEvents.subscribe('reveal', toggleOpaque);
     projectEvents.subscribe('chooseTitle', disableBtns);
@@ -157,10 +160,10 @@ const revealToDo = (function(){
                                                     'autocomplete': 'off',        
                                                     'name':'titleInp'}));
          form.appendChild(DOM.elementInit('button',{'type':'submit',
-                                                     'class': 'submit',
-                                                      'id':'submit'},'submit'));
+                                                     'class': 'submit none',
+                                                      'id':'submitCreateForm'},'submit'));
          form.appendChild(DOM.elementInit('button', {  'type' : 'button',
-                                                       'class':'cancelNewProject',
+                                                       'class':'cancelNewProject none',
                                                        'id':'cancelNewProject'}, 'cancel' ))
          
  
