@@ -60,13 +60,13 @@ export const templateDOMStructs = function (){
         const cancelTrigger = DOM.selectElem('#cancelTrigger');
 
         const project = (function(){
-            if (chosenSource !== ('Checklist' || 'Freeform')){
+            if (chosenSource !== 'Checklist' && chosenSource !== 'Freeform'){
                 const projs = Array.from(DOM.selectElem('.project'));
-                return projects[projects.length - 1];
+                return projs[projs.length - 1];
                 
             }
             else {
-                return project = input.parentElement;
+                return input.parentElement;
             }
 
         })()
@@ -89,13 +89,15 @@ export const templateDOMStructs = function (){
         const remove = DOM.elementInit('button', {'class':'remove none',
                                                    'data-name': 'remove',
                                                    'id':`remove${project.dataset.id}${formReference.length}`}, 'X');
+       
         const provTitle = DOM.selectElem('#provTitle');
-        const title = DOM.elementInit('label', {'class':'itemTitle',
+        const name = provTitle ? provTitle.value : chosenSource.name
+        const title =   DOM.elementInit('label', {'class':'itemTitle',
                                                    'for':'itemTitle',
                                                    'data-name': 'itemTitle',                       
                                                    'name':'itemTitle',
                                                      'id':`itemTitle${project.dataset.id}${formReference.length}`,
-                                                     },`${provTitle.value}`,)
+                                                     },`${name}`,)
         const modify = DOM.elementInit('button', {'class':'edit'},'Edit');
         const moveNote = DOM.elementInit('button', {'class':'move moveNote',
                                                     'type': 'button'},'\u{21F2}')
@@ -108,7 +110,7 @@ export const templateDOMStructs = function (){
         form.appendChild(title);
         title.appendChild(modify)
         modify.disabled = true;
-        provTitle.remove();  
+        provTitle ? provTitle.remove() : false
         
         moveNote.onmousedown = delegator;
         form.onsubmit = delegator;   
@@ -117,6 +119,7 @@ export const templateDOMStructs = function (){
         
          
         container.appendChild(form);
+
 
         const _generateChecklist = function(){ 
            const add = DOM.elementInit('button', {'class':'addCheck',
@@ -131,6 +134,7 @@ export const templateDOMStructs = function (){
             enableBtns();
        }
 
+
        const _generateFreeForm = function(){
 
         input.value = '';
@@ -143,7 +147,23 @@ export const templateDOMStructs = function (){
         
        }
 
-       chosenSource === 'Checklist' ? _generateChecklist() : _generateFreeForm();  
+       const _regenPrep = function(){
+            
+        submit.remove();
+        cancel.remove();
+        if (chosenSource.noteStorage.length > 0){
+        typeof chosenSource.noteStorage[0] === 'object' ? _generateChecklist() : false
+        }
+    }
+       
+       switch(chosenSource){
+           case 'Checklist' : _generateChecklist();
+           break;
+           case 'Freeform' : _generateFreeForm();
+           break;
+           default : _regenPrep();
+           break;
+       }
 
        return 
 
@@ -689,7 +709,7 @@ export const templateDOMStructs = function (){
         const project = input.parentElement;
         const form = DOM.selectElem('#submitNote').parentElement;
 
-        const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' ) //to edit when creating dropdown
+        const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' ) 
         const totalChecks = document.querySelectorAll('.check').length
        
         const checkbox = DOM.elementInit('input', {'type':'checkbox',
