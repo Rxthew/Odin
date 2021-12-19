@@ -52,12 +52,26 @@ export const templateDOMStructs = function (){
      }
      
 
-     const createToDoNote = function(chosenType){
+     const createToDoNote = function(chosenSource){
+        
 
-        const input = DOM.selectElem('#temporaryInput')
+        const input = DOM.selectElem('#temporaryInput'); 
         const submitTrigger = DOM.selectElem('#submitTrigger');
-        const cancelTrigger = DOM.selectElem('#cancelTrigger'); 
-        const project = input.parentElement;
+        const cancelTrigger = DOM.selectElem('#cancelTrigger');
+
+        const project = (function(){
+            if (chosenSource !== ('Checklist' || 'Freeform')){
+                const projs = Array.from(DOM.selectElem('.project'));
+                return projects[projects.length - 1];
+                
+            }
+            else {
+                return project = input.parentElement;
+            }
+
+        })()
+
+
         const container = DOM.selectElem(`#container${project.dataset.id}`);
         const formReference = Array.from(container.children);
         
@@ -129,7 +143,7 @@ export const templateDOMStructs = function (){
         
        }
 
-       chosenType === 'Checklist' ? _generateChecklist() : _generateFreeForm();  
+       chosenSource === 'Checklist' ? _generateChecklist() : _generateFreeForm();  
 
        return 
 
@@ -914,6 +928,29 @@ export const templateDOMStructs = function (){
 
         return 
 
+    }
+
+    const regenFrontProj = function(){
+        const accessAll = JSON.parse(localStorage.access);
+        accessAll.forEach(function(elem){
+            if(accessAll.length > 0){
+            createProject(elem.name);
+            const allDomProjs = Array.from(DOM.selectElem('.project'));
+            const frontProj = allDomProjs[allDomProjs.length - 1];
+
+            const _regenFrontToDoForms = (function(){
+                  if(elem.projStorage.length > 0){
+                      elem.projStorage.forEach(function(toDoForm){
+         //                 createToDoNote(toDoForm)
+         //                 ....continue
+                      })
+
+                  }
+                
+
+            })()
+            
+        }})
     }
 
      return {
