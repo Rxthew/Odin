@@ -115,9 +115,9 @@ const revealToDo = (function(){
     //Initial elements
     const mainContainer = (function(){
     
-        const container =  DOM.elementInit('div',{'id':'container'})
-        document.body.appendChild(container)
-        return container
+        const mainCont =  DOM.elementInit('div',{'id':'mainContainer'})
+        document.body.appendChild(mainCont)
+        return mainCont
      
 })()
 
@@ -138,6 +138,14 @@ const revealToDo = (function(){
         mainContainer.appendChild(head);
 
         return head;
+})()
+
+const projectsContainer = (function(){
+        
+    const container =  DOM.elementInit('div',{'id':'container'})
+
+    mainContainer.appendChild(container)
+    return container
 })()
     
     const defaultProject = (function(){

@@ -58,16 +58,10 @@ projectEvents.delegator = function(event){
          case event.target.classList.contains('check') : projectEvents.publish('recordCheck', event);
                                                          projectEvents.publish('saved');
            break;
-         case event.target.classList.contains('move') : projectEvents.publish('moveItem', event);
-                                                        
+         case event.target.classList.contains('move') : projectEvents.publish('moveItem', event);                                                        
            break;
-
-      //add more. 
 
 }}
  
-       
-
-
 
 export { projectEvents }
