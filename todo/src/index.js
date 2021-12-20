@@ -10,7 +10,8 @@ const revealToDo = (function(){
     //Calling module Objects
     const DOM = DOMGeneral();
     const structs = templateDOMStructs();
-    const main = projects.mainInterface();
+    const main = projects.mainInterface;
+    
     
 
     //Module methods to be used
@@ -49,6 +50,7 @@ const revealToDo = (function(){
     const toggleOpaque = structs.toggleOpaque;
     const moveConstruct = structs.moveConstruct;
     const regenFrontProj = structs.regenFrontProj;
+    
     const delegator = projectEvents.delegator;
 
     

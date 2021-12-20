@@ -49,7 +49,7 @@ export const singleProj = function(name){
 
 //Overall Interface
 
-export const mainInterface = function(){
+export const mainInterface = (function(){
    
    const _overallStorage = new Array();
    const allToDo = baseCreate(_overallStorage);
@@ -66,7 +66,7 @@ export const mainInterface = function(){
 
    const _findProj = function(event){
       const containerChildren = Array.from(document.querySelector('#container').children) 
-      const projIndex = containerChildren.filter(child => child.classList.contains('project')).indexOf(event.target.closest('.project'));      
+      const projIndex = containerChildren.filter(child => child.classList.contains('project')).indexOf(event.target.closest('.project'));   
       return projIndex
    }
 
@@ -323,17 +323,49 @@ export const mainInterface = function(){
                      })}
 
                   })()
-               })}})()
-             
+               })}})()             
 
          })
-          console.log(_overallStorage)
-
+          
   }
 
-
-  
+  const retrieveData = function(event){
+   const projIndex = _findProj(event);
+   const backProj = _overallStorage[projIndex]  
    
+   
+   if(event.target.parentElement.classList.contains('project')){              
+      return backProj.name
+   }
+   else {
+         const toDoIndex = _findToDo(event);
+         const backToDo = _overallStorage[projIndex].projStorage[toDoIndex];
+         
+         if(event.target.parentElement.classList.contains('itemTitle')){
+            return backToDo.name
+            
+         }
+         else {
+            const frontToDo = event.target.parentElement;
+            if (frontToDo.classList.contains('freeForm')){  
+               return backToDo.noteStorage[0]
+            }
+            else if (frontToDo.classList.contains('checkbox')){
+      
+      //Array of all checkboxes including the activated button, and excluding the checkbox before the label (which is currently modInput)
+      // so that the button's index position corresponds to the label in the backend which has not yet been modified and therefore we can
+      // revert the modified data to its original state based on that. 
+     
+             const modInput = document.querySelector('#modInput');
+             const initChildren = Array.from(frontToDo.children);
+             const children = initChildren.filter(child => child === event.target || child.classList.contains('check') && child !== modInput.previousElementSibling);
+             const noteIndex = children.indexOf(event.target);
+             return backToDo.noteStorage[noteIndex].label
+            }
+      }}
+  }
+   
+    
    return {
       newProj,
       transferToLocalStorage,
@@ -345,10 +377,11 @@ export const mainInterface = function(){
       modifyInStorage,
       createCacheForMoving,
       exhaustCacheForMoving,
-      regenBackProj
-      //just this for now.
+      regenBackProj,
+      retrieveData
+      
    }
   
    
-}
+})()
 

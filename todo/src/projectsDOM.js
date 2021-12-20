@@ -1,5 +1,9 @@
 import { DOMGeneral } from "./helpers/DOM";
 import { projectEvents } from "./projectevents";
+import * as projects from "./projects"
+
+
+
 
 
 export const templateDOMStructs = function (){
@@ -237,25 +241,21 @@ export const templateDOMStructs = function (){
          },'Submit Note')
          const revert = DOM.elementInit('button',{
          'class':'revertMod',
-         'data-transfer':`${event.target.firstChild.nodeValue}` //temporary, update to use local storage & backend
           },'Revert Back') 
-                 
-         if (event.target.parentElement.classList.contains('itemTitle') || event.target.parentElement.classList.contains('project')){
-             revert.dataset.transfer = event.target.parentElement.firstChild.nodeValue
-        }
-                    
-
+                                     
         disableBtns();
 
          const _replaceWithInput = (function(){
             if(event.target.parentElement.classList.contains('itemTitle') || event.target.parentElement.classList.contains('project')){
-                modInput.value = event.target.parentElement.firstChild.nodeValue;
-                event.target.parentElement.firstChild.nodeValue = '';
-                event.target.parentElement.appendChild(modInput);
+                const titleToEdit = event.target.parentElement;
+                modInput.value = titleToEdit.firstChild.nodeValue;
+                titleToEdit.firstChild.nodeValue = '';
+                titleToEdit.appendChild(modInput);
             }
             else{
-                modInput.value = event.target.firstChild.nodeValue
-                event.target.replaceWith(modInput); 
+                const textToEdit = event.target
+                modInput.value = textToEdit.firstChild.nodeValue
+                textToEdit.replaceWith(modInput); 
 
             } 
             modInput.insertAdjacentElement('afterend',submit);
@@ -287,8 +287,9 @@ export const templateDOMStructs = function (){
         }
 
         else {
-            const value = input.value
-            event.target.parentElement.firstChild.nodeValue = value;
+            const value = input.value;
+            const newTitle = event.target.parentElement;
+            newTitle.firstChild.nodeValue = value;
             input.remove();
         }
         
@@ -307,25 +308,27 @@ export const templateDOMStructs = function (){
         const form = event.target.parentElement;
         const submit = event.target.previousElementSibling;
         const input = submit.previousElementSibling;
-        const label = DOM.elementInit('label', {'for': `${event.target.dataset.transfer}`, 'class':'edit'},`${event.target.dataset.transfer}`); //temporary, update to use local storage & backend
-        const text = DOM.elementInit('p', {'class':'text edit'}, `${event.target.dataset.transfer}`); //temporary, update to use local storage & backend
+        const retrieveData =  projects.mainInterface.retrieveData(event);
+        const originalLabel = DOM.elementInit('label', {'for': `${retrieveData}`, 'class':'edit'},`${retrieveData}`); 
+        const originalText = DOM.elementInit('p', {'class':'text edit'}, `${retrieveData}`); 
         const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' ) 
 
 
         if(form.classList.contains('checkbox')){
-            input.replaceWith(label);
-            label.appendChild(del);
+            input.replaceWith(originalLabel);
+            originalLabel.appendChild(del);
 
         }
         else if (form.classList.contains('freeForm')){
-            input.replaceWith(text); 
+            input.replaceWith(originalText); 
         }
 
         else {
-            const value = event.target.dataset.transfer; //temporary, update to use local storage & backend
-            event.target.parentElement.firstChild.nodeValue = value;
+            const value = retrieveData; 
+            const originalTitle = event.target.parentElement
+            originalTitle.firstChild.nodeValue = value;
             input.remove();
-        }
+        };
          
         enableBtns();
     
@@ -1003,7 +1006,8 @@ export const templateDOMStructs = function (){
                               else {
                                 const text = DOM.elementInit('p', {'class':'text edit',
                                 'data-class':`child${frontProj.dataset.id}${form.dataset.id}`}, `${note}`);
-                                 
+                                
+                                form.classList.add('freeForm'); 
                                 form.appendChild(text);
                               }
                           })}
