@@ -151,6 +151,7 @@ export const templateDOMStructs = function (){
             
         submit.remove();
         cancel.remove();
+        remove.classList.toggle('none', false);
         if (chosenSource.noteStorage.length > 0){
         typeof chosenSource.noteStorage[0] === 'object' ? _generateChecklist() : false
         }
@@ -165,7 +166,7 @@ export const templateDOMStructs = function (){
            break;
        }
 
-       return 
+       return form
 
      }
 
@@ -704,21 +705,44 @@ export const templateDOMStructs = function (){
     }
 
     
-      const _generateCheckItem = function(){  
+      const _generateCheckItem = function(storedNote=false){  
         const input = DOM.selectElem('#temporaryInput');
-        const project = input.parentElement;
-        const form = DOM.selectElem('#submitNote').parentElement;
+        const project = (function(){
+            if (storedNote){
+                const projs = Array.from(DOM.selectElem('.project'));
+                return projs[projs.length - 1];
+                
+            }
+            else {
+                return input.parentElement;
+            }
+
+        })()
+        
+        const form = (function(){
+            if (storedNote){
+                const container = Array.from(DOM.selectElem(`#container${project.dataset.id}`)).filter(elem => elem.classList.contains('toDoNoteInput'))
+                return container[container.length - 1];
+                
+            }
+            else {
+                return DOM.selectElem('#submitNote').parentElement;
+            }
+
+        })()
+
+        const name = storedNote ? storedNote.label : input.value
 
         const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' ) 
-        const totalChecks = document.querySelectorAll('.check').length
+        const totalChecks = DOM.selectElem('.check').length
        
         const checkbox = DOM.elementInit('input', {'type':'checkbox',
                                                     'id': `check${totalChecks + 1}`, 
                                                     'class':'check',
                                                     'data-class':`child${project.dataset.id}${form.dataset.id}`});
-        const label = DOM.elementInit('label', {'for': `${input.value}`,
+        const label = DOM.elementInit('label', {'for': `${name}`,
                                                  'class': 'edit',
-                                                'data-class':`child${project.dataset.id}${form.dataset.id}`},`${input.value}`);
+                                                'data-class':`child${project.dataset.id}${form.dataset.id}`},`${name}`);
         const br = DOM.elementInit('br',{'data-class':`child${project.dataset.id}${form.dataset.id}`});
 
        
@@ -726,6 +750,12 @@ export const templateDOMStructs = function (){
         form.appendChild(checkbox);
         form.appendChild(label);
         form.appendChild(br);
+
+        const _retrieveCheckValue = (function(){
+            if (storedNote && storedNote.check){
+                checkbox.checked = true;
+            }
+        })()
 
         return
     }
@@ -961,8 +991,25 @@ export const templateDOMStructs = function (){
             const _regenFrontToDoForms = (function(){
                   if(elem.projStorage.length > 0){
                       elem.projStorage.forEach(function(toDoForm){
-         //                 createToDoNote(toDoForm)
-         //                 ....continue
+                      const form = createToDoNote(toDoForm)
+         //           
+                      const _regenFrontNotes = (function(){
+                          if (toDoForm.noteStorage.length > 0){
+                          toDoForm.noteStorage.forEach(function(note){
+                              if (typeof note === 'object'){
+                                  _generateCheckItem(note)
+                              }
+                              else {
+                                const text = DOM.elementInit('p', {'class':'text edit',
+                                'data-class':`child${frontProj.dataset.id}${form.dataset.id}`}, `${note}`);
+                                 
+                                form.appendChild(text);
+
+
+                              }
+                          })}
+
+                      })()
                       })
 
                   }
