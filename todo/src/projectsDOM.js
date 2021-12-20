@@ -869,7 +869,7 @@ export const templateDOMStructs = function (){
             
             target.style.position = 'absolute';
             target.style.zIndex = 1000;
-            target.classList.contains('toDoNoteInput') ? target.style.width = '63vw' : false;
+            target.classList.contains('toDoNoteInput') ? target.style.width = '42vw' : false;
             event.target.classList.toggle('moving',true);
             document.body.appendChild(target);           
 
@@ -970,7 +970,6 @@ export const templateDOMStructs = function (){
                 _returnToDefault()
                  
             }
-            
             
             moveBtn.classList.toggle('moving',false)
             
