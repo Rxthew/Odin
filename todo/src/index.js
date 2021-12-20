@@ -48,6 +48,7 @@ const revealToDo = (function(){
     const triggerEvents = structs.triggerEvents;
     const toggleOpaque = structs.toggleOpaque;
     const moveConstruct = structs.moveConstruct;
+    const regenFrontProj = structs.regenFrontProj;
     const delegator = projectEvents.delegator;
 
     
@@ -103,8 +104,9 @@ const revealToDo = (function(){
     projectEvents.subscribe('moveItem', createCacheForMoving);
     projectEvents.subscribe('moveItem', moveConstruct);
     projectEvents.subscribe('moveItem', exhaustCacheForMoving);
-    projectEvents.subscribe('regen', regenBackProj)
-
+    projectEvents.subscribe('regen', regenBackProj);
+    projectEvents.subscribe('regen', regenFrontProj);
+    projectEvents.subscribe('regen', enableBtns);
     
 
 

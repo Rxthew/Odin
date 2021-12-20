@@ -152,9 +152,10 @@ export const templateDOMStructs = function (){
         submit.remove();
         cancel.remove();
         remove.classList.toggle('none', false);
-        if (chosenSource.noteStorage.length > 0){
-        typeof chosenSource.noteStorage[0] === 'object' ? _generateChecklist() : false
-        }
+        if (typeof chosenSource.noteStorage[0] === 'object' || chosenSource.noteStorage.length === 0){
+             _generateChecklist()} 
+       
+        
     }
        
        switch(chosenSource){
@@ -721,7 +722,7 @@ export const templateDOMStructs = function (){
         
         const form = (function(){
             if (storedNote){
-                const container = Array.from(DOM.selectElem(`#container${project.dataset.id}`)).filter(elem => elem.classList.contains('toDoNoteInput'))
+                const container = Array.from(DOM.selectElem(`#container${project.dataset.id}`).children).filter(elem => elem.classList.contains('toDoNoteInput'))
                 return container[container.length - 1];
                 
             }
@@ -992,7 +993,7 @@ export const templateDOMStructs = function (){
                   if(elem.projStorage.length > 0){
                       elem.projStorage.forEach(function(toDoForm){
                       const form = createToDoNote(toDoForm)
-         //           
+          
                       const _regenFrontNotes = (function(){
                           if (toDoForm.noteStorage.length > 0){
                           toDoForm.noteStorage.forEach(function(note){
@@ -1004,19 +1005,13 @@ export const templateDOMStructs = function (){
                                 'data-class':`child${frontProj.dataset.id}${form.dataset.id}`}, `${note}`);
                                  
                                 form.appendChild(text);
-
-
                               }
                           })}
 
                       })()
                       })
-
                   }
-                
-
             })()
-            
         }})
     }
 
@@ -1044,6 +1039,7 @@ export const templateDOMStructs = function (){
          deleteItem,
          deleteCheck,
          moveConstruct,
+         regenFrontProj
          
      }
 }
