@@ -625,7 +625,7 @@ export const templateDOMStructs = function (){
             return
         }
         else{
-            mainContChildren.forEach(child => child === DOM.selectElem('#container') ? console.log(child) : child.classList.toggle('opaque'),true);
+            mainContChildren.forEach(child => child === DOM.selectElem('#container') ? false : child.classList.toggle('opaque'),true);
             containerChildren.forEach(child => child === event.target.closest('.project') ? child.classList.toggle('opaqueColor',true) : child.classList.toggle('opaque', true));
             projectChildren.forEach(child => child.classList.contains('transitForm') ? false : child.classList.toggle('opaque',true));
         }
