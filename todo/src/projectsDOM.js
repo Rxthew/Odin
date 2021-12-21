@@ -588,6 +588,7 @@ export const templateDOMStructs = function (){
     }
 
     const toggleOpaque = function(event){
+        const mainContChildren = Array.from(DOM.selectElem('#mainContainer').children);
         const containerChildren = Array.from(DOM.selectElem('#container').children);
         const header = DOM.selectElem('#header');
         const headerChildren = Array.from(header.children)
@@ -618,11 +619,13 @@ export const templateDOMStructs = function (){
         const projectChildren = Array.from(event.target.closest('.project').children);
 
         if(header.classList.contains('opaque')){
+            mainContChildren.forEach(child => child.classList.toggle('opaque',false));
             containerChildren.forEach(child => child === event.target.closest('.project') ? child.classList.toggle('opaqueColor',false) : child.classList.toggle('opaque', false));
             projectChildren.forEach(child => child.classList.toggle('opaque', false))
             return
         }
         else{
+            mainContChildren.forEach(child => child === DOM.selectElem('#container') ? console.log(child) : child.classList.toggle('opaque'),true);
             containerChildren.forEach(child => child === event.target.closest('.project') ? child.classList.toggle('opaqueColor',true) : child.classList.toggle('opaque', true));
             projectChildren.forEach(child => child.classList.contains('transitForm') ? false : child.classList.toggle('opaque',true));
         }
