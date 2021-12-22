@@ -272,7 +272,7 @@ export const templateDOMStructs = function (){
         const revert = event.target.nextElementSibling;
         const label = DOM.elementInit('label', {'for': `${input.value}`, 'class':'edit'},`${input.value}`);
         const text = DOM.elementInit('p', {'class':'text edit'}, `${input.value}`);
-        const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' ) 
+        const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'X' ) 
 
         
         if(input.value === ''){return};
@@ -311,7 +311,7 @@ export const templateDOMStructs = function (){
         const retrieveData =  projects.mainInterface.retrieveData(event);
         const originalLabel = DOM.elementInit('label', {'for': `${retrieveData}`, 'class':'edit'},`${retrieveData}`); 
         const originalText = DOM.elementInit('p', {'class':'text edit'}, `${retrieveData}`); 
-        const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' ) 
+        const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'X' ) 
 
 
         if(form.classList.contains('checkbox')){
@@ -742,7 +742,7 @@ export const templateDOMStructs = function (){
 
         const name = storedNote ? storedNote.label : input.value
 
-        const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'delete' ) 
+        const del = DOM.elementInit('button', {'class': 'deleteCheck none'},'X' ) 
         const totalChecks = DOM.selectElem('.check').length
        
         const checkbox = DOM.elementInit('input', {'type':'checkbox',
@@ -865,19 +865,24 @@ export const templateDOMStructs = function (){
 
         clonedTarget.classList.toggle('none',true);        
         target.parentElement.appendChild(clonedTarget);
-        
-        let shiftX = event.clientX - target.getBoundingClientRect().left;
-        let shiftY = event.clientY - target.getBoundingClientRect().top;
         const moveBtn = event.target;
+        const targetStyle = getComputedStyle(target) 
+        
+        let shiftX =  event.clientX - (target.getBoundingClientRect().left  - parseInt(targetStyle.marginLeft))  
+        let shiftY =  event.clientY - (target.getBoundingClientRect().top    - parseInt(targetStyle.marginTop)) 
+
+        
 
         const _commenceMove = (function(){
-            
+                        
             const wth = target.getBoundingClientRect().width 
-            const hth = target.getBoundingClientRect().height
+            const hth = target.getBoundingClientRect().height 
+
+            
             target.style.position = 'absolute';
             target.style.zIndex = 1000;
             target.style.width = `${wth}px`
-            target.style.height = `${hth}px`; 
+            target.style.height = `${hth}px`;
             event.target.classList.toggle('moving',true);
             document.body.appendChild(target);           
 
@@ -885,8 +890,8 @@ export const templateDOMStructs = function (){
         
 
         const _moveAt = function(pageX, pageY){
-            target.style.left = pageX - shiftX + 'px';
-            target.style.top = pageY - shiftY + 'px'
+            target.style.left = pageX  - shiftX + 'px';
+            target.style.top = pageY -  shiftY + 'px'
         }
 
         const _onMouseMove = function(event){
