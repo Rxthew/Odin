@@ -149,6 +149,22 @@ const projectsContainer = (function(){
 })()
     
     const defaultProject = (function(){
+        //if localStorage.access doesn't exist (as opposed to if the array is empty)
+        //render the defaultProject with developer notes
+        //Notes to include: 
+        //--should have structured backend differently, using a hash map system instead
+        // of the index of an array as the elements' id
+        //--also titles should be in their own spans, instead of that nasty business
+        // with data-classes.
+        // --refactor to make everything clearer and more SOLID, maybe remove the DOM module
+        //   since it doesn't do much and might cause a lot of confusion
+        //--design needs a **lot** of work:
+        // -- -- include date-fns
+        // -- -- titles font 
+        // -- -- buttons
+        // -- -- symbol to show whether the project is contracted or expanded
+        // -- --  perhaps a function so that the note takes up the entire page and you can focus on that instead 
+        //        of having to look at the other notes. 
         
     })()
 
