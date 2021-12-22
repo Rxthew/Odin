@@ -439,12 +439,14 @@ export const templateDOMStructs = function (){
      }
 
      const toggleSize = function(event){
+         
         if (event.target.classList.contains('disabledToggle')){
             return
         }
         if (event.target.classList.contains('project')){
+            
 
-        const container = DOM.selectElem(`#container${event.target.dataset.id}` )                          
+        const container = DOM.selectElem(`#container${event.target.dataset.id}`)                          
         container.classList.toggle('none');
 
         }
@@ -870,9 +872,12 @@ export const templateDOMStructs = function (){
 
         const _commenceMove = (function(){
             
+            const wth = target.getBoundingClientRect().width 
+            const hth = target.getBoundingClientRect().height
             target.style.position = 'absolute';
             target.style.zIndex = 1000;
-            target.classList.contains('toDoNoteInput') ? target.style.width = '42vw' : false;
+            target.style.width = `${wth}px`
+            target.style.height = `${hth}px`; 
             event.target.classList.toggle('moving',true);
             document.body.appendChild(target);           
 

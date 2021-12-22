@@ -37,6 +37,13 @@ body {
 
 }
 
+.remove {
+    background-color: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
 .delProjBtn {
     background-color: white;
     position:absolute;
@@ -45,15 +52,23 @@ body {
     
 }
 
+.itemTitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .editProjTitleBtn {
     font-size:larger
     
-
 }
 
-.none {
-    display: none;
+.addCheck {
+    display: block;
+    font-size: x-small;
+    margin-right: auto;
 }
+
 
 .move {
     cursor: pointer;
@@ -63,9 +78,16 @@ body {
     right: 0
 }
 
+.toDoContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .toDoNoteInput {
     border: 1px solid black;
     position: relative;
+    width: 50%;
+    min-height: 5vh;
 }
 
 .text {
@@ -109,6 +131,10 @@ body {
     color: green;
     background-color: red;
     
+}
+
+.none {
+    display: none;
 }
 
 #header {
