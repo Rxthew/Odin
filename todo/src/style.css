@@ -41,6 +41,10 @@ body {
     cursor: text;
 }
 
+.check {
+    margin-right: 0.2rem;
+}
+
 .remove {
     background-color: white;
     position: absolute;
@@ -121,6 +125,8 @@ body {
 
 .modInput {
     white-space: pre-wrap;
+    z-index: 1000;
+    position: relative
 }
 
 .opaque {
