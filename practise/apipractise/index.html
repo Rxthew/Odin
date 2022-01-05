@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APIprattika</title>
+</head>
+<body>
+    <img src='#'>
+    <input type='text'></input>
+    <button>Press Me</button>
+    <script>
+        const img = document.querySelector('img');
+        const inp = document.querySelector('input');
+        const btn = document.querySelector('button');
+        btn.addEventListener('click', async function(){
+              try{  
+               const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=bY5wVXOUjQ5G1ZPIWFXZRTPBK2aOKxBi&s=${inp.value}`,{mode:'cors'});
+               const catData = await response.json();
+               img.src = catData.data.images.original.url;  
+                  }
+              catch (error){ alert('Image not found')
+              }                                                
+        })
+
+
+    </script>
+</body>
+</html>

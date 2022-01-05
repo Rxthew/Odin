@@ -1,0 +1,133 @@
+html {
+    box-sizing: border-box;
+}
+
+* *:before *:after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    width: 99vw;
+    min-height: 90vh;
+    background-color: #ecf0d16e;
+}
+
+nav {
+    display:flex;
+    background-color: rgb(160, 223, 230);;
+    position: relative;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+main{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 88vh;
+}
+
+.meh:hover{
+    text-decoration: underline;
+}
+
+.meh{
+    display: inline;
+    margin-right: 4%;
+    margin-left: 5%;
+    font-size: larger;
+    cursor: pointer;
+}
+
+.items {
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+    text-decoration: none;
+    position: absolute;
+    border: 1px rgb(184, 235, 184);
+    background-color: rgb(184, 235, 184);
+    transform: translateX(-35%);
+    padding: 0.75rem;
+}
+
+.item {
+    width: max-content;
+    padding: 0.5rem;
+}
+
+.item:hover{
+    background-color: rgb(117, 238, 117);
+    
+}
+
+#menu{
+    margin-left: auto;
+    margin-right: 0;
+
+} 
+
+#imgContainer{
+    width: 40vw;
+    height: 50vh;
+    position: relative;
+    padding: 1rem;
+    border-radius : 30px;
+    box-shadow: inset 0 0 0 10px rgb(163, 199, 255);
+}
+
+.imgs{
+    object-fit: cover;
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    
+}
+
+.btns{
+    background-color: white;
+    font-size: larger;
+}
+
+.dot{
+    display: inline-block;
+    width: 0.66rem;
+    height: 0.66rem;
+    border-radius: 50%;
+    background-color: #b3b3b382;
+}
+   
+
+#container{
+    margin-top:auto;
+    margin-bottom: auto;
+    display:flex;
+    width: 50vw;
+    height: 60vh;
+    align-items: center;
+    border-radius : 30px;
+    box-shadow: inset 0 0 0 10px rgb(241, 248, 255);
+    justify-content: center;
+    background-color: white;
+}
+
+#dotContainer{
+    position: relative;
+    right: 50%;
+    align-self: flex-end;
+    bottom: 2%;
+}
+
+.visible{
+    visibility: visible;
+}
+
+input:focus:invalid{
+    border: 1px solid red;
+    outline: none;
+}
