@@ -6,7 +6,8 @@ test('converts first letter to uppercase', () => {
     expect(capitals('WORDS')).toBe('Words');
 })
 test('returns undefined if empty string', () => {
-    expect(capitals('')).toBe(undefined)
+    expect(capitals('')).toBe(undefined);
+    expect(capitals(' ')).toBe(undefined);
 })
 test('returns undefined if the argument is not a string type', () => {
     expect(capitals(4)).toBe(undefined);
