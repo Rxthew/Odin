@@ -8,6 +8,15 @@ html{
     box-sizing: border-box;
 }
 
+.accountandopts{
+
+}
+
+.searchgreet{
+    
+}
+
+
 article{
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
