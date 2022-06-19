@@ -106,6 +106,20 @@ body>div{
     gap: 50px;
 }
 
+body>div>section{
+    grid-row-start: 1; 
+    grid-row-end: 4;
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+    gap: 4rem;
+    
+}
+
+body>div>section>div{
+    display: flex;
+    justify-content: space-around;
+}
+
 header{
     border: 1px solid;
     grid-column-start: 2;
@@ -122,6 +136,11 @@ main{
     display: grid;
     gap: 20px
     
+} 
+
+nav{
+    display:grid;
+    gap: 2rem;
 }
 
 p{
