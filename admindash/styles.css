@@ -17,6 +17,16 @@ html{
 
 }
 
+.card{
+    display:grid;
+    gap: 20px;
+}
+
+.card+div{
+    justify-self: end;
+    margin-top: 0.4rem;
+}
+
 .greet{
     display:grid;
     grid-template-columns: repeat(2,max-content);
@@ -64,8 +74,13 @@ html{
 
 article{
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
     gap: 50px;
+}
+
+article > div{
+    display: grid;
+    padding: 10px;
 }
 
 aside{
@@ -107,4 +122,8 @@ main{
     display: grid;
     gap: 20px
     
+}
+
+p{
+    line-height: 1.3rem
 }
