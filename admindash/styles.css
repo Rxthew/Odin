@@ -9,6 +9,27 @@ html{
 }
 
 .bottomheader{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    justify-items: end;
+
+}
+
+.greet{
+    display:grid;
+    grid-template-columns: repeat(2,max-content);
+    gap: 8px;
+
+}
+
+.opts{
+    display: grid;
+    grid-template-columns: repeat(3,max-content);
+    gap: 50px;
+    align-items: start;
+    margin-right: 20px;
 
 }
 
@@ -17,9 +38,7 @@ html{
     display: grid;
     grid-template-columns: repeat(3,max-content);
     gap: 50px;
-    align-items:start;
-    
-    
+    align-items:start;  
 
 }
 
