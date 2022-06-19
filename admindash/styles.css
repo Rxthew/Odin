@@ -8,25 +8,39 @@ html{
     box-sizing: border-box;
 }
 
-.accountandopts{
+.bottomheader{
 
 }
 
-.searchgreet{
-    grid-row-start: 1;
-    grid-row-end: 1;
+.profile{
+    justify-self: end;
+    display: grid;
+    grid-template-columns: repeat(3,max-content);
+    gap: 50px;
+    align-items:start;
+    
+    
+
+}
+
+.search{
+    display:grid;
+    grid-template-columns: 1fr 10fr;
+    gap: 8px;
+    align-items: start;
+}
+
+
+.topheader{
+    margin-right: 20px;
+    margin-left: 20px;
     grid-column-start: 1;
     grid-column-end: 3;
     display: grid;
+    gap: 15px;
     grid-template-columns: repeat(2,1fr);
     
 }
-
-.searchgreet>div{
-    grid-row-start: 1;
-    grid-row-end: 1
-}
-
 
 
 article{
@@ -59,6 +73,7 @@ header{
     grid-template-columns: 3fr 2fr;
     grid-template-rows: 1fr 1fr
 }
+
 
 main{
     grid-column-start: 2;
