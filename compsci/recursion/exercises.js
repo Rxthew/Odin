@@ -93,3 +93,23 @@ const valueInObject = function(val,target){
     
 }
 
+const multiDimensionalArrayParser = function(arr){
+    let len = arr.length
+    let total  = 0
+    if(len < 1){
+        return total
+    }
+    else {
+        let newArr = [...arr]
+        const target = newArr.pop()
+        if(Number.isInteger(target)){
+            total++
+        }
+        else if(Array.isArray(target)){
+            total = total + multiDimensionalArrayParser(target)
+        }
+        total = total + multiDimensionalArrayParser(newArr)
+        return total
+    }
+}
+
