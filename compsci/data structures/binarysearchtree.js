@@ -38,9 +38,10 @@ const buildTree = function(arr){
     }
     else{
         let prepped = _selectionSort(arr)
-        root = Node(prepped[prepped.length/2])
-        root.left = buildTree(prepped.slice(0,prepped.length/2))
-        root.right = buildTree(prepped.slice(prepped.length/2 + 1,))
+        let pivot = parseInt(prepped.length/2)
+        root = Node(prepped[pivot])
+        root.left = buildTree(prepped.slice(0,pivot))
+        root.right = buildTree(prepped.slice(pivot + 1,))
         return root
     }
     
@@ -48,7 +49,35 @@ const buildTree = function(arr){
 
 const Tree = function(arr){
     const root = buildTree(arr)
-    return root
+    
+    const depthSearch = function(rootNode=root,mode='pre',callback){
+        let visited = [rootNode]
+        if(rootNode.left === null && rootNode.right === null){
+            return callback ? callback(rootNode) : visited
+        }
+        else {
+            let left = callback ? depthSearch(rootNode.left,mode,callback) : depthSearch(rootNode.left,mode)
+            let right = callback ? depthSearch(rootNode.right,mode,callback) : depthSearch(rootNode.right,mode)
+            if(Array.isArray(left) && Array.isArray(right)){
+                left = left.filter(elem =>  elem !== null)
+                right = right.filter(elem =>  elem !== null)
+                switch(mode){
+                    case 'pre' : visited = [...visited, ...left, ...right]
+                    break;
+                    case 'in' : visited = [...left, ...visited, ...right]
+                    break;
+                    case 'post': visited = [...left, ...right,...visited]
+                }
+                return visited
+            }
+            return 
+        }
+    }
+
+    return {
+        root,
+        depthSearch
+    }
 }
 
 
