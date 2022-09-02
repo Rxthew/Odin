@@ -49,18 +49,32 @@ const buildTree = function(arr){
 
 const Tree = function(arr){
     const root = buildTree(arr)
+
+    const breadthSearch = function(callback){
+        let visited = []
+        let cache = [root]
+        while(cache.length !== 0){
+            let searching = cache[0];
+            if(searching.left){cache.push(searching.left)}
+            if(searching.right){cache.push(searching.right)}
+            visited.push(cache.shift())
+            visited.filter(elem => elem !== null)
+        }
+        return callback ? visited.map(elem => callback(elem)) : visited
+
+    }
     
     const depthSearch = function(rootNode=root,mode='pre',callback){
         let visited = [rootNode]
         if(rootNode.left === null && rootNode.right === null){
-            return callback ? callback(rootNode) : visited
+            return  visited
         }
         else {
             let left = callback ? depthSearch(rootNode.left,mode,callback) : depthSearch(rootNode.left,mode)
             let right = callback ? depthSearch(rootNode.right,mode,callback) : depthSearch(rootNode.right,mode)
-            if(Array.isArray(left) && Array.isArray(right)){
-                left = left.filter(elem =>  elem !== null)
-                right = right.filter(elem =>  elem !== null)
+            
+            left = left.filter(elem =>  elem !== null)
+            right = right.filter(elem =>  elem !== null)
                 switch(mode){
                     case 'pre' : visited = [...visited, ...left, ...right]
                     break;
@@ -68,17 +82,17 @@ const Tree = function(arr){
                     break;
                     case 'post': visited = [...left, ...right,...visited]
                 }
-                return visited
-            }
-            return 
+            return callback ? visited.map(elem => callback(elem)) : visited
         }
     }
 
     return {
         root,
-        depthSearch
+        depthSearch,
+        breadthSearch,
     }
 }
+
 
 
 
