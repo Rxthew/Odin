@@ -32,7 +32,7 @@ const Node = function(data=null){
 const buildTree = function(arr){
     let root
     if(arr.length <= 1){
-        root = arr[0] ? Node(arr[0]) : null
+        root = arr[0] || arr[0] === 0 ? Node(arr[0]) : null
         return root
     }
     else{
@@ -189,8 +189,10 @@ const Tree = function(arr){
             }
         }
         else {               
-            targetElement = null
-                
+            if(targetElement === root){
+                root = null
+            }
+            targetElement = null    
         }
     
 
@@ -205,11 +207,7 @@ const Tree = function(arr){
     }
 }
 
-let boo = Tree([1,2,3,4,5,6])
-console.log(boo.root)
-boo.del()
-boo.del()
-console.log(boo.root)
+
 
 
 
