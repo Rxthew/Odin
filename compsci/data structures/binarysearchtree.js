@@ -32,8 +32,7 @@ const Node = function(data=null){
 const buildTree = function(arr){
     let root
     if(arr.length <= 1){
-        root = arr[0] ? Node(arr[0]) : Node()
-        Array.isArray(root.data) && root.data.length === 0 ? root.data = null : false
+        root = arr[0] ? Node(arr[0]) : null
         return root
     }
     else{
@@ -48,7 +47,7 @@ const buildTree = function(arr){
 }
 
 const Tree = function(arr){
-    const root = buildTree(arr)
+    let root = buildTree(arr)
 
     const breadthSearch = function(callback){
         let visited = []
@@ -116,14 +115,101 @@ const Tree = function(arr){
             }
     }
 
+    const del = function(targetElement=root){
+        
+        let _checkLeft = function(target,parent){
+            if(target.left === null){
+                if(parent){
+                    if(target.right === null){
+                        parent.left = null
+                    }
+                    else{
+                        parent.left = target.right
+                        target.right = null
+                    }
+                    
+                }
+                return target
+            }
+            else{
+                return _checkLeft(target.left,target)
+            }
+        }
+
+        let _checkRight = function(target,parent){
+            if(target.right === null){
+                if(parent){
+                    if(target.left === null){
+                        parent.right = null
+                    }
+                    else{
+                        parent.right = target.left
+                        target.left = null
+                    }
+                }
+                return target
+            }
+            else{
+                return _checkRight(target.right,target)
+            }
+        }
+
+        if(targetElement.right){
+            let replacement = _checkLeft(targetElement.right)
+            replacement.left = targetElement.left
+            if(replacement === targetElement.right){
+                if(targetElement === root){
+                    Object.assign(root,replacement)
+                }
+                return  
+            }
+            else if(replacement.right === null){
+                replacement.right = targetElement.right
+                if(targetElement === root){
+                    Object.assign(root,replacement)
+                }
+                return
+            }
+        }    
+        else if(targetElement.left){
+            let replacement = _checkRight(targetElement.left)
+            replacement.right = targetElement.right
+            if(replacement === targetElement.left){
+                if(targetElement === root){
+                    Object.assign(root,replacement)
+                }
+                return  
+            }
+            else if(replacement.left === null){
+                replacement.left = targetElement.left
+                if(targetElement === root){
+                    Object.assign(root,replacement)
+                }
+                return
+            }
+        }
+        else {               
+            targetElement = null
+                
+        }
+    
+
+    }
+
     return {
         root,
         depthSearch,
         breadthSearch,
-        insert
+        insert,
+        del
     }
 }
 
+let boo = Tree([1,2,3,4,5,6])
+console.log(boo.root)
+boo.del()
+boo.del()
+console.log(boo.root)
 
 
 
