@@ -86,13 +86,43 @@ const Tree = function(arr){
         }
     }
 
+    const insert = function(value,targetElement=root){
+            if(targetElement.data === value){
+                return
+            }
+            else if(targetElement.data > value){
+                if(targetElement.left){
+                    insert(value,targetElement.left)
+                }
+                else if(targetElement.left === null){
+                    targetElement.left = Node(value)
+                }
+                else {
+                    console.log(`Error : target.left is ${targetElement.left.toString()}`)
+
+                }
+            }
+            else if(targetElement.data < value){
+                if(targetElement.right){
+                    insert(value,targetElement.right)
+                }
+                else if(targetElement.right === null){
+                    targetElement.right = Node(value)
+                }
+                else {
+                    console.log(`Error : target.right is ${targetElement.right.toString()}`)
+
+                }
+            }
+    }
+
     return {
         root,
         depthSearch,
         breadthSearch,
+        insert
     }
 }
-
 
 
 
