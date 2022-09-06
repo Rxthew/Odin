@@ -85,6 +85,16 @@ const Tree = function(arr){
         }
     }
 
+    const find = function(value){
+        const check = function(element){
+            if(element.data === value){
+                return element
+            }
+        }
+        const result = breadthSearch(check).filter(elem => elem !== undefined)[0]
+        return result || result === 0 ? result : 'Not Found'
+    }
+
     const insert = function(value,targetElement=root){
             if(targetElement.data === value){
                 return
@@ -202,12 +212,14 @@ const Tree = function(arr){
         root,
         depthSearch,
         breadthSearch,
+        find,
         insert,
         del
     }
 }
 
-
+    let max = Tree([1,2,3,4,5,6,7,8])
+    console.log(max.find(1))
 
 
 
