@@ -258,13 +258,31 @@ const Tree = function(arr){
             let left = height(node.left)
             let right = height(node.right)
             if(left > 0 && right > 0){
-                nodeHeight +=  (left + right) - 1
+                nodeHeight +=  left > right ? left : right
                 return nodeHeight
             }
             nodeHeight += left + right
             return nodeHeight 
         }
 
+    }
+
+    const isBalanced = function(){
+        let nodes = this.breadthSearch()
+        for(let node of nodes){
+            const leftHeight = this.height(node.left)
+            const rightHeight = this.height(node.right)
+            let diff = leftHeight - rightHeight < 0 ? rightHeight - leftHeight : leftHeight - rightHeight
+            if(diff <= 1)
+            {
+                continue
+            }
+            else{
+                console.log(node)
+                return false
+            }
+        }
+        return true
     }
 
     return {
@@ -275,11 +293,16 @@ const Tree = function(arr){
         find,
         height,
         insert,
-        del
+        del,
+        isBalanced
     }
 }
-
-    let binary = Tree([1,2,3,4,5,6,7,8,0,9,10])
+    
+    let binary = Tree([2,5,6])
+    binary.insert(1,binary.root.left)
+    binary.insert(0,binary.root.left.left)
+    console.log(binary.isBalanced())
+    
     
 
 
