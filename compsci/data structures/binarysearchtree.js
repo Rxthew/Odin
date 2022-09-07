@@ -208,18 +208,79 @@ const Tree = function(arr){
 
     }
 
+    const depth = function(target=root,currentElement=root){
+        let depthLevel = []
+
+        const depthChecker = function(target,currentElement,currentCount){
+            if(target === currentElement){
+                return currentCount
+            }
+            else if(currentElement === null){
+                return
+            }
+            else {
+                if(!depthLevel.includes(currentCount)){
+                    depthLevel.push(currentCount)
+                }
+                let next = ++currentCount
+                let left = depthChecker(target,currentElement.left,next)
+                let right = depthChecker(target,currentElement.right,next)
+                if(left){
+                    return left
+                }
+                else if(right){
+                    return right
+                }    
+            }
+
+        }
+        let depthCount = 0
+        depthLevel = [depthCount]
+
+        if(target === currentElement){
+            return depthCount
+        }
+        return depthChecker(target,currentElement,depthCount)
+            
+            
+    }
+
+    const height = function(node=root){
+        let nodeHeight = 0
+        if(node === null){
+            return nodeHeight
+        }
+        else if(node.left === null && node.right === null){
+            return nodeHeight
+        }
+        else{
+            nodeHeight++
+            let left = height(node.left)
+            let right = height(node.right)
+            if(left > 0 && right > 0){
+                nodeHeight +=  (left + right) - 1
+                return nodeHeight
+            }
+            nodeHeight += left + right
+            return nodeHeight 
+        }
+
+    }
+
     return {
         root,
         depthSearch,
         breadthSearch,
+        depth,
         find,
+        height,
         insert,
         del
     }
 }
 
-    let max = Tree([1,2,3,4,5,6,7,8])
-    console.log(max.find(1))
+    let binary = Tree([1,2,3,4,5,6,7,8,0,9,10])
+    
 
 
 
