@@ -6,7 +6,7 @@ const _selectionSort = function(arr){
             if(newArr.includes(elem)){
                 continue
             }
-            else if(!smallest){
+            else if(!smallest || smallest === 0){
                 smallest = elem
             }
             else{
@@ -51,7 +51,7 @@ const Tree = function(arr){
 
     const breadthSearch = function(callback){
         let visited = []
-        let cache = [root]
+        let cache = [this.root]
         while(cache.length !== 0){
             let searching = cache[0];
             if(searching.left){cache.push(searching.left)}
@@ -63,7 +63,7 @@ const Tree = function(arr){
 
     }
     
-    const depthSearch = function(rootNode=root,mode='pre',callback){
+    const depthSearch = function(rootNode=this.root,mode='pre',callback){
         let visited = [rootNode]
         if(rootNode.left === null && rootNode.right === null){
             return  visited
@@ -95,7 +95,7 @@ const Tree = function(arr){
         return result || result === 0 ? result : 'Not Found'
     }
 
-    const insert = function(value,targetElement=root){
+    const insert = function(value,targetElement=this.root){
             if(targetElement.data === value){
                 return
             }
@@ -125,7 +125,7 @@ const Tree = function(arr){
             }
     }
 
-    const del = function(targetElement=root){
+    const del = function(targetElement=this.root){
         
         let _checkLeft = function(target,parent){
             if(target.left === null){
@@ -168,15 +168,15 @@ const Tree = function(arr){
             let replacement = _checkLeft(targetElement.right)
             replacement.left = targetElement.left
             if(replacement === targetElement.right){
-                if(targetElement === root){
-                    Object.assign(root,replacement)
+                if(targetElement === this.root){
+                    Object.assign(this.root,replacement)
                 }
                 return  
             }
             else if(replacement.right === null){
                 replacement.right = targetElement.right
-                if(targetElement === root){
-                    Object.assign(root,replacement)
+                if(targetElement === this.root){
+                    Object.assign(this.root,replacement)
                 }
                 return
             }
@@ -185,22 +185,22 @@ const Tree = function(arr){
             let replacement = _checkRight(targetElement.left)
             replacement.right = targetElement.right
             if(replacement === targetElement.left){
-                if(targetElement === root){
-                    Object.assign(root,replacement)
+                if(targetElement === this.root){
+                    Object.assign(this.root,replacement)
                 }
                 return  
             }
             else if(replacement.left === null){
                 replacement.left = targetElement.left
-                if(targetElement === root){
-                    Object.assign(root,replacement)
+                if(targetElement === this.root){
+                    Object.assign(this.root,replacement)
                 }
                 return
             }
         }
         else {               
-            if(targetElement === root){
-                root = null
+            if(targetElement === this.root){
+                this.root = null
             }
             targetElement = null    
         }
@@ -208,7 +208,7 @@ const Tree = function(arr){
 
     }
 
-    const depth = function(target=root,currentElement=root){
+    const depth = function(target=this.root,currentElement=this.root){
         let depthLevel = []
 
         const depthChecker = function(target,currentElement,currentCount){
@@ -245,7 +245,7 @@ const Tree = function(arr){
             
     }
 
-    const height = function(node=root){
+    const height = function(node=this.root){
         let nodeHeight = 0
         if(node === null){
             return nodeHeight
@@ -278,11 +278,17 @@ const Tree = function(arr){
                 continue
             }
             else{
-                console.log(node)
                 return false
             }
         }
         return true
+    }
+
+    const rebalance = function(){
+        let nodes = _selectionSort(this.breadthSearch().map(node => node.data))
+        this.root = buildTree(nodes)
+        return this.root
+
     }
 
     return {
@@ -294,14 +300,14 @@ const Tree = function(arr){
         height,
         insert,
         del,
-        isBalanced
+        isBalanced,
+        rebalance
     }
 }
     
-    let binary = Tree([2,5,6])
-    binary.insert(1,binary.root.left)
-    binary.insert(0,binary.root.left.left)
-    console.log(binary.isBalanced())
+
+    
+    
     
     
 
