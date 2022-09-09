@@ -6,7 +6,7 @@ const establishLegalMoves = function(slot){
 
     const toNullify = function(arrElem){
         for(let elem of arrElem){
-            if(elem >= 9 || elem <= -8){
+            if(elem >= 9 || elem <= 0){
                 return true
             }
         }
@@ -38,6 +38,7 @@ const establishLegalMoves = function(slot){
     
     }
     moves = moves.filter(elem => elem !== null)
+    console.log(moves)
     return moves  
 
 }
