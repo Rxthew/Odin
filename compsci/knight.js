@@ -38,14 +38,14 @@ const establishLegalMoves = function(slot){
     
     }
     moves = moves.filter(elem => elem !== null)
-    console.log(moves)
     return moves  
 
 }
 const knightBoardPopulator = function(){
     for(let column = 1; column <= 8;column++){ 
         for(let row = 1; row <=8; row++){
-            knightBoard.set([column,row],{
+            let reference = column.toString() + ',' + row.toString()
+            knightBoard.set(reference,{
                 legalMoves : establishLegalMoves([column,row]),
                 contains : null
             })
@@ -54,4 +54,4 @@ const knightBoardPopulator = function(){
     }
 }
 knightBoardPopulator()
-
+console.log(knightBoard)
