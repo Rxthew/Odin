@@ -54,4 +54,47 @@ const knightBoardPopulator = function(){
     }
 }
 knightBoardPopulator()
-console.log(knightBoard)
+
+const generatePaths = function(start){
+    let visited = []
+    let paths = {root : start, 1 : {[start] : knightBoard.get(start).legalMoves.map(elem => `${elem[0]},${elem[1]}`)}}
+    let layer = 1
+    let cache = [[start,knightBoard.get(start).legalMoves]]
+    const firstMark = cache[0][1][cache[0][1].length - 1]
+    let newLayerMark = firstMark[0].toString() + ',' + firstMark[1].toString()
+    let nextLayer = {}
+    
+
+    while(cache.length !== 0){
+        let searching = cache[0][1]
+        if(searching.length > 0 && !visited.includes(cache[0][0])){   
+            searching.forEach(function(elem){
+                let key = `${elem[0]},${elem[1]}`
+                if(!visited.includes(key)){
+                    cache.push([key,knightBoard.get(key).legalMoves])
+                }
+            })
+            let explored = cache.shift()[0]
+            visited.push(explored)
+            if(newLayerMark === explored){
+                layer += 1
+                newLayerMark = cache[cache.length - 1][0]
+                paths[layer] = nextLayer
+                nextLayer = {}
+            }
+            else{
+                if(explored !== start){
+                    nextLayer[explored] = searching.map(elem => `${elem[0]},${elem[1]}`)
+                }
+               
+            }
+        }
+        else{
+            cache.shift()
+        }
+    }
+    return paths
+
+}
+console.log(generatePaths('8,4'))
+
