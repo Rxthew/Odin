@@ -77,6 +77,9 @@ const generatePaths = function(start){
             let explored = cache.shift()[0]
             visited.push(explored)
             if(newLayerMark === explored){
+                if(explored !== start){
+                    nextLayer[explored] = searching.map(elem => `${elem[0]},${elem[1]}`)
+                }
                 layer += 1
                 newLayerMark = cache[cache.length - 1][0]
                 paths[layer] = nextLayer
@@ -96,5 +99,29 @@ const generatePaths = function(start){
     return paths
 
 }
-console.log(generatePaths('8,4'))
+
+const shortestPath = function(start,finish){
+    const data = generatePaths(start)
+    let path = []
+    if(finish === data.root){
+        return [finish]
+    }
+    let objective = finish
+    while(!path.includes(start)){
+    outer:for(let depth of Object.keys(data)){
+            for(let [key,arr] of Object.entries(data[depth])){
+                if(arr.includes(objective)){
+                    path.unshift(objective)
+                    objective = key
+                    break outer
+                }
+            }
+        }
+    }
+    return path
+    
+
+
+}
+console.log(shortestPath('8,4','3,4'))
 
