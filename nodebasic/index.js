@@ -1,3 +1,5 @@
+/* Node.js only:
+
 const http = require('http');
 const files = require('fs')
 
@@ -47,3 +49,16 @@ const server = http.createServer((req,res)=> {
 })
 
 server.listen(port)
+*/
+
+//With express:
+
+const express = require("express")
+const app = express()
+const port = 3000
+app.use(express.static('.'))
+app.all('*',(req,res)=>{
+    res.status(404).redirect('./404.html')
+})
+
+app.listen(port)
